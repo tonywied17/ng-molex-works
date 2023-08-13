@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 6:24:54 
+Last Modified: Sun August 13th 2023 6:48:21 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -12,7 +12,11 @@ Copyright (c) 2023 Tone Web Design, Molex
 <h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Recent Projects...</h1>
 <span class="swing-in font-[200] italic block mt-[-25px] mb-6">Recent projects of <span class="font-[900]">Molex Works!</span></span>
 
-<div class="masonry">
+<div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
+    <div class="lds-ripple"><div></div><div></div></div>
+</div>
+
+<div *ngIf="loaded" class="masonry">
 
     <div *ngFor="let project of projects">
         <mat-card class="card swing-right">

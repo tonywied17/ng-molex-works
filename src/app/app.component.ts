@@ -4,38 +4,52 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 6:28:05 
+ * Last Modified: Sun August 13th 2023 6:58:27 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatDrawer } from "@angular/material/sidenav";
 
+/**
+ * AppComponent
+ * @classdesc - App component implementation
+ */
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  title = 'twd';
-  @ViewChild('drawer') drawer!: MatDrawer;
+  /**
+   * Properties
+   */
+  title = "twd";
+  @ViewChild("drawer") drawer!: MatDrawer;
   isDesktop!: boolean;
   isDrawerOpened: boolean = false;
 
-  constructor() {
-  }
+  constructor() {}
 
+  /**
+   * ngOnInit
+   * @method - Life cycle hook
+   */
   ngOnInit() {
     this.isDesktop = window.innerWidth >= 1024;
-    this.isDrawerOpened = this.isDesktop; // Set initial state
-    window.addEventListener('resize', this.onResize);
+    this.isDrawerOpened = this.isDesktop;
+    window.addEventListener("resize", this.onResize);
   }
 
- 
-  toggleDrawer() {
+  /**
+   * toggleDrawer
+   * @method - Toggle drawer
+   * @returns {void}
+   */
+  toggleDrawer(): void {
     if (this.isDesktop) {
-      this.drawer.toggle(); // In desktop mode, toggle the drawer directly
+      this.drawer.toggle();
     } else {
       if (!this.isDrawerOpened) {
         this.drawer.open();
@@ -46,18 +60,28 @@ export class AppComponent implements OnInit {
       }
     }
   }
-  
-  closeMobile() {
-    if(window.innerWidth <= 1024) {
+
+  /**
+   * closeMobile
+   * @method - Close drawer in mobile mode
+   * @returns {void}
+   */
+  closeMobile(): void {
+    if (window.innerWidth <= 1024) {
       this.drawer.close();
-      this.isDrawerOpened = false; // Update state when drawer is closed in mobile mode
+      this.isDrawerOpened = false;
     }
   }
 
-  onResize = () => {
+  /**
+   * onResize
+   * @method - On resize
+   * @returns {void}
+   */
+  onResize = (): void => {
     this.isDesktop = window.innerWidth >= 1024;
     if (this.isDesktop) {
-      this.isDrawerOpened = true; // In desktop mode, the drawer is always opened
+      this.isDrawerOpened = true;
     }
-  }
+  };
 }

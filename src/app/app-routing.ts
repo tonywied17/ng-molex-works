@@ -4,10 +4,15 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 4:04:15 
+ * Last Modified: Sun August 13th 2023 6:57:00 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
+ */
+
+/**
+ * Imports
+ * This is where we import our modules to be routed
  */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,6 +22,13 @@ import { ContactComponent } from './_components/about/contact/contact.component'
 import { PortfolioComponent } from './_components/portfolio/portfolio.component';
 import { DetailsComponent } from './_components/portfolio/details/details.component';
 import { ServicesComponent } from './_components/about/services/services.component';
+
+/**
+ * Routes
+ * This is where we define our routes for the application
+ * @const - Array of routes
+ * @type {Routes}
+ */
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },

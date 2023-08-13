@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 6:11:31 
+ * Last Modified: Sun August 13th 2023 6:55:53 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -14,6 +14,10 @@ import { Component, OnInit } from "@angular/core";
 import { forkJoin } from "rxjs";
 import { map } from "rxjs/operators";
 
+/**
+ * RepoData
+ * @interface - Repo data
+ */
 interface RepoData {
   projectName: string;
   pushedAt: string;
@@ -26,12 +30,22 @@ interface RepoData {
   language: string;
 }
 
+/**
+ * HomeComponent
+ * @classdesc - Home component implementation
+ */
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
+
 export class HomeComponent implements OnInit {
+  /**
+   * projectNames
+   * @property - Array of project names
+   * @type {string[]}
+   */
   projectNames: string[] = [
     "ng-paarmy.com",
     "ng-paapp2",
@@ -46,14 +60,32 @@ export class HomeComponent implements OnInit {
     "p2-terminus-frontend",
     "ng-molex-works",
   ];
+
+  /**
+   * repos
+   * @property - Array of repo data
+   * @type {RepoData[]}
+   */
   repos: RepoData[] = [];
 
+  /**
+   * @constructor
+   * @param http - HttpClient
+   */
   constructor(private http: HttpClient) {}
 
+  /**
+   * ngOnInit
+   * @method - Life cycle hook.
+   */
   ngOnInit(): void {
     this.fetchRepoData();
   }
 
+  /**
+   * fetchRepoData
+   * @method - Fetches data from GitHub API.
+   */
   fetchRepoData(): void {
     const baseURL = "https://api.github.com/repos/tonywied17/";
 
@@ -108,9 +140,13 @@ export class HomeComponent implements OnInit {
       );
     });
 
+    /**
+     * forkJoin
+     * @method - Combines multiple Observables to create an Observable whose values are calculated from the latest values of each of its input Observables.
+     */
     forkJoin(requests).subscribe((reposData: any[]) => {
       this.repos = reposData.sort((a, b) => {
-        // Since 'pushed_at' is ISO format, we can directly compare the strings
+        // Since 'pushed_at' is ISO format, just directly compare the strings
         return b.pushedAt.localeCompare(a.pushedAt);
       });
     });

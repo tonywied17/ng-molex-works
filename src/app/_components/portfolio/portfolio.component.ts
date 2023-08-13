@@ -4,32 +4,45 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 3:39:50 
+ * Last Modified: Sun August 13th 2023 6:44:33 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
 import { Component, OnInit } from "@angular/core";
 
+/**
+ * PortfolioComponent
+ * @classdesc - Portfolio component implementation
+ */
 @Component({
   selector: "app-portfolio",
   templateUrl: "./portfolio.component.html",
   styleUrls: ["./portfolio.component.scss"],
 })
 export class PortfolioComponent implements OnInit {
+  /**
+   * Properties
+   */
   filtered: any;
   projects: any;
-  selectedValue: any;
-  selectedValue2: any;
   loaded: any;
-  imgArr: any;
 
   constructor() {}
 
+  /**
+   * ngOnInit
+   * @method - Life cycle hook
+   */
   ngOnInit(): void {
     this.getAllProjects();
   }
 
+  /**
+   * getAllProjects
+   * @method - Get all projects
+   * @returns {void}
+   */
   async getAllProjects() {
     let resp = await fetch("assets/portfolio.json?" + this.rando());
     this.loaded = true;
@@ -40,34 +53,27 @@ export class PortfolioComponent implements OnInit {
       console.log(this.projects);
     }
   }
-  clearSortingFilters() {
-    this.selectedValue = null;
-  }
-  clearSortingFilters2() {
-    this.selectedValue2 = null;
-  }
-  rando() {
-    return Math.floor(Math.random() * 100000);
-  }
-  mixer(a: any, b: any) {
-    return Math.random() - 0.5;
-  }
-
-  getProjPic(projID: any): string | null {
-    const proj = this.projects.find((p: any) => p.id == projID);
-
-    if (proj && proj.image) {
-        const imgArr = proj.image.split(", ");
-        return imgArr[0]; 
-    }
-    
-    return null; 
-}
-
 
   /**
-   * Pull the project development status (boolean)
-   * @param status
+   * getProjPic
+   * @method - Get project image
+   * @param projID - project id
+   * @returns - project image
+   */
+  getProjPic(projID: any): string | null {
+    const proj = this.projects.find((p: any) => p.id == projID);
+    if (proj && proj.image) {
+      const imgArr = proj.image.split(", ");
+      return imgArr[0];
+    }
+    return null;
+  }
+
+  /**
+   * getProjectDev
+   * @method - Get all projects
+   * @param status - status to filter by
+   * @returns {void}
    */
   async getProjectDev(status: boolean) {
     let resp = await fetch("assets/portfolio.json?" + this.rando());
@@ -94,8 +100,10 @@ export class PortfolioComponent implements OnInit {
   }
 
   /**
-   * Grab the tags and filter by
-   * @param tag
+   * getProjectTag
+   * @method - Get all projects
+   * @param tag - tag to filter by
+   * @returns {void}
    */
   async getProjectTag(tag: any) {
     let resp = await fetch("assets/portfolio.json?" + this.rando());
@@ -111,5 +119,14 @@ export class PortfolioComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * rando
+   * @method - Get random number
+   * @returns {number} - random number
+   */
+  rando() {
+    return Math.floor(Math.random() * 100000);
   }
 }

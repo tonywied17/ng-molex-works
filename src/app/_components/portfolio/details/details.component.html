@@ -4,20 +4,20 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Sunday August 13th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 5:46:41 
+Last Modified: Sun August 13th 2023 6:54:42 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
+<div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
+    <div class="lds-ripple"><div></div><div></div></div>
+</div>
 
-
- <div class="select-none grid grid-cols-1 lg:grid-cols-5 lg:gap-10 w-full !mx-[unset] mt-4">
+ <div *ngIf="loaded" class="select-none grid grid-cols-1 lg:grid-cols-5 lg:gap-10 w-full !mx-[unset] mt-4">
 
         <div class="lg:col-start-1 lg:col-span-3">
             <mat-card class="news-card !bg-transparent !shadow-none">
                 
-                
-
                 <mat-card-title class="!text-slate-400">{{currentProject.title}}
                     <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400] lg:!mb-4" [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button><i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects</button>
                 </mat-card-title>
