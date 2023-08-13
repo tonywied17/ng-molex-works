@@ -1,22 +1,25 @@
 <!--
 File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\details\details.component.html
-Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Sunday August 13th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 2:41:17 
+Last Modified: Sun August 13th 2023 6:54:42 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
+<div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
+    <div class="lds-ripple"><div></div><div></div></div>
+</div>
 
-
- <div class="select-none grid grid-cols-1 lg:grid-cols-5 lg:gap-10 w-full !mx-[unset]">
+ <div *ngIf="loaded" class="select-none grid grid-cols-1 lg:grid-cols-5 lg:gap-10 w-full !mx-[unset] mt-4">
 
         <div class="lg:col-start-1 lg:col-span-3">
             <mat-card class="news-card !bg-transparent !shadow-none">
+                
                 <mat-card-title class="!text-slate-400">{{currentProject.title}}
-                    <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400]" [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button><i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects</button>
+                    <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400] lg:!mb-4" [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button><i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects</button>
                 </mat-card-title>
                 <mat-card-subtitle style="font-weight:100;" class="!select-text">{{currentProject.subtitle}}</mat-card-subtitle>
                 <mat-card-content class="!p-0">
@@ -34,7 +37,7 @@ Copyright (c) 2023 Tone Web Design, Molex
                         </div>
                         
                         <!-- Thumbnails -->
-                        <div class="thumbnails">
+                        <div class="thumbnails bg-[#08080836] rounded-lg shadow-lg p-2">
                             <img *ngFor="let img of images" 
                                  [src]="img" 
                                  (click)="changeMainImage(img)" 
@@ -64,8 +67,7 @@ Copyright (c) 2023 Tone Web Design, Molex
 
 
         <div class="lg:col-start-4 lg:col-span-2 md:sticky md:top-0 md:self-start">
-            <mat-card style="border-left: 5px solid #94a3b8 !important;"
-                class="news-card !bg-[#101010]/80 shadow-lg" id="top-box">
+            <mat-card class="news-card !bg-[#08080836] shadow-lg" id="top-box">
      
 
                 <mat-card-content>

@@ -86,11 +86,11 @@ $angular-dark-theme: mat.define-dark-theme(
 
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\styles.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 2:44:45 
+ * Last Modified: Sun August 13th 2023 6:48:03 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -124,7 +124,7 @@ body {
   bottom: -50%;
   width: 200%;
   height: 200vh;
-  background: transparent url('http://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+  background: transparent url('assets/noise-transparent.png') repeat 0 0;
   background-repeat: repeat;
   animation: bg-animation .2s infinite;
   opacity: .9;
@@ -188,7 +188,7 @@ button{
 
 .header-border::before {
   font: var(--fa-font-solid);
-  content: "\f0fb";
+  content: "\f126";
   color: #94a3b8;
   padding-right: 0.55em;
 }
@@ -238,3 +238,201 @@ CSS KEYFRAMES
   font-family: 'Ubuntu', sans-serif;
   color: rgba(51, 219, 191, 0.788) !important;
 }
+
+@keyframes swing-in {
+	0% {
+		opacity: 0;
+		transform: rotateY(100deg);
+		transform-origin: left;
+	}
+
+	100% {
+		opacity: 1;
+		transform: rotateY(0);
+		transform-origin: left;
+	}
+}
+
+.swing-in{
+  animation: swing-in 1s ease 0s 1 normal forwards;
+}
+
+
+@keyframes bounce-forward {
+	0% {
+		animation-timing-function: ease-in;
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	38% {
+		animation-timing-function: ease-out;
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	55% {
+		animation-timing-function: ease-in;
+		transform: scale(0.7);
+	}
+
+	72% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+	}
+
+	81% {
+		animation-timing-function: ease-in;
+		transform: scale(0.84);
+	}
+
+	89% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+	}
+
+	95% {
+		animation-timing-function: ease-in;
+		transform: scale(0.95);
+	}
+
+	100% {
+		animation-timing-function: ease-out;
+		transform: scale(1);
+	}
+}
+
+.bounce-forward{
+  animation: bounce-forward 1s ease 0s 1 normal forwards;
+}
+
+@keyframes swing-bottom {
+	0% {
+		opacity: 0;
+		transform: rotateX(100deg);
+		transform-origin: bottom;
+	}
+
+	100% {
+		opacity: 1;
+		transform: rotateX(0);
+		transform-origin: bottom;
+	}
+}
+
+.swing-bottom{
+  animation: swing-bottom .5s ease 0s 1 normal forwards;
+}
+
+@keyframes swing-left {
+	0% {
+		opacity: 0;
+		transform: rotateY(100deg);
+		transform-origin: left;
+	}
+
+	100% {
+		opacity: 1;
+		transform: rotateY(0);
+		transform-origin: left;
+	}
+}
+
+.swing-left{
+  animation: swing-left .5s ease 0s 1 normal forwards;
+}
+
+@keyframes swing-right {
+  0% {
+    opacity: 0;
+    transform: rotateY(-100deg);
+    transform-origin: right;
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(0);
+    transform-origin: right;
+  }
+}
+
+.swing-right{
+  animation: swing-right .5s ease 0s 1 normal forwards;
+}
+
+
+@keyframes swing-top {
+  0% {
+    opacity: 0;
+    transform: rotateX(-100deg);
+    transform-origin: top;
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateX(0);
+    transform-origin: top;
+  }
+}
+
+.swing-top{
+  animation: swing-top .5s ease 0s 1 normal forwards;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;  
+  height: 8px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #2D2D2D;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 4px;  
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; 
+}
+
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+

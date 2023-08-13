@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\Portfolio NG\ng-tonedesign-portfolio\src\app\portfolio-details\portfolio-details.component.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday May 27th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 2:45:11 
+ * Last Modified: Sun August 13th 2023 3:32:36 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -97,11 +97,12 @@ a.view {
 }
 
 .thumbnail {
-
-    width: 120px;
-    height: 80px;
+    border-radius: 8px;
+    filter: grayscale(100%);
+    width: 80px;
+    height: 60px;
     cursor: pointer;
-    transition: 0.3s all;
+    // transition: 0.3s all;
     object-fit: cover;
     object-position: center;
 
@@ -113,6 +114,7 @@ a.view {
 .thumbnail.active {
     border: 2px solid rgba(51, 219, 191, 0.788);
     box-sizing: border-box; 
+    filter: grayscale(0%);
 }
 
 .main-image-container {
@@ -174,18 +176,18 @@ a.view {
 }
 
 .overlay {
-    position: fixed; /* or absolute depending on your needs */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 999999; /* high value to ensure it's above all else */
+    z-index: 999999; 
 }
 
 .overlay {
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.8); /* Example: semi-transparent black */
+    background: rgba(0,0,0,0.8); 
 }
 
 .overlay-content {
@@ -249,3 +251,10 @@ a.view {
       transform: translateY(0);
     }
   }
+
+  .icon-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px; 
+}
