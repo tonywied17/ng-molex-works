@@ -128,3 +128,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# compiled output  
+/dist  
+/tmp  
+/out-tsc  
+  
+# dependencies  
+/node_modules 
+/.angular

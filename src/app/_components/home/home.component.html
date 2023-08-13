@@ -1,0 +1,37 @@
+<!--
+File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\home\home.component.html
+Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+Created Date: Saturday July 8th 2023
+Author: Tony Wiedman
+-----
+Last Modified: Sun August 13th 2023 2:15:42 
+Modified By: Tony Wiedman
+-----
+Copyright (c) 2023 Tone Web Design, Molex
+-->
+<h1 class="text-2xl header-border pb-2 mb-8 slide-left">Hello There!</h1>
+
+<div class="font-[300] italic px-8 mb-8 slide-left">
+    Welcome visitor! Here we offer a wide variety of technology solutions specializing in, but not limited to full stack application development. For more information browse the portfolio and services sections.
+</div>
+
+
+<h1 class="text-2xl header-border pb-2 mb-8 slide-left">Latest Repos...</h1>
+
+<mat-card *ngFor="let repo of repos" class="my-4 sm:mx-4 scale-center">
+    <mat-card-header>
+        <img mat-card-avatar [src]="repo.avatar" alt="Dev avatar">
+        <mat-card-title><i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}</mat-card-title>
+        <mat-card-subtitle>Last pushed: {{ repo.lastPushed }}</mat-card-subtitle>
+
+    </mat-card-header>
+    <mat-card-content>
+        <div>
+            {{ repo.description }}
+        </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <a mat-button [href]="repo.url" target="_blank">VIEW</a>
+    </mat-card-actions>
+</mat-card>
+

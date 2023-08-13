@@ -1,0 +1,28 @@
+/*
+ * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.component.scss
+ * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Created Date: Saturday July 8th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Sun August 13th 2023 12:51:08 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 Tone Web Design, Molex
+ */
+.mat-drawer-container {
+  background: transparent !important;
+}
+
+.mat-drawer {
+  background: #080808 !important;
+}
+
+
+mat-drawer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-x: hidden !important;
+  padding-left: 1em;
+  padding-right: 1em;
+}

@@ -1,0 +1,42 @@
+/*
+ * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\portfolio.component.scss
+ * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Created Date: Saturday July 8th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Sun August 13th 2023 2:11:20 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 Tone Web Design, Molex
+ */
+.mat-mdc-card {
+    background: #0808088f;
+  }
+  
+  .mat-mdc-card-title {
+    font-size: 1.5rem;
+  }
+  
+  .mat-mdc-card-subtitle {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    margin-bottom: 1em;
+  }
+
+
+  .masonry {
+    column-count: 2;
+    column-gap: 2em;
+  }
+  
+  .masonry > div {
+    margin-bottom: 2em;
+    break-inside: avoid;
+    display: inline-block;
+  }
+
+@media only screen and (max-width: 1600px) {
+  .masonry {
+    column-count: 1;
+  }
+}
