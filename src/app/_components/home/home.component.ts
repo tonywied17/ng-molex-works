@@ -1,18 +1,18 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\home\home.component.ts
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 1:28:14 
+ * Last Modified: Sun August 13th 2023 6:11:31 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
+import { forkJoin } from "rxjs";
+import { map } from "rxjs/operators";
 
 interface RepoData {
   projectName: string;
@@ -27,12 +27,25 @@ interface RepoData {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  projectNames: string[] = ['ng-paarmy.com', 'ng-paapp2', 'express-paarmy-api', 'paapp2-discord-bot'];
+  projectNames: string[] = [
+    "ng-paarmy.com",
+    "ng-paapp2",
+    "express-paarmy-api",
+    "paapp2-discord-bot",
+    "ng-molex-works",
+    "ng-tonedesign-portfolio",
+    "smiley-color-helper",
+    "express-juwanji-api",
+    "phi-ng",
+    "ng-juwanji",
+    "p2-terminus-frontend",
+    "ng-molex-works",
+  ];
   repos: RepoData[] = [];
 
   constructor(private http: HttpClient) {}
@@ -42,22 +55,22 @@ export class HomeComponent implements OnInit {
   }
 
   fetchRepoData(): void {
-    const baseURL = 'https://api.github.com/repos/tonywied17/';
+    const baseURL = "https://api.github.com/repos/tonywied17/";
 
     const requests = this.projectNames.map((projectName) => {
       const repoURL = `${baseURL}${projectName}`;
 
       return this.http.get(repoURL).pipe(
         map((response: any) => {
-          const pushedAt = (response as any)['pushed_at'];
-          const fullName = (response as any)['name'];
-          const description = (response as any)['description'];
-          const url = (response as any)['html_url'];
-          const language = (response as any)['language'];
+          const pushedAt = (response as any)["pushed_at"];
+          const fullName = (response as any)["name"];
+          const description = (response as any)["description"];
+          const url = (response as any)["html_url"];
+          const language = (response as any)["language"];
 
-          const dev = (response as any)['owner'];
-          const avatar = dev['avatar_url'];
-          const name = dev['login'];
+          const dev = (response as any)["owner"];
+          const avatar = dev["avatar_url"];
+          const name = dev["login"];
 
           const lastPushed = new Date(pushedAt);
           const now = new Date();
@@ -65,11 +78,11 @@ export class HomeComponent implements OnInit {
             (now.getTime() - lastPushed.getTime()) / (1000 * 60)
           );
 
-          let formattedTime = '';
+          let formattedTime = "";
           if (diffMinutes < 1) {
-            formattedTime = 'just now';
+            formattedTime = "just now";
           } else if (diffMinutes === 1) {
-            formattedTime = '1 minute ago';
+            formattedTime = "1 minute ago";
           } else if (diffMinutes < 60) {
             formattedTime = `${diffMinutes} minutes ago`;
           } else if (diffMinutes < 1440) {
@@ -82,7 +95,7 @@ export class HomeComponent implements OnInit {
 
           return {
             projectName,
-            pushedAt: response['pushed_at'], // Keep the original 'pushed_at' for sorting
+            pushedAt: response["pushed_at"], // Keep the original 'pushed_at' for sorting
             lastPushed: formattedTime, // Add a new property for displaying
             fullName,
             description,
@@ -97,9 +110,9 @@ export class HomeComponent implements OnInit {
 
     forkJoin(requests).subscribe((reposData: any[]) => {
       this.repos = reposData.sort((a, b) => {
-          // Since 'pushed_at' is ISO format, we can directly compare the strings
-          return b.pushedAt.localeCompare(a.pushedAt);
+        // Since 'pushed_at' is ISO format, we can directly compare the strings
+        return b.pushedAt.localeCompare(a.pushedAt);
       });
-  });
+    });
   }
 }

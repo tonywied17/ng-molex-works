@@ -4,17 +4,18 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 3:57:26 
+Last Modified: Sun August 13th 2023 6:24:54 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
-<h1 class="text-4xl header-border pb-2 mb-8 slide-left">Recent Projects...</h1>
+<h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Recent Projects...</h1>
+<span class="swing-in font-[200] italic block mt-[-25px] mb-6">Recent projects of <span class="font-[900]">Molex Works!</span></span>
 
 <div class="masonry">
 
     <div *ngFor="let project of projects">
-        <mat-card class="card scale-center" style="border-left: 5px solid #94a3b8 !important;">
+        <mat-card class="card swing-right">
             <mat-card-header>
               <img mat-card-avatar [src]="getProjPic(project.id)" class="custom-avatar">
               <mat-card-title class="text-slate-400">{{project.title}}</mat-card-title>
@@ -25,7 +26,7 @@ Copyright (c) 2023 Tone Web Design, Molex
             </mat-card-content>
             <mat-card-actions align="end">
               <button [routerLink]="'/portfolio/' + project.id" target="_blank" mat-stroked-button class="text-[1rem] !px-[15px] !text-slate-300 !font-[400]">
-                <i class="fa-solid fa-magnifying-glass pr-2 !text-slate-400"></i> More Details</button>
+                <i class="fa-solid fa-magnifying-glass pr-2 !text-slate-400"></i> Project Details</button>
             </mat-card-actions>
           </mat-card>
     </div>

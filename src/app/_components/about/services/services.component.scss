@@ -4,14 +4,15 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 3:21:29 
+ * Last Modified: Sun August 13th 2023 5:38:50 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
 
 .mat-mdc-card {
-    background: #0808088f;
+    background: transparent;
+    box-shadow: none !important;
   }
   
   .mat-mdc-card-title {

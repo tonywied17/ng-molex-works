@@ -1,40 +1,39 @@
-
 /*
  * File: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works\src\app\_components\about\about.component.scss
  * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 4:27:24 
+ * Last Modified: Sun August 13th 2023 5:42:05 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
 .mat-mdc-card {
-    background: #0808088f;
-  }
-  
-  .mat-mdc-card-title {
-    font-size: 1.5rem;
-  }
-  
-  .mat-mdc-card-subtitle {
-    margin-top: 0.5em;
-    margin-left: 0.5em;
-    margin-bottom: 1em;
-  }
+  background: #08080836;
+}
+
+.mat-mdc-card-title {
+  font-size: 1.5rem;
+}
+
+.mat-mdc-card-subtitle {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  margin-bottom: 1em;
+}
 
 
-  .masonry {
-    column-count: 2;
-    column-gap: 2em;
-  }
-  
-  .masonry > div {
-    margin-bottom: 2em;
-    break-inside: avoid;
-    display: inline-block;
-  }
+.masonry {
+  column-count: 2;
+  column-gap: 2em;
+}
+
+.masonry>div {
+  margin-bottom: 2em;
+  break-inside: avoid;
+  display: inline-block;
+}
 
 @media only screen and (max-width: 1600px) {
   .masonry {
@@ -44,6 +43,6 @@
 
 .custom-avatar {
   width: 100px;
-  height: 100px; 
-  border-radius: 2%;  
+  height: 100px;
+  border-radius: 2%;
 }

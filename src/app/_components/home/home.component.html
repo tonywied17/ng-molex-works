@@ -4,25 +4,26 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 3:57:49 
+Last Modified: Sun August 13th 2023 6:20:02 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
-<h1 class="text-4xl header-border pb-2 mb-8 slide-left">Hello There!</h1>
+<h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
+<span class="swing-in font-[200] italic block mt-[-25px] mb-6">Welcome to <span class="font-[900]">Molex Works!</span></span>
 
-<div class="font-[300] italic px-8 mb-8 slide-left">
-    Welcome visitor! Here we offer a wide variety of technology solutions specializing in, but not limited to full stack application development. For more information browse the portfolio and services sections.
+<div class="font-[500] lg:px-8 mb-8 swing-bottom">
+    We specialize in full-stack web development, turning visions into tangible realities, whether they're rooted in the physical or virtual world. Collaboration is at the heart of what we do. If you're looking to bring an idea to life or seeking a reliable team to partner with, we're here to help. Let's connect, understand your vision, and create something impactful together.
 </div>
 
 
-<h1 class="text-2xl header-border pb-2 mb-8 slide-left">Latest GitHub Repos...</h1>
+<h1 class="lg:text-2xl text-lg header-border pb-2 mb-8 mt-12 swing-left">Latest GitHub Repos...</h1>
 
 <div class="masonry">
 
     <div *ngFor="let repo of repos" class="w-full">
 
-        <mat-card class="swing-in w-full">
+        <mat-card class="swing-right w-full">
             <mat-card-header>
                 <img mat-card-avatar [src]="repo.avatar" alt="Dev avatar">
                 <mat-card-title><i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}</mat-card-title>
@@ -35,7 +36,7 @@ Copyright (c) 2023 Tone Web Design, Molex
                 </div>
             </mat-card-content>
             <mat-card-actions align="end">
-                <a mat-button [href]="repo.url" target="_blank">VIEW</a>
+                <a mat-button [href]="repo.url" target="_blank">REPO <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </mat-card-actions>
         </mat-card>
 
