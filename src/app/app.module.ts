@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.module.ts
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 1:50:06 
+ * Last Modified: Sun August 13th 2023 4:04:08 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -16,7 +16,7 @@ import { MaterialModule } from './material';
 import { AppRoutingModule } from './app-routing';
 import { HomeComponent } from './_components/home/home.component'
 import { AboutComponent } from './_components/about/about.component';
-import { ContactComponent } from './_components/contact/contact.component';
+import { ContactComponent } from './_components/about/contact/contact.component';
 import { PortfolioComponent } from './_components/portfolio/portfolio.component';
 import { ServicesComponent } from './_components/about/services/services.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

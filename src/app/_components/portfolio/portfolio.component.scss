@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\portfolio.component.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 2:11:20 
+ * Last Modified: Sun August 13th 2023 3:41:44 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -39,4 +39,10 @@
   .masonry {
     column-count: 1;
   }
+}
+
+.custom-avatar {
+  width: 80px;
+  height: 80px; 
+  border-radius: 10%;  
 }

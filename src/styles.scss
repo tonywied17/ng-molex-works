@@ -86,11 +86,11 @@ $angular-dark-theme: mat.define-dark-theme(
 
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\styles.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 2:44:45 
+ * Last Modified: Sun August 13th 2023 4:10:21 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -188,7 +188,7 @@ button{
 
 .header-border::before {
   font: var(--fa-font-solid);
-  content: "\f0fb";
+  content: "\f126";
   color: #94a3b8;
   padding-right: 0.55em;
 }
@@ -237,4 +237,22 @@ CSS KEYFRAMES
 .mat-mdc-card-subtitle {
   font-family: 'Ubuntu', sans-serif;
   color: rgba(51, 219, 191, 0.788) !important;
+}
+
+@keyframes swing-in {
+	0% {
+		opacity: 0;
+		transform: rotateY(100deg);
+		transform-origin: left;
+	}
+
+	100% {
+		opacity: 1;
+		transform: rotateY(0);
+		transform-origin: left;
+	}
+}
+
+.swing-in{
+  animation: swing-in .2s ease 0s 1 normal forwards;
 }

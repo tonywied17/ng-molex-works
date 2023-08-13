@@ -1,3 +1,15 @@
+
+/*
+ * File: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works\src\app\_components\about\about.component.scss
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Created Date: Sunday August 13th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Sun August 13th 2023 4:27:24 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 Tone Web Design, Molex
+ */
 .mat-mdc-card {
     background: #0808088f;
   }
@@ -28,14 +40,10 @@
   .masonry {
     column-count: 1;
   }
-}/*
- * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\about\about.component.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
- * Created Date: Saturday July 8th 2023
- * Author: Tony Wiedman
- * -----
- * Last Modified: Sun August 13th 2023 2:47:40 
- * Modified By: Tony Wiedman
- * -----
- * Copyright (c) 2023 Tone Web Design, Molex
- */
+}
+
+.custom-avatar {
+  width: 100px;
+  height: 100px; 
+  border-radius: 2%;  
+}
