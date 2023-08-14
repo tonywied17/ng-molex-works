@@ -4,39 +4,55 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 6:20:02 
+Last Modified: Mon August 14th 2023 2:03:32 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
+
+<div class="lg:hidden block">
 <h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
 <span class="swing-in font-[200] italic block mt-[-25px] mb-6">Welcome to <span class="font-[900]">Molex Works!</span></span>
+</div>
+    <pre class="hidden lg:inline-block text-center w-[calc(100%-145px)] swing-bottom">                                                                    
+        `7MMM.     ,MMF'       `7MM                `7MMF'     A     `7MF'            `7MM             
+          MMMb    dPMM           MM                  `MA     ,MA     ,V                MM             
+          M YM   ,M MM  ,pW"Wq.  MM  .gP"Ya `7M'   `MFVM:   ,VVM:   ,V ,pW"Wq.`7Mb,od8 MM  ,MP,pP"Ybd 
+          M  Mb  M' MM 6W'   `Wb MM ,M'   Yb  `VA ,V'  MM.  M' MM.  M'6W'   `Wb MM' "' MM ;Y  8I   `" 
+          M  YM.P'  MM 8M     M8 MM 8M""""""    XMX    `MM A'  `MM A' 8M     M8 MM     MM;Mm  `YMMMa. 
+          M  `YM'   MM YA.   ,A9 MM YM.    ,  ,V' VA.   :MM;    :MM;  YA.   ,A9 MM     MM `Mb.L.   I8 
+        .JML. `'  .JMML.`Ybmd9'.JMML.`Mbmmd'.AM.   .MA.  VF      VF    `Ybmd9'.JMML. .JMML. YAM9mmmP' 
 
-<div class="font-[500] lg:px-8 mb-8 swing-bottom">
-    We specialize in full-stack web development, turning visions into tangible realities, whether they're rooted in the physical or virtual world. Collaboration is at the heart of what we do. If you're looking to bring an idea to life or seeking a reliable team to partner with, we're here to help. Let's connect, understand your vision, and create something impactful together.
+    </pre>
+
+    <div class="font-[500] lg:px-8 mb-8 swing-in">
+        We specialize in full-stack web development, turning visions into tangible realities, whether they're rooted in the physical or virtual world. Collaboration is at the heart of what we do. If you're looking to bring an idea to life or seeking a reliable team to partner with, we're here to help. Let's connect, understand your vision, and create something impactful together.
+    </div>
+
+<h1 class="lg:text-2xl text-lg header-border pb-2 mb-8 mt-12 swing-left inline-block">Latest GitHub Repos...</h1>
+
+<div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
+    <div class="lds-ripple"><div></div><div></div></div>
 </div>
 
-
-<h1 class="lg:text-2xl text-lg header-border pb-2 mb-8 mt-12 swing-left">Latest GitHub Repos...</h1>
-
-<div class="masonry">
+<div *ngIf="loaded" class="masonry">
 
     <div *ngFor="let repo of repos" class="w-full">
 
-        <mat-card class="swing-right w-full">
+        <mat-card class="card-entrance w-full">
             <mat-card-header>
                 <img mat-card-avatar [src]="repo.avatar" alt="Dev avatar">
-                <mat-card-title><i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}</mat-card-title>
-                <mat-card-subtitle>Last pushed: {{ repo.lastPushed }}</mat-card-subtitle>
+                <mat-card-title class="!text-base"><i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}</mat-card-title>
+                <mat-card-subtitle class="!text-base">Last pushed: {{ repo.lastPushed }}</mat-card-subtitle>
         
             </mat-card-header>
             <mat-card-content>
-                <div>
+                <div class="!text-sm">
                     {{ repo.description }}
                 </div>
             </mat-card-content>
             <mat-card-actions align="end">
-                <a mat-button [href]="repo.url" target="_blank">REPO <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a class="!text-base" mat-button [href]="repo.url" target="_blank">REPO <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </mat-card-actions>
         </mat-card>
 

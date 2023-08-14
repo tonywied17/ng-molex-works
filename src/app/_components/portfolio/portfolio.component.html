@@ -4,12 +4,12 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 6:48:21 
+Last Modified: Mon August 14th 2023 2:03:24 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
-<h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Recent Projects...</h1>
+<h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left inline-block">Recent Projects...</h1>
 <span class="swing-in font-[200] italic block mt-[-25px] mb-6">Recent projects of <span class="font-[900]">Molex Works!</span></span>
 
 <div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
@@ -19,7 +19,7 @@ Copyright (c) 2023 Tone Web Design, Molex
 <div *ngIf="loaded" class="masonry">
 
     <div *ngFor="let project of projects">
-        <mat-card class="card swing-right">
+        <mat-card class="card card-entrance">
             <mat-card-header>
               <img mat-card-avatar [src]="getProjPic(project.id)" class="custom-avatar">
               <mat-card-title class="text-slate-400">{{project.title}}</mat-card-title>

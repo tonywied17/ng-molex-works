@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 6:55:53 
+ * Last Modified: Mon August 14th 2023 2:00:00 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -41,6 +41,7 @@ interface RepoData {
 })
 
 export class HomeComponent implements OnInit {
+  loaded: boolean = false;
   /**
    * projectNames
    * @property - Array of project names
@@ -52,13 +53,9 @@ export class HomeComponent implements OnInit {
     "express-paarmy-api",
     "paapp2-discord-bot",
     "ng-molex-works",
-    "ng-tonedesign-portfolio",
     "smiley-color-helper",
-    "express-juwanji-api",
     "phi-ng",
-    "ng-juwanji",
     "p2-terminus-frontend",
-    "ng-molex-works",
   ];
 
   /**
@@ -78,15 +75,16 @@ export class HomeComponent implements OnInit {
    * ngOnInit
    * @method - Life cycle hook.
    */
-  ngOnInit(): void {
-    this.fetchRepoData();
+  async ngOnInit(): Promise<void> {
+    await this.fetchRepoData();
+    this.loaded = true;
   }
 
   /**
    * fetchRepoData
    * @method - Fetches data from GitHub API.
    */
-  fetchRepoData(): void {
+   async fetchRepoData(): Promise<void> {
     const baseURL = "https://api.github.com/repos/tonywied17/";
 
     const requests = this.projectNames.map((projectName) => {
