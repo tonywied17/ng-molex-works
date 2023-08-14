@@ -1,0 +1,48 @@
+<!--
+File: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works\src\app\_components\about\contact\quote-request\quote-request.component.html
+Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+Created Date: Monday August 14th 2023
+Author: Tony Wiedman
+-----
+Last Modified: Mon August 14th 2023 1:55:12 
+Modified By: Tony Wiedman
+-----
+Copyright (c) 2023 Tone Web Design, Molex
+-->
+
+<div class="notification is-visible" *ngIf="isSentSuccessfully">
+    Sent successfully!
+</div>
+
+
+<form class="quote-request" #quoteForm="ngForm" (ngSubmit)="sendRequest()">
+
+    <div class="input-container">
+        <input class="input-field" [(ngModel)]="name" placeholder="Name" name="name" required #nameField="ngModel"/>
+        <div *ngIf="(submitted || nameField.touched) && nameField.invalid" class="error-message">Enter a name!</div>
+    </div>
+
+    <div class="input-container">
+        <input class="input-field" [(ngModel)]="email" placeholder="Email" type="email" name="email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #emailField="ngModel"/>
+        <div *ngIf="(submitted || emailField.touched) && emailField.invalid" class="error-message">Enter a valid email!</div>
+    </div>
+
+    <div class="input-container">
+        <input class="input-field" [(ngModel)]="phone" placeholder="Phone" name="phone" required pattern="^(\+\d{1,3}[- ]?)?\d{10}$" #phoneField="ngModel"/>
+        <div *ngIf="(submitted || phoneField.touched) && phoneField.invalid" class="error-message">Enter a valid phone number!</div>
+    </div>
+
+    <div class="input-container">
+        <input class="input-field" [(ngModel)]="budget" placeholder="Budget" type="number" name="budget" required #budgetField="ngModel"/>
+        <div *ngIf="(submitted || budgetField.touched) && budgetField.invalid" class="error-message">Enter a valid budget!</div>
+    </div>
+
+    <div class="input-container">
+        <textarea class="input-field" [(ngModel)]="description" placeholder="Description" name="description" required #descriptionField="ngModel"></textarea>
+        <div *ngIf="(submitted || descriptionField.touched) && descriptionField.invalid" class="error-message">Description is required!</div>
+    </div>
+
+    <button mat-stroked-button color="primary" class="submit-button !text-slate-300 mt-2" type="submit">Send Request<i class="fa-regular fa-paper-plane ml-2 text-slate-400"></i></button>
+
+</form>
+
