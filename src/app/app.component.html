@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Mon August 14th 2023 9:34:16 
+Last Modified: Tue August 15th 2023 3:07:39 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -21,12 +21,13 @@ Copyright (c) 2023 Tone Web Design, Molex
 
 
 
-    <h1 class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] flex flex-col items-center select-none">
+    <h1
+      class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] lg:flex flex-col items-center select-none hidden">
 
       <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
-          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
+        <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
       </div>
-      <div>
+      <div class="mt-[-10px]">
         <span class="hover-text font-[200] italic text-sm text-slate-300 cursor-help">
           "Turning Vision into Reality"
           <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
@@ -34,7 +35,23 @@ Copyright (c) 2023 Tone Web Design, Molex
       </div>
     </h1>
 
+
     <div class="p-4 mx-2">
+
+      <h1 class="text-2xl text-slate-400 font-[700] my-2 flex flex-col items-center select-none lg:hidden z-10">
+
+        <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
+        </div>
+        <div class="mt-[-10px]">
+          <span class="hover-text font-[200] italic text-xs text-slate-300 cursor-help">
+            "Turning Vision into Reality"
+            <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
+          </span>
+        </div>
+      </h1>
+
+
       <mat-list>
         <mat-action-list>
           <button mat-list-item class="!py-[0.7em]" routerLink="/home" (click)="closeMobile()">
@@ -60,7 +77,7 @@ Copyright (c) 2023 Tone Web Design, Molex
             </button>
             <mat-divider></mat-divider>
             <button mat-list-item class="!py-[0.7em] " routerLink="/about/contact" (click)="closeMobile()">
-              <i class="fa-solid fa-address-card mr-2 w-[20px] !text-green-500/80"></i> Request Quote
+              <i class="fa-solid fa-quote-right mr-2 w-[20px] !text-green-500/80"></i> Request Quote
             </button>
           </div>
 
@@ -83,7 +100,22 @@ Copyright (c) 2023 Tone Web Design, Molex
     <!-- Main Content Route -->
     <div class="w-full sm:w-full mx-auto mt-8">
 
-      <div class="p-4">
+
+      <h1 class="text-2xl text-slate-400 font-[700] mt-2 mb-6 flex flex-col items-center select-none lg:hidden z-10">
+
+        <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
+        </div>
+        <div class="mt-[-10px]">
+          <span class="hover-text font-[200] italic text-xs text-slate-300 cursor-help">
+            "Turning Vision into Reality"
+            <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
+          </span>
+        </div>
+      </h1>
+
+
+      <div class="lg:p-4">
         <router-outlet></router-outlet>
       </div>
     </div>
