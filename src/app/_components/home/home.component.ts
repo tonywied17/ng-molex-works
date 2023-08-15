@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 2:00:00 
+ * Last Modified: Mon August 14th 2023 9:46:28 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -125,8 +125,8 @@ export class HomeComponent implements OnInit {
 
           return {
             projectName,
-            pushedAt: response["pushed_at"], // Keep the original 'pushed_at' for sorting
-            lastPushed: formattedTime, // Add a new property for displaying
+            pushedAt: response["pushed_at"],
+            lastPushed: formattedTime,
             fullName,
             description,
             avatar,
@@ -144,7 +144,6 @@ export class HomeComponent implements OnInit {
      */
     forkJoin(requests).subscribe((reposData: any[]) => {
       this.repos = reposData.sort((a, b) => {
-        // Since 'pushed_at' is ISO format, just directly compare the strings
         return b.pushedAt.localeCompare(a.pushedAt);
       });
     });
