@@ -4,81 +4,88 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 13th 2023 6:33:34 
+Last Modified: Mon August 14th 2023 9:34:16 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 <div class="bg"></div>
 <mat-drawer-container hasBackdrop="false" class="d-flex flex-column justify-content-center w-full h-full">
-    <mat-drawer #drawer [opened]="isDesktop" mode="side" class="lg:min-w-[420px] min-w-full">
-  
-      <!-- Close Menu (Mobile) -->
-      <button *ngIf="isDesktop" (click)="toggleDrawer()" class="!inline-block lg:!hidden !fixed !top-4 !right-4" type="button" mat-button>
-        <i class="fa-solid fa-x"></i>
-      </button>
+  <mat-drawer #drawer [opened]="isDesktop" mode="side" class="lg:min-w-[420px] min-w-full">
 
-    
-
-      <h1 class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] lg:text-center">
-        
-        <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
-        <span class="font-[200] italic text-sm text-slate-300 block">"Turning Vision into Virtual"</span>
-      </h1>
-
-      <div class="p-4 mx-2">
-        <mat-list>
-            <mat-action-list>
-                <button mat-list-item class="!py-[0.7em]" routerLink="/home" (click)="closeMobile()">
-                    <i class="fa-solid fa-house-chimney mr-2 w-[20px] !text-purple-400/80"></i> Home
-                </button>
-
-                <mat-divider></mat-divider>
-
-                <button mat-list-item class="!py-[0.7em]" routerLink="/portfolio" (click)="closeMobile()">
-                  <i class="fa-solid fa-flask-vial mr-2 w-[20px] !text-sky-500/80"></i> Projects 
-                </button>
-
-                <mat-divider></mat-divider>
-
-                <button mat-list-item class="!py-[0.7em]" routerLink="/about" (click)="closeMobile()">
-                    <i class="fa-solid fa-circle-info mr-2 w-[20px] !text-orange-400/80"></i> About
-                    <i class="fa-solid fa-caret-down !text-right"></i>
-                </button>
-
-                <div class="mx-10">
-                  <button mat-list-item class="!py-[0.7em] " routerLink="/about/services" (click)="closeMobile()">
-                    <i class="fa-solid fa-pen-ruler mr-2 w-[20px] !text-amber-400/80"></i> Services
-                  </button>
-                  <mat-divider></mat-divider>
-                  <button mat-list-item class="!py-[0.7em] " routerLink="/about/contact" (click)="closeMobile()">
-                    <i class="fa-solid fa-address-card mr-2 w-[20px] !text-green-500/80"></i> Contact
-                  </button>
-                </div>
-                
-            </mat-action-list>
+    <!-- Close Menu (Mobile) -->
+    <button *ngIf="isDesktop" (click)="toggleDrawer()" class="!inline-block lg:!hidden !fixed !top-4 !right-4"
+      type="button" mat-button>
+      <i class="fa-solid fa-x"></i>
+    </button>
 
 
 
-          </mat-list>
+    <h1 class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] flex flex-col items-center select-none">
+
+      <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
       </div>
-  
-    </mat-drawer>
-    <mat-drawer-content>
-  
-      <!-- Open Menu (Both) -->
-      <button (click)="toggleDrawer()" class="!fixed !top-4 !right-4 !text-neutral-300 !z-10" type="button" mat-button>
-        <i class="fa-solid fa-bars !z-10"></i>
-      </button>
-
-  
-      <!-- Main Content Route -->
-      <div class="w-full sm:w-full mx-auto mt-8">
-        
-        <div class="p-4">
-          <router-outlet></router-outlet>
-        </div>
+      <div>
+        <span class="hover-text font-[200] italic text-sm text-slate-300 cursor-help">
+          "Turning Vision into Reality"
+          <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
+        </span>
       </div>
-    </mat-drawer-content>
-  </mat-drawer-container>
-  
+    </h1>
+
+    <div class="p-4 mx-2">
+      <mat-list>
+        <mat-action-list>
+          <button mat-list-item class="!py-[0.7em]" routerLink="/home" (click)="closeMobile()">
+            <i class="fa-solid fa-house-chimney mr-2 w-[20px] !text-purple-400/80"></i> Home
+          </button>
+
+          <mat-divider></mat-divider>
+
+          <button mat-list-item class="!py-[0.7em]" routerLink="/portfolio" (click)="closeMobile()">
+            <i class="fa-solid fa-flask-vial mr-2 w-[20px] !text-sky-500/80"></i> Projects
+          </button>
+
+          <mat-divider></mat-divider>
+
+          <button mat-list-item class="!py-[0.7em]" routerLink="/about" (click)="closeMobile()">
+            <i class="fa-solid fa-circle-info mr-2 w-[20px] !text-orange-400/80"></i> About
+            <i class="fa-solid fa-caret-down !text-right"></i>
+          </button>
+
+          <div class="mx-10">
+            <button mat-list-item class="!py-[0.7em] " routerLink="/about/services" (click)="closeMobile()">
+              <i class="fa-solid fa-pen-ruler mr-2 w-[20px] !text-amber-400/80"></i> Services
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-list-item class="!py-[0.7em] " routerLink="/about/contact" (click)="closeMobile()">
+              <i class="fa-solid fa-address-card mr-2 w-[20px] !text-green-500/80"></i> Request Quote
+            </button>
+          </div>
+
+        </mat-action-list>
+
+
+
+      </mat-list>
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content>
+
+    <!-- Open Menu (Both) -->
+    <button (click)="toggleDrawer()" class="!fixed !top-4 !right-4 !text-neutral-300 !z-10" type="button" mat-button>
+      <i class="fa-solid fa-bars !z-10"></i>
+    </button>
+
+
+    <!-- Main Content Route -->
+    <div class="w-full sm:w-full mx-auto mt-8">
+
+      <div class="p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

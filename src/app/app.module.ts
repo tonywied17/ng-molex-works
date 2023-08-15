@@ -4,13 +4,14 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 4:39:46 
+ * Last Modified: Mon August 14th 2023 1:12:17 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material';
 import { AppRoutingModule } from './app-routing';
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsComponent } from './_components/portfolio/details/details.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { QuoteRequestComponent } from './_components/about/contact/quote-request/quote-request.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ContactComponent,
     PortfolioComponent,
     ServicesComponent,
-    DetailsComponent
+    DetailsComponent,
+    QuoteRequestComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.component.scss
- * Project: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs
+ * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 12:51:08 
+ * Last Modified: Mon August 14th 2023 9:33:08 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -25,4 +25,28 @@ mat-drawer-content {
   overflow-x: hidden !important;
   padding-left: 1em;
   padding-right: 1em;
+}
+
+.hover-text {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.hover-text .latin {
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hover-text:hover .latin {
+  display: block;
+}
+
+.logo-active:active {
+  transition: 0.1s !important;
+  transform: scale3d(1.10, 0.95, 1);
 }

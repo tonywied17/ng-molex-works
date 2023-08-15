@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 3:53:09 
+ * Last Modified: Mon August 14th 2023 1:48:22 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -39,4 +39,12 @@
 .masonry {
   column-count: 1;
 }
+}
+
+.mat-mdc-card-header {
+  padding: 0.5em !important;
+}
+
+.mat-mdc-card-actions-align-end {
+  padding: 0.5em !important;
 }
