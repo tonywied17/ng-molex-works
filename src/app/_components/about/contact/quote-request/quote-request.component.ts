@@ -4,7 +4,7 @@
  * Created Date: Monday August 14th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 2:25:49 
+ * Last Modified: Mon August 14th 2023 10:13:06 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -39,10 +39,11 @@ export class QuoteRequestComponent {
   sendRequest() {
     this.submitted = true;
     const formattedBudget = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(this.budget));
+    const hexToDecimal = (hex: string) => parseInt(hex.replace(/^#/, ''), 16);
 
     if (this.quoteForm.valid) {
       const embed = {
-        color: 16777215,
+        color: hexToDecimal('#94a3b8'),
         fields: [
             { name: 'Name', value: this.name },
             { name: 'Email', value: this.email },
