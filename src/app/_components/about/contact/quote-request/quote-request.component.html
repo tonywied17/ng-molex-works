@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Monday August 14th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Tue August 15th 2023 3:11:48 
+Last Modified: Fri August 18th 2023 10:16:51 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -14,7 +14,7 @@ Copyright (c) 2023 Tone Web Design, Molex
     Sent successfully!
 </div>
 
-<div class="grid lg:grid-cols-2 gap-4">
+<div class="grid lg:grid-cols-2 gap-4 swing-bottom">
     <div>
         <form class="quote-request" #quoteForm="ngForm" (ngSubmit)="sendRequest()">
     
@@ -39,7 +39,7 @@ Copyright (c) 2023 Tone Web Design, Molex
             </div>
         
             <div class="input-container">
-                <textarea class="input-field" [(ngModel)]="description" placeholder="Description" name="description" required #descriptionField="ngModel"></textarea>
+                <textarea class="input-field min-h-[122px]" [(ngModel)]="description" placeholder="What do you need? Include descriptions, links, etc." name="description" required #descriptionField="ngModel"></textarea>
                 <div *ngIf="(submitted || descriptionField.touched) && descriptionField.invalid" class="error-message">Description is required!</div>
             </div>
         

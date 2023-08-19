@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 9:55:59 
+ * Last Modified: Fri August 18th 2023 10:11:03 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   title = "twd";
   @ViewChild("drawer") drawer!: MatDrawer;
-  isDesktop!: boolean;
+  isDesktop: boolean = true;
   
 
   get isDrawerOpened(): boolean {
