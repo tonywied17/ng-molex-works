@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 9:46:28 
+ * Last Modified: Fri August 18th 2023 10:13:13 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
     "smiley-color-helper",
     "phi-ng",
     "p2-terminus-frontend",
+    "socket-messenger",
   ];
 
   /**
