@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 20th 2023 1:43:10 
+Last Modified: Sun August 20th 2023 6:34:21 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -89,7 +89,7 @@ Copyright (c) 2023 Tone Web Design, Molex
     </div>
 
   </mat-drawer>
-  <mat-drawer-content class="content">
+  <mat-drawer-content class="content" *ngIf="!isMobileNavOpened">
 
     <!-- Open Menu (Both) -->
     <button (click)="toggleDrawer()" class="!fixed !top-4 !right-4 !text-neutral-300 !z-10" type="button" mat-button>
