@@ -4,14 +4,14 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun August 20th 2023 1:29:04 
+Last Modified: Sun August 20th 2023 1:43:10 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 <div class="bg"></div>
-<mat-drawer-container hasBackdrop="false" class="d-flex flex-column justify-content-center w-full h-full">
-  <mat-drawer #drawer [opened]="isDesktop" mode="side" class="lg:min-w-[420px] min-w-full">
+<mat-drawer-container class="parent-container">
+  <mat-drawer #drawer [opened]="isDesktop" mode="side" class="sidebar">
 
     <!-- Close Menu (Mobile) -->
     <button *ngIf="isDesktop" (click)="toggleDrawer()" class="!inline-block lg:!hidden !fixed !top-4 !right-4"
@@ -89,7 +89,7 @@ Copyright (c) 2023 Tone Web Design, Molex
     </div>
 
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="content">
 
     <!-- Open Menu (Both) -->
     <button (click)="toggleDrawer()" class="!fixed !top-4 !right-4 !text-neutral-300 !z-10" type="button" mat-button>
