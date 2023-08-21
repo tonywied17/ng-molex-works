@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 20th 2023 1:31:34 
+ * Last Modified: Sun August 20th 2023 6:34:59 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -17,30 +17,33 @@
   background: #080808 !important;
 }
 
-.mat-drawer {
+.parent-container {
+  // display: grid;
+  grid-template-columns: auto auto;
+  overflow: hidden;
+  height: 100vh; 
+}
+
+.sidebar {
+  width: 400px; 
+  background: #080808;
   z-index: 1000;
-}
-
-mat-drawer-content {
-  z-index: 900;
-}
-
-.mat-drawer-container {
-  position: relative;
-}
-
-mat-drawer-content {
-  position: relative;
-}
-
-
-mat-drawer-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  overflow-x: hidden !important;
-  padding-left: 1em;
-  padding-right: 1em;
+  overflow-y: auto;
+}
+
+.content {
+  padding: 1em;
+  z-index: 900;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+@media (max-width: 767px) { /* Adjust the breakpoint as needed */
+  .content.mobile-nav-active {
+    display: none;
+  }
 }
 
 .hover-text {
@@ -65,4 +68,14 @@ mat-drawer-content {
 .logo-active:active {
   transition: 0.1s !important;
   transform: scale3d(1.10, 0.95, 1);
+}
+
+@media (max-width: 767px) {
+  .content.mobile-nav-active {
+    display: none;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
 }
