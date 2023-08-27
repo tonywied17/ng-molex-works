@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Sunday August 13th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Tue August 15th 2023 3:05:49 
+Last Modified: Sat August 26th 2023 5:13:18 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -88,8 +88,12 @@ Copyright (c) 2023 Tone Web Design, Molex
                     </div>
 
 
-                    <ol class="fa-ul text-[1rem] font-[200]">               
-                        <li class="mt-[1.5em]"><span class="fa-li"><i class="fa-solid fa-circle-info !text-[#94a3b8]"></i></span><p class="mr-2 font-bold mb-[0]">Description</p><span class="!select-text ml-[-2px] inline-block">{{currentProject.details}}</span></li>
+                    <ol class="fa-ul text-[1rem] font-[200]">
+                        <li class="mt-[1.5em]">
+                            <span class="fa-li"><i class="fa-solid fa-circle-info !text-[#94a3b8]"></i></span>
+                            <p class="mr-2 font-bold mb-[0]">Description</p>
+                            <span class="!select-text ml-[-2px] inline-block" [innerHTML]="currentProject.details"></span>
+                        </li>
                         
                         <li class="mt-[1.5em]"><span class="fa-li"><i class="fa-solid fa-globe !text-[#94a3b8]"></i></span>
                             <p class="mr-2 font-bold mb-[0]">Live Deployment</p>

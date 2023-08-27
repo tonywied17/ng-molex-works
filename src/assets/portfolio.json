@@ -1,4 +1,3 @@
-
 {
     "projects": [
         {
@@ -11,63 +10,29 @@
             "repo": "https://github.com/tonywied17/ng-paapp2, https://github.com/tonywied17/express-paarmy-api, https://github.com/tonywied17/paapp2-discord-bot",
             "dev": true,
             "tags": "Angular, TypeScript, REST, Tailwind CSS, JWT Auth, Node.js, Sequelize ORM, Discord.js, Express"
-            
         },
         {
             "id": 2,
             "title": "Project Eunomia",
             "subtitle": "A web-based client for The Palace 2D Chat",
-            "details": "This is a group project that aims to create a web-based client for The Palace 2D Avatar Chat originally created by Jim Bumgardner and produced by Time Warner in the mid-late 90s.",
-            "image": "https://molex.cloud/2023/August/8/_Uyn/eunomia.png",
+            "details": "This is a group project that aims to create a web-based client for <a href='https://en.wikipedia.org/wiki/The_Palace_(computer_program)' class='source' target='_blank'>The Palace</a> 2D Avatar Chat originally created by <a href='https://jbum.com/' class='source' target='_blank'>Jim Bumgardner</a> and produced by Time Warner in the mid-late 90s.",
+            "image": "https://molex.cloud/2023/August/18/_jfo/eunomia/1.png, https://molex.cloud/2023/August/18/_jfo/eunomia/2.png, https://molex.cloud/2023/August/18/_jfo/eunomia/3.png, https://molex.cloud/2023/August/18/_jfo/eunomia/4.png",
             "url": "http://chat.tonewebdesign.com/",
             "dev": true,
             "tags": "JavaScript, CSS, WebSocket, Tailwind CSS"
         },
         {
             "id": 3,
-            "title": "The Pennsylvania Army",
-            "subtitle": "Unifying Gamers: A Dynamic Home Webpage for an Active Gaming Community",
-            "details": "This project is a home page website catering to a large gaming community actively engaged in daily organized play. It combines a variety of cutting-edge technologies for seamless functionality. The backend leverages Node.js, Express, and Sequelize to power the REST API, while the frontend is built using Angular, TypeScript, and Tailwind CSS for a sleek and dynamic user interface.",
-            "image": "https://molex.cloud/files/2023/May/28/_8oi/paarmycom.png",
-            "url": "https://paarmy.com/",
-            "repo":"https://github.com/tonywied17/ng-paarmy.com, https://github.com/tonywied17/express-paarmy-api",
-            "dev": false,
-            "tags": "Angular, Node.js, TypeScript, Tailwind CSS, discord.js, REST, Sequelize ORM"
-        },
-        {
-            "id": 4,
             "title": "#PA Army App v1",
             "subtitle": "A Comprehensive Application for In-Game Information and Guild Management.",
             "details": "This project was a gaming community resource and management tool. It is a progressive web application that utilizes HTML, CSS, and JavaScript. The application makes XHR/Fetch calls to a SQL database for data retrieval and manipulation. The level of authentication determines the availability of different features, and the application functions as a CRUD (Create, Read, Update, Delete) application.",
-            "image": "https://tbz.wtf/2022/November/1/_3JK/pa-army-app.PNG",
+            "image": "https://molex.cloud/2023/August/18/_gVj/app1/1.png, https://molex.cloud/2023/August/18/_gVj/app1/2.png, https://molex.cloud/2023/August/18/_gVj/app1/3.png, https://molex.cloud/2023/August/18/_gVj/app1/4.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
             "url": "https://appv1.paarmy.com/",
             "dev": false,
             "tags": "JavaScript, HTML, CSS, SQL, PHP"
-            
         },
         {
-            "id": 5,
-            "title": "Philly Sports Podcast",
-            "subtitle": "Unleashing the Power of Sports News: A Futuristic Podcast Home Page in the Making",
-            "details": "Currently under development, this project aims to create an all-in-one solution for managing blogs, podcasts, and accessing content related to Philadelphia sports news and other Philadelphia topics. With a focus on user experience and functionality, the project is being built using a combination of Express, Node.js, Sequelize, and JWT authentication on the backend. These technologies enable the implementation of role-based permissions, ensuring different levels of access and control for users. On the frontend, the Angular framework is being utilized to deliver a seamless and intuitive user interface.",
-            "image": "https://tbz.wtf/2022/November/1/_3JK/phillysports.PNG",
-            "url": "https://juwanji.tbz.wtf/home",
-            "repo":"https://github.com/tonywied17/ng-juwanji, https://github.com/tonywied17/express-juwanji-api",
-            "dev": true,
-            "tags": "Express, Node.js, TypeScript, SCSS, Angular, REST, JWT, Sequelize ORM"
-        },
-        {
-            "id": 6,
-            "title": "Guild Roster Manager",
-            "subtitle": "Guild Roster Manager: Simplified Roster Management for Gaming Communities",
-            "details": "This project brings you a desktop application that acts as a bridge between a Node.js Discord bot and a user-friendly web interface for managing Discord server members. By utilizing the discord.js library, the application and the bot seamlessly communicate, enabling smooth data exchange. The bot plays a crucial role in mediating between Discord and the application, ensuring real-time updates and data synchronization. Moreover, administrators have the convenience of updating the shared data directly from Discord using simple commands. With this combined approach, managing Discord server members becomes hassle-free and accessible from both the application and Discord itself.",
-            "image": "https://tbz.wtf/2022/November/1/_3JK/guild-roster.PNG",
-            "url": "https://appv1.paarmy.com/rosternull/",
-            "dev": false,
-            "tags": "JavaScript, HTML, CSS, SQL, PHP, Node.js, discord.js"
-        },
-        {
-            "id": 7,
+            "id": 4,
             "title": "MySwingCoach",
             "subtitle": "Discover Professional Golf Trainers Near You",
             "details": "This web application provided users with the ability to filter through a database of professional golf trainers based on their location. Leveraging exciting technologies such as the Google Geolocation API and the haversine formula, users could easily find trainers near their desired location. The application's intelligent filtering system ensured that users could connect with trainers conveniently, improving their access to professional guidance in the world of golf.",
@@ -75,6 +40,50 @@
             "url": "https://delcoswag.com/_web/geoDBtest/",
             "dev": false,
             "tags": "JavaScript, HTML, CSS, SQL, PHP"
+        },
+        {
+            "id": 5,
+            "title": "The Pennsylvania Army",
+            "subtitle": "Unifying Gamers: A Dynamic Home Webpage for an Active Gaming Community",
+            "details": "This project is a home page website catering to a large gaming community actively engaged in daily organized play. It combines a variety of cutting-edge technologies for seamless functionality. The backend leverages Node.js, Express, and Sequelize to power the REST API, while the frontend is built using Angular, TypeScript, and Tailwind CSS for a sleek and dynamic user interface.",
+            "image": "https://molex.cloud/2023/August/18/_jfo/paarmy/1.png, https://molex.cloud/2023/August/18/_jfo/paarmy/2.png, https://molex.cloud/2023/August/18/_jfo/paarmy/3.png, https://molex.cloud/2023/August/18/_jfo/paarmy/4.png",
+            "url": "https://paarmy.com/",
+            "repo": "https://github.com/tonywied17/ng-paarmy.com, https://github.com/tonywied17/express-paarmy-api",
+            "dev": false,
+            "tags": "Angular, Node.js, TypeScript, Tailwind CSS, discord.js, REST, Sequelize ORM"
+        },
+        {
+            "id": 6,
+            "title": "MolexMessenger",
+            "subtitle": "Socket.io Based Instant Messenger",
+            "details": "This is a web based instant messaging client with features such as sharing images, youtube, and streams, show users typing, as well as a few configurable user settings.",
+            "image": "https://molex.cloud/2023/August/21/_Hnm/messenger/3.png, https://molex.cloud/2023/August/21/_Hnm/messenger/2.png, https://molex.cloud/2023/August/21/_Hnm/messenger/1.png",
+            "url": "http://messenger.tonewebdesign.com/",
+            "repo": "https://github.com/tonywied17/socket-messenger",
+            "dev": true,
+            "tags": "JavaScript, Node.js, Express, CSS, WebSocket"
+        },
+        {
+            "id": 7,
+            "title": "Philly Sports Podcast",
+            "subtitle": "Unleashing the Power of Sports News: A Futuristic Podcast Home Page in the Making",
+            "details": "Currently under development, this project aims to create an all-in-one solution for managing blogs, podcasts, and accessing content related to Philadelphia sports news and other Philadelphia topics. With a focus on user experience and functionality, the project is being built using a combination of Express, Node.js, Sequelize, and JWT authentication on the backend. These technologies enable the implementation of role-based permissions, ensuring different levels of access and control for users. On the frontend, the Angular framework is being utilized to deliver a seamless and intuitive user interface.",
+            "image": "https://tbz.wtf/2022/November/1/_3JK/phillysports.PNG",
+            "url": "https://juwanji.tbz.wtf/home",
+            "repo": "https://github.com/tonywied17/ng-juwanji, https://github.com/tonywied17/express-juwanji-api",
+            "dev": true,
+            "tags": "Express, Node.js, TypeScript, SCSS, Angular, REST, JWT, Sequelize ORM"
+        },
+        {
+            "id": 8,
+            "title": "Guild Roster Manager",
+            "subtitle": "Guild Roster Manager: Simplified Roster Management for Gaming Communities",
+            "details": "This project brings you a desktop application that acts as a bridge between a Node.js Discord bot and a user-friendly web interface for managing Discord server members. By utilizing the discord.js library, the application and the bot seamlessly communicate, enabling smooth data exchange. The bot plays a crucial role in mediating between Discord and the application, ensuring real-time updates and data synchronization. Moreover, administrators have the convenience of updating the shared data directly from Discord using simple commands. With this combined approach, managing Discord server members becomes hassle-free and accessible from both the application and Discord itself.",
+            "image": "https://molex.cloud/2023/August/18/_gVj/roster/1.png, https://molex.cloud/2023/August/18/_gVj/roster/2.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
+            "url": "https://appv1.paarmy.com/rosternull/",
+            "dev": false,
+            "tags": "JavaScript, HTML, CSS, SQL, PHP, Node.js, discord.js"
         }
+        
     ]
 }

@@ -90,7 +90,7 @@ $angular-dark-theme: mat.define-dark-theme(
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 4:13:36 
+ * Last Modified: Sat August 26th 2023 5:18:45 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -451,4 +451,16 @@ CSS KEYFRAMES
 .card-entrance {
   animation: fadeInUp .420s forwards;
   opacity: 0;
+}
+
+
+.source {
+  color: #94a3b8de;
+    text-decoration: none;
+    transition: color 0.2s;
+    border-bottom: #94a3b8 dotted 1px;
+}
+
+.source:hover{
+  color: #707c8d;
 }

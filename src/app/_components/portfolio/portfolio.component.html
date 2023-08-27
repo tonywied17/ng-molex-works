@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Mon August 14th 2023 2:03:24 
+Last Modified: Sat August 26th 2023 5:24:47 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -25,8 +25,8 @@ Copyright (c) 2023 Tone Web Design, Molex
               <mat-card-title class="text-slate-400">{{project.title}}</mat-card-title>
               <mat-card-subtitle class="">{{project.subtitle}}</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-content class="!font-[300]">
-              {{project.details}}
+            <mat-card-content class="!font-[300]" [innerHTML]="project.details">
+
             </mat-card-content>
             <mat-card-actions align="end">
               <button [routerLink]="'/portfolio/' + project.id" target="_blank" mat-stroked-button class="text-[1rem] !px-[15px] !text-slate-300 !font-[400]">
