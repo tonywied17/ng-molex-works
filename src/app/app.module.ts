@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DetailsComponent } from './_components/portfolio/details/details.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { QuoteRequestComponent } from './_components/about/contact/quote-request/quote-request.component';
+import { ImageModalComponent } from './_components/portfolio/image-modal/image-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { QuoteRequestComponent } from './_components/about/contact/quote-request
     PortfolioComponent,
     ServicesComponent,
     DetailsComponent,
-    QuoteRequestComponent
+    QuoteRequestComponent,
+    ImageModalComponent
   ],
   imports: [
     BrowserModule,

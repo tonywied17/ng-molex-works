@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 6:55:16 
+ * Last Modified: Sat November 11th 2023 6:51:42 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -12,6 +12,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import { ImageModalComponent } from "../image-modal/image-modal.component";
+import { MatDialog } from '@angular/material/dialog';
 
 /**
  * DetailsComponent
@@ -49,7 +51,7 @@ export class DetailsComponent implements OnInit {
    * @param route
    * @param http
    */
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private dialog: MatDialog) {}
 
   /**
    * ngOnInit
@@ -59,6 +61,8 @@ export class DetailsComponent implements OnInit {
     let paramID = this.route.snapshot.params["id"];
     this.getProject(paramID);
   }
+
+  
 
   /**
    * getProject
@@ -125,11 +129,7 @@ export class DetailsComponent implements OnInit {
    * @returns - void
    */
   prevImage(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-    } else {
-      this.currentIndex = this.images.length - 1;
-    }
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
     this.changeMainImage(this.images[this.currentIndex]);
   }
 
@@ -139,11 +139,7 @@ export class DetailsComponent implements OnInit {
    * @returns - void
    */
   nextImage(): void {
-    if (this.currentIndex < this.images.length - 1) {
-      this.currentIndex++;
-    } else {
-      this.currentIndex = 0;
-    }
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.changeMainImage(this.images[this.currentIndex]);
   }
 
@@ -213,6 +209,21 @@ export class DetailsComponent implements OnInit {
         left
     );
   }
+
+  openImageModal(imageUrl: string) {
+    const dialogRef = this.dialog.open(ImageModalComponent, {
+      data: {
+        imageUrl,
+        galleryImages: [...this.images.map(url => ({ url }))], // Pass a copy of the gallery images as objects
+      },
+      panelClass: 'image-modal-dialog',
+    });
+  
+    dialogRef.afterClosed().subscribe(() => {
+      // Do something after the modal is closed, if needed
+    });
+  }
+  
 
   /**
    * rando
