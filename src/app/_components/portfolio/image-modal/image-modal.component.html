@@ -1,0 +1,25 @@
+<div class="image-modal">
+    <div class="image-modal-caption">
+      {{ currentImageIndex + 1 }} / {{ galleryImages.length }}
+    </div>
+  
+  
+    <img [src]="data.imageUrl" alt="Full-screen Image">
+  
+    <!-- Left arrow -->
+    <button mat-raised-button
+            class="arrow left !bg-[#000000a8] text-neutral-300"
+            (click)="navigate(-1)"
+            [hidden]="!shouldShowLeftArrow()">
+      <i class="fas fa-circle-left text-neutral-300 pr-1"></i> Prev
+    </button>
+  
+    <!-- Right arrow -->
+    <button mat-raised-button
+            class="arrow right !bg-[#000000a8] text-neutral-300"
+            (click)="navigate(1)"
+            [hidden]="currentImageIndex === galleryImages.length - 1">
+      Next <i class="fas fa-circle-right text-neutral-300 pl-1"></i>
+    </button>
+  </div>
+  

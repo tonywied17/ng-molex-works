@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
 Created Date: Sunday August 13th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sat August 26th 2023 5:13:18 
+Last Modified: Sat November 11th 2023 6:45:16 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -28,24 +28,25 @@ Copyright (c) 2023 Tone Web Design, Molex
                     <div class="image-gallery">
                         <!-- Large main image -->
                         <div class="main-image-container">
-                            <button (click)="prevImage()" class="arrow-btn left-arrow"><i class="fa-solid fa-arrow-left"></i></button>
-                            <img (click)="open(currentProject.mainImage, currentProject.title, 1500, 868)"
-                                 [src]="currentProject.mainImage" 
-                                 alt="Main Image" 
-                                 class="main-image proj-image h-auto max-w-full rounded-lg shadow-none transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 cursor-zoom-in">
-                            <button (click)="nextImage()" class="arrow-btn right-arrow"><i class="fa-solid fa-arrow-right"></i></button>
+                          <button (click)="prevImage()" class="arrow-btn left-arrow"><i class="fa-solid fa-arrow-left"></i></button>
+                          <img (click)="openImageModal(currentProject.mainImage)" 
+                               [src]="currentProject.mainImage" 
+                               alt="Main Image" 
+                               class="main-image proj-image h-auto max-w-full rounded-lg shadow-none transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 cursor-zoom-in">
+                          <button (click)="nextImage()" class="arrow-btn right-arrow"><i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                         
                         <!-- Thumbnails -->
                         <div class="thumbnails bg-[#08080836] rounded-lg shadow-lg p-2">
-                            <img *ngFor="let img of images" 
-                                 [src]="img" 
-                                 (click)="changeMainImage(img)" 
-                                 [class.active]="img === currentProject.mainImage"
-                                 alt="Thumbnail" 
-                                 class="thumbnail">
+                          <img *ngFor="let img of images" 
+                               [src]="img" 
+                               (click)="changeMainImage(img)" 
+                               [class.active]="img === currentProject.mainImage"
+                               alt="Thumbnail" 
+                               class="thumbnail">
                         </div>
-                    </div>
+                      </div>
+                      
                     
 
                     <div class="overlay" *ngIf="showOverlay">
