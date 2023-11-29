@@ -3,9 +3,6 @@
       {{ currentImageIndex + 1 }} / {{ galleryImages.length }}
     </div>
   
-    <button mat-stroked-button class="download-right" (click)="downloadImage(data.imageUrl, data.fileName)">
-      <i class="fas fa-download"></i> Download
-    </button>
   
     <img [src]="data.imageUrl" alt="Full-screen Image">
   

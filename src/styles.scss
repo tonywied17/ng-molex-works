@@ -68,9 +68,9 @@ $angular-dark-theme: mat.define-dark-theme(
   )
 );
 
-.darkMode {
-  @include mat.all-component-colors($angular-dark-theme);
-}
+// .darkMode {
+//   @include mat.all-component-colors($angular-dark-theme);
+// }
 
 
 @include mat.all-component-colors($angular-dark-theme);
@@ -84,17 +84,7 @@ $angular-dark-theme: mat.define-dark-theme(
 @tailwind components;
 @tailwind utilities;
 
-/*
- * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\styles.scss
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
- * Created Date: Saturday July 8th 2023
- * Author: Tony Wiedman
- * -----
- * Last Modified: Sat August 26th 2023 5:18:45 
- * Modified By: Tony Wiedman
- * -----
- * Copyright (c) 2023 Tone Web Design, Molex
- */
+
  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 :root{
   color-scheme: dark;

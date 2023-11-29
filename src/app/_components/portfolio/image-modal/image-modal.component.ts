@@ -33,16 +33,25 @@ export class ImageModalComponent {
   
 
   downloadImage(imageUrl: string, fileName: string) {
+    console.log('Download button clicked');
+    
     this.http.get(imageUrl, { responseType: 'blob' }).subscribe(blob => {
+      console.log('Received blob data:', blob);
+  
       const url = window.URL.createObjectURL(blob);
+      console.log('Blob URL:', url);
+  
       const a = document.createElement('a');
       a.href = url;
       a.download = fileName;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
+      
+      console.log('Download complete');
     });
   }
+  
 
   shouldShowLeftArrow(): boolean {
     return this.currentImageIndex > 0;
