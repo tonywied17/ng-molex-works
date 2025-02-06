@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works\src\app\_components\portfolio\details\details.component.ts
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sat November 11th 2023 6:51:42 
+ * Last Modified: Wed February 5th 2025 10:52:41 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -24,7 +24,8 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: "./details.component.html",
   styleUrls: ["./details.component.scss"],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit
+{
   /**
    * Properties
    */
@@ -51,108 +52,78 @@ export class DetailsComponent implements OnInit {
    * @param route
    * @param http
    */
-  constructor(private route: ActivatedRoute, private http: HttpClient, private dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private dialog: MatDialog) { }
 
   /**
    * ngOnInit
    * @method - Life cycle hook
    */
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     let paramID = this.route.snapshot.params["id"];
     this.getProject(paramID);
   }
 
-  
-
   /**
    * getProject
    * @method - Get project
-   * @param projID - project id
-   * @returns - project
+   * @param projID
+   * @returns - void
    */
-  async getProject(projID: any) {
+  async getProject(projID: any)
+  {
     let resp = await fetch("assets/portfolio.json?" + this.rando());
-    if (resp.ok) {
+    if (resp.ok)
+    {
       let json = await resp.json();
-      this.projects = json.projects;
-      this.projects.forEach(async (proj: any) => {
-        if (proj.id == projID) {
-          this.currentProject = proj;
-          if (proj.image) {
-            this.images = proj.image.split(", ");
-            this.currentProject.mainImage = this.images[0];
-          }
-          if (proj.repo) {
-            if (proj.repo.includes(",")) {
-              let splitRepos = proj.repo.split(", ");
-              this.repos = await Promise.all(
-                splitRepos.map((repoUrl: string) =>
-                  this.getApiEndpoint(repoUrl)
-                )
-              );
-            } else {
-              this.repos = [await this.getApiEndpoint(proj.repo)];
-            }
-          } else {
-            this.repos = [];
-          }
-          if (proj.tags) {
-            if (proj.tags.includes(",")) {
-              let splitTags = proj.tags.split(", ");
-              this.tags = splitTags;
-            } else {
-              this.tags.push(proj.tags);
-            }
-          } else {
-            this.tags = [];
-          }
+      this.projects = json.projects.map((proj: any, index: number) => ({
+        ...proj,
+        id: proj.id ?? index + 1,
+        tags: proj.tags.split(", "),
+        repos: proj.repo
+          ? proj.repo.split(", ").map((url: string) => url.trim())
+          : [],
+      }));
+
+      this.currentProject = this.projects.find((proj: any) => proj.id == projID);
+
+      if (this.currentProject)
+      {
+        if (this.currentProject.image)
+        {
+          this.images = this.currentProject.image.split(", ");
+          this.currentProject.mainImage = this.images[0];
         }
-      });
+
+        this.currentProject.repos = await Promise.all(
+          this.currentProject.repos.map(async (repoUrl: string) =>
+          {
+            const repoDetails = await this.getRepoDetailsFromApi(repoUrl);
+            return repoDetails;
+          })
+        );
+      } else
+      {
+        console.error('Project not found');
+      }
     }
     this.loaded = true;
+    console.log(this.currentProject);
   }
 
   /**
-   * changeMainImage
-   * @method - Change main image
-   * @param imgSrc - image source
-   * @returns - void
-   */
-  changeMainImage(imgSrc: string): void {
-    this.currentProject.mainImage = imgSrc;
-    this.currentIndex = this.images.indexOf(imgSrc);
-  }
-
-  /**
-   * prevImage
-   * @method - Previous image
-   * @returns - void
-   */
-  prevImage(): void {
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-    this.changeMainImage(this.images[this.currentIndex]);
-  }
-
-  /**
-   * nextImage
-   * @method - Next image
-   * @returns - void
-   */
-  nextImage(): void {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    this.changeMainImage(this.images[this.currentIndex]);
-  }
-
-  /**
-   * getApiEndpoint
-   * @param repoUrl - repository url
+   * getRepoDetailsFromApi
+   * @method - Get repository details from API
+   * @param repoUrl
    * @returns - repository details
    */
-  async getApiEndpoint(repoUrl: string) {
+  async getRepoDetailsFromApi(repoUrl: string)
+  {
     const repoPath = repoUrl.replace("https://github.com/", "");
     const apiEndpoint = `https://api.github.com/repos/${repoPath}`;
 
-    try {
+    try
+    {
       const response: any = await this.http.get(apiEndpoint).toPromise();
       const pushedAt = response["pushed_at"];
 
@@ -163,25 +134,74 @@ export class DetailsComponent implements OnInit {
       );
 
       let formattedTime = "";
-      if (diffMinutes < 1) {
+      if (diffMinutes < 1)
+      {
         formattedTime = "just now";
-      } else if (diffMinutes === 1) {
+      } else if (diffMinutes === 1)
+      {
         formattedTime = "1 minute ago";
-      } else if (diffMinutes < 60) {
+      } else if (diffMinutes < 60)
+      {
         formattedTime = `${diffMinutes} minutes ago`;
-      } else if (diffMinutes < 1440) {
+      } else if (diffMinutes < 1440)
+      {
         const diffHours = Math.floor(diffMinutes / 60);
         formattedTime = `${diffHours} hours ago`;
-      } else {
+      } else
+      {
         const diffDays = Math.floor(diffMinutes / 1440);
         formattedTime = `${diffDays} days ago`;
       }
 
-      return { url: apiEndpoint, repoUrl: repoUrl, pushedAt: formattedTime };
-    } catch (error) {
+      return {
+        url: repoUrl,
+        name: repoUrl.split('/').pop(),
+        description: response["description"] || "No description available",
+        pushedAt: formattedTime,
+        stars: response["stargazers_count"],
+        forks: response["forks_count"],
+        language: response["language"],
+        owner: response["owner"]["login"]
+      };
+    } catch (error)
+    {
       console.error("Error fetching repository details:", error);
       return null;
     }
+  }
+
+  /**
+   * changeMainImage
+   * @method - Change main image
+   * @param imgSrc - image source
+   * @returns - void
+   */
+  changeMainImage(imgSrc: string): void
+  {
+    this.currentProject.mainImage = imgSrc;
+    this.currentIndex = this.images.indexOf(imgSrc);
+  }
+
+  /**
+   * prevImage
+   * @method - Previous image
+   * @returns - void
+   */
+  prevImage(): void
+  {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.changeMainImage(this.images[this.currentIndex]);
+  }
+
+  /**
+   * nextImage
+   * @method - Next image
+   * @returns - void
+   */
+  nextImage(): void
+  {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.changeMainImage(this.images[this.currentIndex]);
   }
 
   /**
@@ -193,44 +213,47 @@ export class DetailsComponent implements OnInit {
    * @param h - height
    * @returns - window
    */
-  open(url: any, title: any, w: any, h: any) {
+  open(url: any, title: any, w: any, h: any)
+  {
     var left = screen.width / 2 - w / 2;
     var top = screen.height / 2 - h / 2;
     return window.open(
       url,
       title,
       "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=" +
-        w +
-        ", height=" +
-        h +
-        ", top=" +
-        top +
-        ", left=" +
-        left
+      w +
+      ", height=" +
+      h +
+      ", top=" +
+      top +
+      ", left=" +
+      left
     );
   }
 
-  openImageModal(imageUrl: string) {
+  openImageModal(imageUrl: string)
+  {
     const dialogRef = this.dialog.open(ImageModalComponent, {
       data: {
         imageUrl,
-        galleryImages: [...this.images.map(url => ({ url }))], // Pass a copy of the gallery images as objects
+        galleryImages: [...this.images.map(url => ({ url }))],
       },
       panelClass: 'image-modal-dialog',
     });
-  
-    dialogRef.afterClosed().subscribe(() => {
-      // Do something after the modal is closed, if needed
+
+    dialogRef.afterClosed().subscribe(() =>
+    {
+
     });
   }
-  
 
   /**
    * rando
    * @method - Get random number
    * @returns - random number
    */
-  rando() {
+  rando()
+  {
     return Math.floor(Math.random() * 100000);
   }
 
@@ -239,7 +262,8 @@ export class DetailsComponent implements OnInit {
    * @method - Open overlay
    * @returns - void
    */
-  openOverlay(): void {
+  openOverlay(): void
+  {
     this.showOverlay = true;
   }
 
@@ -248,7 +272,8 @@ export class DetailsComponent implements OnInit {
    * @method - Close overlay
    * @returns - void
    */
-  closeOverlay(): void {
+  closeOverlay(): void
+  {
     this.showOverlay = false;
   }
 }

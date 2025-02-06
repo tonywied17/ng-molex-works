@@ -1,76 +1,138 @@
 {
     "projects": [
         {
-            "id": 1,
-            "title": "War of Rights Tool",
+            "title": "Audio Normalization Tool",
+            "subtitle": "Normalize or boost audio tracks of movies and shows",
+            "details": "This project is a simple command-line tool for normalizing audio tracks in media files. It uses FFmpeg to process audio files and provides options to normalize the audio track for a single media file, normalize audio tracks for all media files in a directory, and apply a simple audio boost to a media file. The tool calculates the average volume level of the audio track and adjusts it to a target level, making the audio more consistent and balanced. It also supports parallel processing to speed up the normalization process for multiple files.",
+            "image": "https://molex.cloud/files/an-repo/menu.png, https://molex.cloud/files/an-repo/normalize_file.png, https://molex.cloud/files/an-repo/normalize_file_complete.png, https://molex.cloud/files/an-repo/normalize_directory.png, https://molex.cloud/files/an-repo/normalize_directory_table.png, https://molex.cloud/files/an-repo/audio_boost.png",
+            "url": "https://github.com/tonywied17/audio-normalization",
+            "repo": "https://github.com/tonywied17/audio-normalization",
+            "dev": false,
+            "tags": "Python, ffmpeg, Rich CLI"
+        },
+        {
+            "title": "YouTube Video Downloader",
+            "subtitle": "Download videos, and mp3s from YouTube quickly with either a CLI or GUI.",
+            "details": "This application provides both a command line interface (CLI) and an graphical user interface (GUI) for downloading YouTube videos.",
+            "image": "https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-cli-main-menu.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-cli-search.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-cli-select-playlist.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-gui-windows.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-gui-select-quality.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-gui-downloading.png, https://raw.githubusercontent.com/tonywied17/youtube-downloader/refs/heads/main/src/media/repo_assets/yt-gui-completed.png",
+            "url": "https://github.com/tonywied17/youtube-downloader/releases",
+            "repo": "https://github.com/tonywied17/youtube-downloader",
+            "dev": false,
+            "tags": "Python, ffmpeg, PowerShell, PyInstaller, CustomTkinter, Rich CLI"
+        },
+        {
+            "title": "Plex Poster Set Helper (Fork)",
+            "subtitle": "A tool to help upload sets of posters from ThePosterDB or MediUX to your Plex server in seconds!",
+            "details": "A fork created from a repository from GitHub user bbrown430. Added was a custom GUI tool, as well as a more interactive CLI.",
+            "image": "https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/assets/gui_overview.png, https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/assets/bulk_import.png, https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/assets/url_scrape.png, https://raw.githubusercontent.com/tonywied17/plex-poster-set-helper/refs/heads/main/assets/cli_overview.png",
+            "url": "https://github.com/bbrown430/plex-poster-set-helper",
+            "repo": "https://github.com/tonywied17/plex-poster-set-helper",
+            "dev": false,
+            "tags": "Python, CustomTkiner, PlexAPI, ThePosterDB, MediUX"
+        },
+        {
+            "title": "NVIDIA Driver Grabber",
+            "subtitle": "Simply grab the latest NVIDIA drivers",
+            "details": "This is a simple web page that grabs the latest NVIDIA drivers for you. Replaces the need to register with geforce expierence or manually search for the latest drivers. This project was created using basic JavaScript, HTML, and CSS.",
+            "image": "https://molex.cloud/files/newprojects/nvidia/image1.png, https://molex.cloud/files/newprojects/nvidia/image2.png, https://molex.cloud/files/newprojects/nvidia/image3.png, https://molex.cloud/files/newprojects/nvidia/image4.png",
+            "url": "https://molex.cloud/nvidia/",
+            "repo": "https://github.com/tonywied17/nvidia-drivers-scrape",
+            "dev": false,
+            "tags": "JavaScript, HTML, CSS"
+        },
+        {
+            "title": "Online Media Converter",
+            "subtitle": "Convert your media files with ease",
+            "details": "This media utility web application that allows you to convert your media files. It also allows for optimization/compression of videos for social media platforms.",
+            "image": "https://molex.cloud/files/newprojects/convert/image1.png, https://molex.cloud/files/newprojects/convert/image2.png",
+            "url": "https://convert.molex.cloud",
+            "dev": true,
+            "tags": "JavaScript, HTML, CSS, Node.js, ffmpeg, sharp"
+        },
+        {
+            "title": "molex.cloud",
+            "subtitle": "Cloud Storage and File Sharing",
+            "details": "Molex Cloud is a cloud storage and file sharing platform that allows users to upload, store, and share files with ease. The platform offers a user-friendly interface and a range of features, including file organization, sharing options, and secure storage.",
+            "image": "https://molex.cloud/files/newprojects/cloud/image1.png, https://molex.cloud/files/newprojects/cloud/image2.png, https://molex.cloud/files/newprojects/cloud/image3.png, https://molex.cloud/files/newprojects/cloud/image4.png, https://molex.cloud/files/newprojects/cloud/image5.png, https://molex.cloud/files/newprojects/cloud/image6.png, https://molex.cloud/files/newprojects/cloud/image7.png, https://molex.cloud/files/newprojects/cloud/image8.png",
+            "url": "https://molex.cloud/",
+            "dev": false,
+            "tags": "React, Tailwind CSS, Node.js, SQLite, Express"
+        },
+        {
+            "title": "WorTool.com",
             "subtitle": "A War of Rights Regimental Tool for the Gaming Community",
-            "details": "This is an ongoing project that aims to replace the original community resource and management tool that was strictly for one regiment/guild and will be expanded into a wide spread community tool for all regiments & guilds to conduct event coordination. It has been reimagined using the Angular Framework, TypeScript, and Tailwind CSS on the frontend, and the Sequelize ORM and Express on the backend. JWT authentication enhances security by adding an additional layer of protection for API request vetting. This project also incorporates the Discord OAuth2 flow for secure user authentication and authorization with Discord accounts. Additionally, it utilizes the Steam API data to enhance the application's functionality by retrieving information about Steam user profiles and games.",
-            "image": "https://molex.cloud/files/2023/August/13/_sZv/screenshots/main_dashboard.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/map_list_page.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/weapon_info.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/resources_wor_hub.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/community_regiments.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/community_z_add_bot.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/user_settings_profile_accounts.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/regiment_owner_settings.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/regiment_owner_manage_members.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/regiment_tool_steam_ids.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/regiment_tool_event_share.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/discord_bot_event_share_post.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/map_details.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/map-flyover-cams.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/user-map-notes.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/user_map_strat_sketch.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/dev_community_event_recaps.png, https://molex.cloud/files/2023/August/13/_sZv/screenshots/manage_weapons.png",
+            "details": "I'm currently crafting WorTool, an Angular/Typescript frontend application designed for War of Rights players & regiments. This tool seamlessly integrates with a <a href='https://api.wortool.com/' class='source' target='_blank'>Node.js Rest API</a> utilizing Sequelize, and Express.js, providing users with an immersive experience. WoRTool offers detailed maps with advanced filtering, a comprehensive display of available weaponry, and keeps users informed on the latest news from Campfire Games. The standout features, however, revolve around regimental integration. Users can sync their WoRTool account with Discord for enhanced features, manage or represent their regiment, and access tools like the Event Share Tool, Steam Stats, and Company Roster Tool. The tool also includes a Discord bot for managing schedules, media, company roster and regimental profiles, aiming to create a centralized hub for regimental activities and community engagement within the War of Rights community.",
+            "image": "https://molex.cloud/2024/January/4/_Srb/screens/1-login-screen.png, https://molex.cloud/2024/January/4/_Srb/screens/2-dashboard.png, https://molex.cloud/2024/January/4/_Srb/screens/3-maps-list.png, https://molex.cloud/2024/January/4/_Srb/screens/4-map-details.png, https://molex.cloud/2024/January/4/_Srb/screens/5-map-flyover.png, https://molex.cloud/2024/January/4/_Srb/screens/6-map-notes.png, https://molex.cloud/2024/January/4/_Srb/screens/7-stratsketch.png, https://molex.cloud/2024/January/4/_Srb/screens/8-weapons.png, https://molex.cloud/2024/January/4/_Srb/screens/9-news.png, https://molex.cloud/2024/January/4/_Srb/screens/10-regiments.png, https://molex.cloud/2024/January/4/_Srb/screens/11-regiment-page.png, https://molex.cloud/2024/January/4/_Srb/screens/12-reg-media.png, https://molex.cloud/2024/January/4/_Srb/screens/13-manage-regiments.png, https://molex.cloud/2024/January/4/_Srb/screens/14-members.png, https://molex.cloud/2024/January/4/_Srb/screens/15-schedule.png, https://molex.cloud/2024/January/4/_Srb/screens/16-manage-media.png, https://molex.cloud/2024/January/4/_Srb/screens/17-event-share.png, https://molex.cloud/2024/January/4/_Srb/screens/18-steam-stats.png, https://molex.cloud/2024/January/4/_Srb/screens/18.5-steam-stats.png, https://molex.cloud/2024/January/4/_Srb/screens/20-muster-beta.png, https://molex.cloud/2024/January/4/_Srb/screens/19-enlister.png, https://molex.cloud/2024/January/4/_Srb/screens/21-user-settings.png, https://molex.cloud/2024/January/4/_Srb/screens/22-linked-accounts.png, https://molex.cloud/2024/January/4/_Srb/screens/23-favorite-maps.png, https://molex.cloud/2024/January/4/_Srb/screens/24-bot-commands.png, https://molex.cloud/2024/January/4/_Srb/screens/24.5-bot-commands.png, https://molex.cloud/2024/January/4/_Srb/screens/25-enlist-users.png, https://molex.cloud/2024/January/4/_Srb/screens/26-muster-user.png, https://molex.cloud/2024/January/4/_Srb/screens/27-schedule.png, https://molex.cloud/2024/January/4/_Srb/screens/28-event-post.png, https://molex.cloud/2024/January/4/_Srb/screens/29-mobile-1.png, https://molex.cloud/2024/January/4/_Srb/screens/30-mobile-2.png, https://molex.cloud/2024/January/4/_Srb/screens/31-mobile-3.png",
             "url": "https://wortool.com/",
-            "repo": "https://github.com/tonywied17/ng-paapp2, https://github.com/tonywied17/express-paarmy-api, https://github.com/tonywied17/paapp2-discord-bot",
+            "repo": "https://github.com/tonywied17/ng-wortool, https://github.com/tonywied17/wortool-api, https://github.com/tonywied17/wortool-discord-bot",
             "dev": true,
             "tags": "Angular, TypeScript, REST, Tailwind CSS, JWT Auth, Node.js, Sequelize ORM, Discord.js, Express"
         },
         {
-            "id": 2,
-            "title": "Project Eunomia",
-            "subtitle": "A web-based client for The Palace 2D Chat",
-            "details": "This is a group project that aims to create a web-based client for <a href='https://en.wikipedia.org/wiki/The_Palace_(computer_program)' class='source' target='_blank'>The Palace</a> 2D Avatar Chat originally created by <a href='https://jbum.com/' class='source' target='_blank'>Jim Bumgardner</a> and produced by Time Warner in the mid-late 90s.",
-            "image": "https://molex.cloud/2023/August/18/_jfo/eunomia/1.png, https://molex.cloud/2023/August/18/_jfo/eunomia/2.png, https://molex.cloud/2023/August/18/_jfo/eunomia/3.png, https://molex.cloud/2023/August/18/_jfo/eunomia/4.png",
-            "url": "http://chat.tonewebdesign.com/",
-            "dev": true,
-            "tags": "JavaScript, CSS, WebSocket, Tailwind CSS"
-        },
-        {
-            "id": 3,
             "title": "#PA Army App v1",
             "subtitle": "A Comprehensive Application for In-Game Information and Guild Management.",
             "details": "This project was a gaming community resource and management tool. It is a progressive web application that utilizes HTML, CSS, and JavaScript. The application makes XHR/Fetch calls to a SQL database for data retrieval and manipulation. The level of authentication determines the availability of different features, and the application functions as a CRUD (Create, Read, Update, Delete) application.",
             "image": "https://molex.cloud/2023/August/18/_gVj/app1/1.png, https://molex.cloud/2023/August/18/_gVj/app1/2.png, https://molex.cloud/2023/August/18/_gVj/app1/3.png, https://molex.cloud/2023/August/18/_gVj/app1/4.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
-            "url": "https://appv1.paarmy.com/",
+            "url": "https://app.paarmy.com/",
             "dev": false,
             "tags": "JavaScript, HTML, CSS, SQL, PHP"
         },
         {
-            "id": 4,
-            "title": "The Pennsylvania Army",
+            "title": "Project Eunomia",
+            "subtitle": "A web-based client for The Palace 2D Chat",
+            "details": "This is a group project that aims to create a web-based client for <a href='https://en.wikipedia.org/wiki/The_Palace_(computer_program)' class='source' target='_blank'>The Palace</a> 2D Avatar Chat originally created by <a href='https://jbum.com/' class='source' target='_blank'>Jim Bumgardner</a> and produced by Time Warner in the mid-late 90s.",
+            "image": "https://molex.cloud/2023/August/18/_jfo/eunomia/1.png, https://molex.cloud/2023/August/18/_jfo/eunomia/2.png, https://molex.cloud/2023/August/18/_jfo/eunomia/3.png, https://molex.cloud/2023/August/18/_jfo/eunomia/4.png",
+            "url": "http://chat.molexowrks.com/",
+            "dev": true,
+            "tags": "JavaScript, CSS, WebSocket, Tailwind CSS"
+        },
+        {
+            "title": "Sensor Dashboard (Frontend)",
+            "subtitle": "A Dashboard for Sensors and IoT Devices",
+            "details": "This is a project aimed to provide a feature-rich dashboard and user interface for groups, or organizations to manage and track a wide variety of sensors and IoT devices.",
+            "image": "https://molex.cloud/2023/November/3/_oKT/dark-mode-grid-view.png, https://molex.cloud/2023/November/3/_oKT/light-mode-grid-view-settings.png, https://molex.cloud/2023/November/3/_oKT/dark-mode-list-view.png, https://molex.cloud/2023/November/3/_1NG/mobile-gridview-lightmode.png",
+            "url": "https://molex.cloud/dev/sensor-dash/Live_Build/",
+            "repo": "https://github.com/tonywied17/iot-components",
+            "dev": true,
+            "tags": "JavaScript, HTML, CSS, For now..."
+        },
+
+        {
+            "title": "paarmy.com",
             "subtitle": "Unifying Gamers: A Dynamic Home Webpage for an Active Gaming Community",
             "details": "This project is a home page website catering to a large gaming community actively engaged in daily organized play. It combines a variety of cutting-edge technologies for seamless functionality. The backend leverages Node.js, Express, and Sequelize to power the REST API, while the frontend is built using Angular, TypeScript, and Tailwind CSS for a sleek and dynamic user interface.",
             "image": "https://molex.cloud/2023/August/18/_jfo/paarmy/1.png, https://molex.cloud/2023/August/18/_jfo/paarmy/2.png, https://molex.cloud/2023/August/18/_jfo/paarmy/3.png, https://molex.cloud/2023/August/18/_jfo/paarmy/4.png",
             "url": "https://paarmy.com/",
-            "repo": "https://github.com/tonywied17/ng-paarmy.com, https://github.com/tonywied17/express-paarmy-api",
+            "repo": "https://github.com/tonywied17/ng-paarmy.com, https://github.com/tonywied17/wortool-api",
             "dev": false,
             "tags": "Angular, Node.js, TypeScript, Tailwind CSS, discord.js, REST, Sequelize ORM"
         },
         {
-            "id": 5,
             "title": "MolexMessenger",
             "subtitle": "Socket.io Based Instant Messenger",
             "details": "This is a web based instant messaging client with features such as sharing images, youtube, and streams, show users typing, as well as a few configurable user settings.",
             "image": "https://molex.cloud/2023/August/21/_Hnm/messenger/3.png, https://molex.cloud/2023/August/21/_Hnm/messenger/2.png, https://molex.cloud/2023/August/21/_Hnm/messenger/1.png",
-            "url": "http://messenger.tonewebdesign.com/",
+            "url": "https://molex.cloud/chat",
             "repo": "https://github.com/tonywied17/socket-messenger",
             "dev": false,
             "tags": "JavaScript, Node.js, Express, CSS, WebSocket"
         },
         {
-            "id": 6,
             "title": "Guild Roster Manager",
             "subtitle": "Guild Roster Manager: Simplified Roster Management for Gaming Communities",
             "details": "This project brings you a desktop application that acts as a bridge between a Node.js Discord bot and a user-friendly web interface for managing Discord server members. By utilizing the discord.js library, the application and the bot seamlessly communicate, enabling smooth data exchange. The bot plays a crucial role in mediating between Discord and the application, ensuring real-time updates and data synchronization. Moreover, administrators have the convenience of updating the shared data directly from Discord using simple commands. With this combined approach, managing Discord server members becomes hassle-free and accessible from both the application and Discord itself.",
-            "image": "https://molex.cloud/2023/August/18/_gVj/roster/1.png, https://molex.cloud/2023/August/18/_gVj/roster/2.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
+            "image": "https://molex.cloud/2023/August/18/_gVj/roster/1.png, https://molex.cloud/2023/August/18/_gVj/roster/2.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png, https://molex.cloud/2023/October/30/_1qg/roster-muster-discord-channel.png, https://molex.cloud/2023/October/30/_Yci/roster-discord-enlist.png",
             "url": "https://appv1.paarmy.com/rosternull/",
             "dev": false,
             "tags": "JavaScript, HTML, CSS, SQL, PHP, Node.js, discord.js"
         },
         {
-            "id": 7,
             "title": "Philly Sports Podcast",
             "subtitle": "Unleashing the Power of Sports News: A Futuristic Podcast Home Page in the Making",
             "details": "Currently under development, this project aims to create an all-in-one solution for managing blogs, podcasts, and accessing content related to Philadelphia sports news and other Philadelphia topics. With a focus on user experience and functionality, the project is being built using a combination of Express, Node.js, Sequelize, and JWT authentication on the backend. These technologies enable the implementation of role-based permissions, ensuring different levels of access and control for users. On the frontend, the Angular framework is being utilized to deliver a seamless and intuitive user interface.",
-            "image": "https://tbz.wtf/2022/November/1/_3JK/phillysports.PNG",
-            "url": "https://juwanji.tbz.wtf/home",
-            "repo": "https://github.com/tonywied17/ng-juwanji, https://github.com/tonywied17/express-juwanji-api",
+            "image": "https://molex.cloud/2022/November/1/_3JK/phillysports.PNG",
+            "url": "N/a",
+            "repo": "https://github.com/tonywied17/ng-juwanji, https://github.com/tonywied17/juwanji-api",
             "dev": true,
             "tags": "Express, Node.js, TypeScript, SCSS, Angular, REST, JWT, Sequelize ORM"
         }

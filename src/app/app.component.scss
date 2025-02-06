@@ -1,14 +1,15 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.component.scss
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 20th 2023 6:34:59 
+ * Last Modified: Wed February 5th 2025 10:46:47 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
+ 
 .mat-drawer-container {
   background: transparent !important;
 }
@@ -21,11 +22,11 @@
   // display: grid;
   grid-template-columns: auto auto;
   overflow: hidden;
-  height: 100vh; 
+  height: 100vh;
 }
 
 .sidebar {
-  width: 400px; 
+  width: 400px;
   background: #080808;
   z-index: 1000;
   display: flex;
@@ -40,7 +41,7 @@
   background: transparent;
 }
 
-@media (max-width: 767px) { /* Adjust the breakpoint as needed */
+@media (max-width: 767px) {
   .content.mobile-nav-active {
     display: none;
   }

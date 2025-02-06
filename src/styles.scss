@@ -1,42 +1,51 @@
-@use '@angular/material' as mat;
+/*
+ * File: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\src\styles.scss
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
+ * Created Date: Sunday August 13th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Wed February 5th 2025 11:02:06 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 - 2025 MolexWorks
+ */
+
+
+@use '@angular/material'as mat;
 
 @include mat.core();
 
-$md-portfolio: (
-    50 : #f2f4f6,
-    100 : #dfe3ea,
-    200 : #cad1dc,
-    300 : #b4bfcd,
-    400 : #a4b1c3,
-    500 : #94a3b8,
-    600 : #8c9bb1,
-    700 : #8191a8,
-    800 : #7788a0,
-    900 : #657791,
-    A100 : #ffffff,
-    A200 : #d2e4ff,
-    A400 : #9fc6ff,
-    A700 : #85b7ff,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
-);
+$md-portfolio: (50 : #f2f4f6,
+  100 : #dfe3ea,
+  200 : #cad1dc,
+  300 : #b4bfcd,
+  400 : #a4b1c3,
+  500 : #94a3b8,
+  600 : #8c9bb1,
+  700 : #8191a8,
+  800 : #7788a0,
+  900 : #657791,
+  A100 : #ffffff,
+  A200 : #d2e4ff,
+  A400 : #9fc6ff,
+  A700 : #85b7ff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  ));
 
-$my-typography: mat.define-typography-config(
-  $headline-1: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+$my-typography: mat.define-typography-config($headline-1: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
   $headline-2: mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
   $headline-3: mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
   $headline-4: mat.define-typography-level(34px, 40px, 400),
@@ -48,25 +57,17 @@ $angular-accent: mat.define-palette($md-portfolio, A200, A100, A400);
 $angular-warn: mat.define-palette(mat.$red-palette);
 
 
-$angular-default-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $angular-primary,
+$angular-default-theme: mat.define-light-theme((color: (primary: $angular-primary,
       accent: $angular-accent,
       warn: $angular-warn,
     ),
-  )
-);
+  ));
 
-$angular-dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $angular-primary,
+$angular-dark-theme: mat.define-dark-theme((color: (primary: $angular-primary,
       accent: $angular-accent,
       warn: $angular-warn,
     ),
-  )
-);
+  ));
 
 // .darkMode {
 //   @include mat.all-component-colors($angular-dark-theme);
@@ -75,7 +76,6 @@ $angular-dark-theme: mat.define-dark-theme(
 
 @include mat.all-component-colors($angular-dark-theme);
 
-// Include the theme mixins for other components you use here.
 
 @include mat.core();
 
@@ -85,13 +85,14 @@ $angular-dark-theme: mat.define-dark-theme(
 @tailwind utilities;
 
 
- @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-:root{
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+:root {
   color-scheme: dark;
 }
 
 
-h1{
+h1 {
   font-family: 'Fira Code', monospace;
   color: #94a3b8;
 }
@@ -117,44 +118,77 @@ body {
   background: transparent url('assets/noise-transparent.png') repeat 0 0;
   background-repeat: repeat;
   animation: bg-animation 1s infinite;
-  opacity: .5;
+  opacity: .888;
   visibility: visible;
 }
 
 @keyframes bg-animation {
-  0% { transform: translate(0,0) }
-  10% { transform: translate(-5%,-5%) }
-  20% { transform: translate(-10%,5%) }
-  30% { transform: translate(5%,-10%) }
-  40% { transform: translate(-5%,15%) }
-  50% { transform: translate(-10%,5%) }
-  60% { transform: translate(15%,0) }
-  70% { transform: translate(0,10%) }
-  80% { transform: translate(-15%,0) }
-  90% { transform: translate(10%,5%) }
-  100% { transform: translate(5%,0) }
+  0% {
+    transform: translate(0, 0)
+  }
+
+  10% {
+    transform: translate(-5%, -5%)
+  }
+
+  20% {
+    transform: translate(-10%, 5%)
+  }
+
+  30% {
+    transform: translate(5%, -10%)
+  }
+
+  40% {
+    transform: translate(-5%, 15%)
+  }
+
+  50% {
+    transform: translate(-10%, 5%)
+  }
+
+  60% {
+    transform: translate(15%, 0)
+  }
+
+  70% {
+    transform: translate(0, 10%)
+  }
+
+  80% {
+    transform: translate(-15%, 0)
+  }
+
+  90% {
+    transform: translate(10%, 5%)
+  }
+
+  100% {
+    transform: translate(5%, 0)
+  }
 }
 
 @keyframes gradient {
   0% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
 
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
 
-.mat-drawer-container, .mdc-list-item__primary-text {
+.mat-drawer-container,
+.mdc-list-item__primary-text {
   color: rgb(163 163 163) !important;
   font-weight: 500 !important;
 }
 
-button{
+button {
   color: rgb(163 163 163) !important;
   font-size: 1.05rem !important;
   font-weight: 700;
@@ -163,8 +197,8 @@ button{
 
 
 .mat-primary {
-    	color: rgb(229 229 229) !important;
-        margin-right: 1em !important;
+  color: rgb(229 229 229) !important;
+  margin-right: 1em !important;
 }
 
 .header-border {
@@ -184,8 +218,6 @@ button{
 }
 
 
-
-
 /**
 CSS KEYFRAMES
 **/
@@ -195,13 +227,13 @@ CSS KEYFRAMES
 }
 
 @keyframes scale-center {
-	0% {
-		transform: scale(0.75);
-	}
+  0% {
+    transform: scale(0.75);
+  }
 
-	100% {
-		transform: scale(1);
-	}
+  100% {
+    transform: scale(1);
+  }
 }
 
 .slide-left {
@@ -209,126 +241,127 @@ CSS KEYFRAMES
 }
 
 @keyframes slide-left {
-	0% {
-		opacity: 0;
-		transform: translateX(-80px);
-	}
+  0% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
 
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-	}
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .mat-mdc-card-content {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 400;
 }
+
 .mat-mdc-card-subtitle {
   font-family: 'Ubuntu', sans-serif;
   color: rgba(51, 219, 191, 0.788) !important;
 }
 
 @keyframes swing-in {
-	0% {
-		opacity: 0;
-		transform: rotateY(100deg);
-		transform-origin: left;
-	}
+  0% {
+    opacity: 0;
+    transform: rotateY(100deg);
+    transform-origin: left;
+  }
 
-	100% {
-		opacity: 1;
-		transform: rotateY(0);
-		transform-origin: left;
-	}
+  100% {
+    opacity: 1;
+    transform: rotateY(0);
+    transform-origin: left;
+  }
 }
 
-.swing-in{
+.swing-in {
   animation: swing-in 1s ease 0s 1 normal forwards;
 }
 
 
 @keyframes bounce-forward {
-	0% {
-		animation-timing-function: ease-in;
-		opacity: 0;
-		transform: scale(0);
-	}
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: scale(0);
+  }
 
-	38% {
-		animation-timing-function: ease-out;
-		opacity: 1;
-		transform: scale(1);
-	}
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: scale(1);
+  }
 
-	55% {
-		animation-timing-function: ease-in;
-		transform: scale(0.7);
-	}
+  55% {
+    animation-timing-function: ease-in;
+    transform: scale(0.7);
+  }
 
-	72% {
-		animation-timing-function: ease-out;
-		transform: scale(1);
-	}
+  72% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
 
-	81% {
-		animation-timing-function: ease-in;
-		transform: scale(0.84);
-	}
+  81% {
+    animation-timing-function: ease-in;
+    transform: scale(0.84);
+  }
 
-	89% {
-		animation-timing-function: ease-out;
-		transform: scale(1);
-	}
+  89% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
 
-	95% {
-		animation-timing-function: ease-in;
-		transform: scale(0.95);
-	}
+  95% {
+    animation-timing-function: ease-in;
+    transform: scale(0.95);
+  }
 
-	100% {
-		animation-timing-function: ease-out;
-		transform: scale(1);
-	}
+  100% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
 }
 
-.bounce-forward{
+.bounce-forward {
   animation: bounce-forward 1s ease 0s 1 normal forwards;
 }
 
 @keyframes swing-bottom {
-	0% {
-		opacity: 0;
-		transform: rotateX(100deg);
-		transform-origin: bottom;
-	}
+  0% {
+    opacity: 0;
+    transform: rotateX(100deg);
+    transform-origin: bottom;
+  }
 
-	100% {
-		opacity: 1;
-		transform: rotateX(0);
-		transform-origin: bottom;
-	}
+  100% {
+    opacity: 1;
+    transform: rotateX(0);
+    transform-origin: bottom;
+  }
 }
 
-.swing-bottom{
+.swing-bottom {
   animation: swing-bottom .5s ease 0s 1 normal forwards;
 }
 
 @keyframes swing-left {
-	0% {
-		opacity: 0;
-		transform: rotateY(100deg);
-		transform-origin: left;
-	}
+  0% {
+    opacity: 0;
+    transform: rotateY(100deg);
+    transform-origin: left;
+  }
 
-	100% {
-		opacity: 1;
-		transform: rotateY(0);
-		transform-origin: left;
-	}
+  100% {
+    opacity: 1;
+    transform: rotateY(0);
+    transform-origin: left;
+  }
 }
 
-.swing-left{
+.swing-left {
   animation: swing-left .3s ease 0s 1 normal forwards;
 }
 
@@ -346,7 +379,7 @@ CSS KEYFRAMES
   }
 }
 
-.swing-right{
+.swing-right {
   animation: swing-right .3s ease 0s 1 normal forwards;
 }
 
@@ -365,14 +398,14 @@ CSS KEYFRAMES
   }
 }
 
-.swing-top{
+.swing-top {
   animation: swing-top .3s ease 0s 1 normal forwards;
 }
 
 
 ::-webkit-scrollbar {
-  width: 8px;  
-  height: 8px; 
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -381,11 +414,11 @@ CSS KEYFRAMES
 
 ::-webkit-scrollbar-thumb {
   background-color: #444;
-  border-radius: 4px;  
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #555; 
+  background-color: #555;
 }
 
 
@@ -426,12 +459,12 @@ CSS KEYFRAMES
   }
 }
 
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(122px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -443,14 +476,13 @@ CSS KEYFRAMES
   opacity: 0;
 }
 
-
 .source {
   color: #94a3b8de;
-    text-decoration: none;
-    transition: color 0.2s;
-    border-bottom: #94a3b8 dotted 1px;
+  text-decoration: none;
+  transition: color 0.2s;
+  border-bottom: #94a3b8 dotted 1px;
 }
 
-.source:hover{
+.source:hover {
   color: #707c8d;
 }

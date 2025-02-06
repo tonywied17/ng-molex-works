@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\services\services.component.ts
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun August 13th 2023 6:37:38 
+ * Last Modified: Wed February 5th 2025 10:51:01 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -21,6 +21,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./services.component.scss']
 })
 
-export class ServicesComponent {
+export class ServicesComponent
+{
 
 }

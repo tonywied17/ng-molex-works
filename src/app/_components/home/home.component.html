@@ -1,20 +1,21 @@
 <!--
 File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\home\home.component.html
-Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Mon August 14th 2023 2:03:32 
+Last Modified: Wed February 5th 2025 10:48:06 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 
-<div class="lg:hidden block">
-<h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
-<span class="swing-in font-[200] italic block mt-[-25px] mb-6">Welcome to <span class="font-[900]">Molex Works!</span></span>
+<div class="xl:hidden block">
+    <h1 class="xl:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
+    <span class="swing-in font-[200] italic block mt-[-25px] mb-6">Welcome to <span class="font-[900]">Molex
+            Works!</span></span>
 </div>
-    <pre class="hidden lg:inline-block text-center w-[calc(100%-145px)] swing-bottom">                                                                    
+<pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom">
         `7MMM.     ,MMF'       `7MM                `7MMF'     A     `7MF'            `7MM             
           MMMb    dPMM           MM                  `MA     ,MA     ,V                MM             
           M YM   ,M MM  ,pW"Wq.  MM  .gP"Ya `7M'   `MFVM:   ,VVM:   ,V ,pW"Wq.`7Mb,od8 MM  ,MP,pP"Ybd 
@@ -24,40 +25,73 @@ Copyright (c) 2023 Tone Web Design, Molex
         .JML. `'  .JMML.`Ybmd9'.JMML.`Mbmmd'.AM.   .MA.  VF      VF    `Ybmd9'.JMML. .JMML. YAM9mmmP' 
 
     </pre>
+<div class="font-[500] xl:px-8 mb-4 swing-in">
+    We specialize in full-stack web development, turning visions into tangible realities, whether they're rooted in the
+    physical or virtual world. Collaboration is at the heart of what we do. If you're looking to bring an idea to life
+    or seeking a reliable team to partner with, we're here to help. Let's connect, understand your vision, and create
+    something impactful together.
+</div>
 
-    <div class="font-[500] lg:px-8 mb-8 swing-in">
-        We specialize in full-stack web development, turning visions into tangible realities, whether they're rooted in the physical or virtual world. Collaboration is at the heart of what we do. If you're looking to bring an idea to life or seeking a reliable team to partner with, we're here to help. Let's connect, understand your vision, and create something impactful together.
+<h1 class="xl:text-2xl text-lg header-border pb-2 mb-4 mt-12 swing-left inline-block">GitHub Repositories</h1>
+
+<div class="mb-2 xl:mb-4">
+    <div class="input-container">
+        <input type="text" [(ngModel)]="repoNameFilter" (input)="filterRepos()" placeholder="Filter by repo name"
+            class="input-field" />
+    </div>
+</div>
+
+<div class="language-filters flex xl:space-x-6 mb-6 w-full justify-between flex-wrap flex-col-reverse xl:flex-row">
+    <div class="flex items-center xl:space-x-4 xl:flex-row flex-wrap xl:flex-nowrap gap-2">
+        <label class="flex items-center">
+            <input type="checkbox" [checked]="allLanguagesSelected()" (change)="toggleSelectAll()"
+                class="w-4 h-4 text-[rgba(51,219,191,0.788)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
+            <span class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.788)]">Check All</span>
+        </label>
+
+        <label *ngFor="let language of languages" class="flex items-center">
+            <input type="checkbox" [checked]="selectedLanguages.includes(language)"
+                (change)="onLanguageChange(language)" id="{{ language }}"
+                class="w-4 h-4 text-[rgba(51,219,191,0.788)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
+            <span class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.788)]">{{ language }}</span>
+        </label>
     </div>
 
-<h1 class="lg:text-2xl text-lg header-border pb-2 mb-8 mt-12 swing-left inline-block">Latest GitHub Repos...</h1>
+    <div class="mb-6 xl:mb-0">
+        <label for="sortOption" class="sr-only">Sort by</label>
+        <select [(ngModel)]="sortOption" (change)="sortRepos()" id="sortOption"
+            class="block w-full xl:min-w-max text-sm text-white bg-[#141414] border border-gray-600 rounded-md focus:ring-[rgba(51,219,191,0.788)] focus:ring-2 focus:border-[#141414] p-2.5">
+            <option value="recentlyUpdated">Recently Updated</option>
+            <option value="name">Name</option>
+            <option value="stars">Stars</option>
+        </select>
+    </div>
+</div>
 
 <div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+        <div></div>
+        <div></div>
+    </div>
 </div>
 
 <div *ngIf="loaded" class="masonry">
-
     <div *ngFor="let repo of repos" class="w-full">
-
         <mat-card class="card-entrance w-full">
             <mat-card-header>
                 <img mat-card-avatar [src]="repo.avatar" alt="Dev avatar">
-                <mat-card-title class="!text-base"><i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}</mat-card-title>
+                <mat-card-title class="!text-base">
+                    <i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}
+                </mat-card-title>
                 <mat-card-subtitle class="!text-base">Last pushed: {{ repo.lastPushed }}</mat-card-subtitle>
-        
             </mat-card-header>
             <mat-card-content>
-                <div class="!text-sm">
-                    {{ repo.description }}
-                </div>
+                <div class="!text-sm">{{ repo.description }}</div>
             </mat-card-content>
             <mat-card-actions align="end">
-                <a class="!text-base" mat-button [href]="repo.url" target="_blank">REPO <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a class="!text-base" mat-button [href]="repo.url" target="_blank">REPO <i
+                        class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </mat-card-actions>
         </mat-card>
-
     </div>
-
 </div>
-
-

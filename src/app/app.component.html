@@ -1,153 +1,86 @@
 <!--
 File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.component.html
-Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Mon August 21st 2023 6:42:03 
+Last Modified: Wed February 5th 2025 10:46:27 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
+
 <div class="bg"></div>
 <mat-drawer-container class="parent-container">
   <mat-drawer #drawer [opened]="isDesktop" mode="side" class="sidebar">
     <!-- Close Button -->
-    <button
-      *ngIf="!isDesktop"
-      (click)="closeMobile()"
-      class="!inline-block lg:!hidden !fixed !top-4 !right-4"
-      type="button"
-      mat-button
-    >
+    <button *ngIf="!isDesktop" (click)="closeMobile()" class="!inline-block lg:!hidden !fixed !top-4 !right-4"
+      type="button" mat-button>
       <i class="fa-solid fa-x"></i>
     </button>
 
     <!-- Close Menu (Mobile) -->
-    <button
-      *ngIf="isDesktop"
-      (click)="toggleDrawer()"
-      class="!inline-block lg:!hidden !fixed !top-4 !right-4"
-      type="button"
-      mat-button
-    >
+    <button *ngIf="isDesktop" (click)="toggleDrawer()" class="!inline-block lg:!hidden !fixed !top-4 !right-4"
+      type="button" mat-button>
       <i class="fa-solid fa-x"></i>
     </button>
 
     <h1
-      class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] lg:flex flex-col items-center select-none hidden"
-    >
-      <div
-        class="flex items-center cursor-pointer logo-active"
-        routerLink="/home"
-      >
-        <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span
-          class="text-slate-200 ml-1.5"
-          >Works</span
-        >
+      class="text-3xl text-slate-400 font-[700] my-4 mt-8 ml-4 lg:ml-[unset] lg:flex flex-col items-center select-none hidden">
+      <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+        <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
       </div>
       <div class="mt-[-10px]">
-        <span
-          class="hover-text font-[200] italic text-sm text-slate-300 cursor-help"
-        >
+        <span class="hover-text font-[200] italic text-sm text-slate-300 cursor-help">
           "Turning Vision into Reality"
-          <span class="latin font-[100] italic text-xs text-slate-300 w-full"
-            >"Visio ad Realitas"</span
-          >
+          <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
         </span>
       </div>
     </h1>
 
     <div class="p-4 mx-2">
-      <h1
-        class="text-2xl text-slate-400 font-[700] my-2 flex flex-col items-center select-none lg:hidden z-10"
-      >
-        <div
-          class="flex items-center cursor-pointer logo-active"
-          routerLink="/home"
-        >
-          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span
-            class="text-slate-200 ml-1.5"
-            >Works</span
-          >
+      <h1 class="text-2xl text-slate-400 font-[700] my-2 flex flex-col items-center select-none lg:hidden z-10">
+        <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
         </div>
         <div class="mt-[-10px]">
-          <span
-            class="hover-text font-[200] italic text-xs text-slate-300 cursor-help"
-          >
+          <span class="hover-text font-[200] italic text-xs text-slate-300 cursor-help">
             "Turning Vision into Reality"
-            <span class="latin font-[100] italic text-xs text-slate-300 w-full"
-              >"Visio ad Realitas"</span
-            >
+            <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
           </span>
         </div>
       </h1>
 
       <mat-list>
         <mat-action-list>
-          <button
-            mat-list-item
-            class="!py-[0.7em]"
-            routerLink="/home"
-            (click)="closeMobile()"
-          >
-            <i
-              class="fa-solid fa-house-chimney mr-2 w-[20px] !text-purple-400/80"
-            ></i>
+          <button mat-list-item class="!py-[0.7em]" routerLink="/home" (click)="closeMobile()">
+            <i class="fa-solid fa-house-chimney mr-2 w-[20px] !text-purple-400/80"></i>
             Home
           </button>
 
           <mat-divider></mat-divider>
 
-          <button
-            mat-list-item
-            class="!py-[0.7em]"
-            routerLink="/portfolio"
-            (click)="closeMobile()"
-          >
-            <i
-              class="fa-solid fa-flask-vial mr-2 w-[20px] !text-sky-500/80"
-            ></i>
+          <button mat-list-item class="!py-[0.7em]" routerLink="/portfolio" (click)="closeMobile()">
+            <i class="fa-solid fa-flask-vial mr-2 w-[20px] !text-sky-500/80"></i>
             Projects
           </button>
 
           <mat-divider></mat-divider>
 
-          <button
-            mat-list-item
-            class="!py-[0.7em]"
-            routerLink="/about"
-            (click)="closeMobile()"
-          >
-            <i
-              class="fa-solid fa-circle-info mr-2 w-[20px] !text-orange-400/80"
-            ></i>
+          <button mat-list-item class="!py-[0.7em]" routerLink="/about" (click)="closeMobile()">
+            <i class="fa-solid fa-circle-info mr-2 w-[20px] !text-orange-400/80"></i>
             About
             <i class="fa-solid fa-caret-down !text-right"></i>
           </button>
 
           <div class="ml-10">
-            <button
-              mat-list-item
-              class="!py-[0.7em]"
-              routerLink="/about/services"
-              (click)="closeMobile()"
-            >
-              <i
-                class="fa-solid fa-pen-ruler mr-2 w-[20px] !text-amber-400/80"
-              ></i>
+            <button mat-list-item class="!py-[0.7em]" routerLink="/about/services" (click)="closeMobile()">
+              <i class="fa-solid fa-pen-ruler mr-2 w-[20px] !text-amber-400/80"></i>
               Services
             </button>
             <mat-divider></mat-divider>
-            <button
-              mat-list-item
-              class="!py-[0.7em]"
-              routerLink="/about/contact"
-              (click)="closeMobile()"
-            >
-              <i
-                class="fa-solid fa-quote-right mr-2 w-[20px] !text-green-500/80"
-              ></i>
+            <button mat-list-item class="!py-[0.7em]" routerLink="/about/contact" (click)="closeMobile()">
+              <i class="fa-solid fa-quote-right mr-2 w-[20px] !text-green-500/80"></i>
               Request Quote
             </button>
           </div>
@@ -157,37 +90,20 @@ Copyright (c) 2023 Tone Web Design, Molex
   </mat-drawer>
   <mat-drawer-content class="content" *ngIf="!isMobileNavOpened">
     <!-- Open Menu (Both) -->
-    <button
-      (click)="toggleDrawer()"
-      class="!fixed !top-4 !right-4 !text-neutral-300 !z-10"
-      type="button"
-      mat-button
-    >
+    <button (click)="toggleDrawer()" class="!fixed !top-4 !right-4 !text-neutral-300 !z-10" type="button" mat-button>
       <i class="fa-solid fa-bars !z-10"></i>
     </button>
 
     <!-- Main Content Route -->
     <div class="w-full sm:w-full mx-auto mt-8">
-      <h1
-        class="text-2xl text-slate-400 font-[700] mt-2 mb-6 flex flex-col items-center select-none lg:hidden z-10"
-      >
-        <div
-          class="flex items-center cursor-pointer logo-active"
-          routerLink="/home"
-        >
-          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span
-            class="text-slate-200 ml-1.5"
-            >Works</span
-          >
+      <h1 class="text-2xl text-slate-400 font-[700] mt-2 mb-6 flex flex-col items-center select-none lg:hidden z-10">
+        <div class="flex items-center cursor-pointer logo-active" routerLink="/home">
+          <i class="fa-brands fa-connectdevelop mr-1.5"></i>MOLEX<span class="text-slate-200 ml-1.5">Works</span>
         </div>
         <div class="mt-[-10px]">
-          <span
-            class="hover-text font-[200] italic text-xs text-slate-300 cursor-help"
-          >
+          <span class="hover-text font-[200] italic text-xs text-slate-300 cursor-help">
             "Turning Vision into Reality"
-            <span class="latin font-[100] italic text-xs text-slate-300 w-full"
-              >"Visio ad Realitas"</span
-            >
+            <span class="latin font-[100] italic text-xs text-slate-300 w-full">"Visio ad Realitas"</span>
           </span>
         </div>
       </h1>
