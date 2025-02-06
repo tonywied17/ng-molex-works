@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Wed February 5th 2025 10:51:06 
+ * Last Modified: Thu February 6th 2025 3:13:36 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -26,7 +26,7 @@
   }
 
   .masonry {
-    column-count: 2;
+    column-count: 1;
     column-gap: 2em;
   }
   
@@ -41,3 +41,64 @@
     column-count: 1;
   }
 }
+
+.news-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.news-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.news-card .fa-solid, .news-card .fa-brands {
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .fa-solid, .news-card:hover .fa-brands {
+  transform: scale(1.2);
+}
+
+.news-card:hover {
+  background: linear-gradient(135deg, #000000a8 5%, #00000033 50%);
+  filter: brightness(1.2);
+}
+
+.news-card .card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.news-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  backface-visibility: hidden;
+}
+
+@keyframes loadCard {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.news-card {
+  animation: loadCard 0.5s ease-out;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  background: linear-gradient(135deg, #000000a8 5%, #00000033 50%);
+  color: white;
+}
+

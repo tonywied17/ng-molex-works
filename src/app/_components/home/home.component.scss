@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Wed February 5th 2025 10:47:47 
+ * Last Modified: Thu February 6th 2025 2:35:50 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -175,21 +175,4 @@
 .is-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.masonry {
-  column-count: 2;
-  column-gap: 1em;
-}
-
-.masonry>div {
-  margin-bottom: 2em;
-  break-inside: avoid;
-  display: inline-block;
-}
-
-@media only screen and (max-width: 1600px) {
-  .masonry {
-    column-count: 1;
-  }
 }

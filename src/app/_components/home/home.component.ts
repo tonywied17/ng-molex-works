@@ -1,20 +1,67 @@
+/*
+ * File: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\src\app\_components\home\home.component.ts
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
+ * Created Date: Sunday August 13th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Thu February 6th 2025 3:08:40 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 - 2025 MolexWorks
+ */
+
+
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 
-interface RepoData
+/**
+ * Commit
+ * @interface - Represents a commit object
+ * @property sha - The commit SHA
+ * @property message - The commit message
+ * @property url - The URL of the commit
+ */
+interface Commit
 {
-  projectName: string;
-  pushedAt: Date;
-  lastPushed: string;
-  fullName: string;
-  description: string;
-  avatar: string;
-  name: string;
-  url: string;
-  language: string;
-  stars: number;
+  sha: string;          //> The commit SHA
+  message: string;      //> The commit message
+  url: string;          //> The URL of the commit
 }
 
+/**
+ * RepoData
+ * @interface - Represents a repository object
+ * @property projectName - The name of the project
+ * @property pushedAt - The date the project was last pushed to
+ * @property lastPushed - The date the project was last pushed to as a string
+ * @property fullName - The full name of the repository
+ * @property description - The description of the repository
+ * @property avatar - The URL of the avatar image
+ * @property name - The name of the repository
+ * @property url - The URL of the repository
+ * @property language - The primary language of the repository
+ * @property stars - The number of stars the repository has
+ * @property commits - The commits for the repository
+ */
+interface RepoData
+{
+  projectName: string;    //> The name of the project
+  pushedAt: Date;         //> The date the project was last pushed to
+  lastPushed: string;     //> The date the project was last pushed to as a string
+  fullName: string;       //> The full name of the repository
+  description: string;    //> The description of the repository
+  avatar: string;         //> The URL of the avatar image
+  name: string;           //> The name of the repository
+  url: string;            //> The URL of the repository
+  language: string;       //> The primary language of the repository
+  stars: number;          //> The number of stars the repository has
+  commits: Commit[];      //> The commits for the repository
+}
+
+/**
+ * HomeComponent
+ * @class - The home component
+ */
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -49,32 +96,10 @@ export class HomeComponent implements OnInit
     {
       this.allRepos = repos.filter((repo) => repo.fullName !== "README").map((repo) =>
       {
-        const pushedAt = new Date(repo.pushedAt);
-        const now = new Date();
-        const diffMinutes = Math.floor((now.getTime() - pushedAt.getTime()) / (1000 * 60));
-        let formattedTime = '';
-
-        if (diffMinutes < 1)
-        {
-          formattedTime = 'just now';
-        } else if (diffMinutes === 1)
-        {
-          formattedTime = '1 minute ago';
-        } else if (diffMinutes < 60)
-        {
-          formattedTime = `${diffMinutes} minutes ago`;
-        } else if (diffMinutes < 1440)
-        {
-          formattedTime = `${Math.floor(diffMinutes / 60)} hours ago`;
-        } else
-        {
-          formattedTime = `${Math.floor(diffMinutes / 1440)} days ago`;
-        }
-
         return {
           projectName: repo.projectName,
-          pushedAt,
-          lastPushed: formattedTime,
+          pushedAt: new Date(repo.pushedAt),
+          lastPushed: repo.lastPushed,
           fullName: repo.fullName,
           description: repo.description,
           avatar: repo.avatar,
@@ -82,6 +107,7 @@ export class HomeComponent implements OnInit
           url: repo.url,
           language: repo.language,
           stars: repo.stars,
+          commits: repo.commits || []
         };
       });
 
@@ -97,12 +123,11 @@ export class HomeComponent implements OnInit
     });
   }
 
-
   /**
- * filterRepos
- * @method - Filters the repositories based on the selected languages and name filter
- * @return - void
- */
+   * filterRepos
+   * @method - Filters the repositories based on the selected languages and name filter
+   * @return - void
+   */
   filterRepos(): void
   {
     this.repos = this.allRepos.filter((repo) =>
@@ -132,13 +157,12 @@ export class HomeComponent implements OnInit
         this.allRepos.sort((a, b) => b.stars - a.stars);
         break;
       default:
-        this.allRepos.sort((a, b) => b.pushedAt.getTime() - a.pushedAt.getTime()); // Compare actual dates
+        this.allRepos.sort((a, b) => b.pushedAt.getTime() - a.pushedAt.getTime());
         break;
     }
 
     this.filterRepos();
   }
-
 
   /**
    * onSortChange
@@ -161,10 +185,9 @@ export class HomeComponent implements OnInit
   }
 
   /**
-   * onSortChange
-   * @method - Event handler for when the sorting option is changed
-   * @param sortOption - The new sorting option
-   * @return - void
+   * allLanguagesSelected
+   * @method - Checks if all languages are selected
+   * @return - boolean
    */
   allLanguagesSelected(): boolean
   {
