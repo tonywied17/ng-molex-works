@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\portfolio.component.ts
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sat August 26th 2023 5:14:28 
+ * Last Modified: Wed February 5th 2025 4:38:48 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -49,7 +49,11 @@ export class PortfolioComponent implements OnInit {
     if (resp.ok) {
       let json = await resp.json();
       this.projects = json.projects;
-
+      this.projects = json.projects.map((proj: any, index: number) => ({
+        ...proj,
+        id: proj.id ?? index + 1,
+      }));
+      
       console.log(this.projects);
     }
   }
@@ -61,7 +65,7 @@ export class PortfolioComponent implements OnInit {
    * @returns - project image
    */
   getProjPic(projID: any): string | null {
-    const proj = this.projects.find((p: any) => p.id == projID);
+    const proj = this.projects.find((p: any) => p.id && p.id == projID);
     if (proj && proj.image) {
       const imgArr = proj.image.split(", ");
       return imgArr[0];

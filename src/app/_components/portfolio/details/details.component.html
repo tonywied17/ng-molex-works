@@ -1,146 +1,143 @@
-<!--
-File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\details\details.component.html
-Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
-Created Date: Sunday August 13th 2023
-Author: Tony Wiedman
------
-Last Modified: Sat November 11th 2023 6:45:16 
-Modified By: Tony Wiedman
------
-Copyright (c) 2023 Tone Web Design, Molex
--->
 <div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+        <div></div>
+        <div></div>
+    </div>
 </div>
 
- <div *ngIf="loaded" class="select-none grid grid-cols-1 lg:grid-cols-[auto_auto_50%_auto_auto] lg:gap-10 w-full !mx-[unset] mt-2">
+<div *ngIf="loaded" class="select-none grid grid-cols-1 lg:grid-cols-3 lg:gap-10 w-full mt-2">
 
-        <div class="lg:col-start-1 lg:col-span-3">
-            <mat-card class="news-card !bg-transparent !shadow-none swing-left !p-0">
-                
-                <mat-card-title class="!text-slate-400">{{currentProject.title}}
-                    <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400] lg:!mb-4" [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button><i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects</button>
-                </mat-card-title>
-                <mat-card-subtitle style="font-weight:100;" class="!select-text">{{currentProject.subtitle}}</mat-card-subtitle>
-                <mat-card-content class="!p-0">
+    <!-- Left Column: Gallery and Content -->
+    <div class="lg:col-span-2">
+        <mat-card class="news-card !bg-transparent !shadow-none swing-left !p-0">
 
+            <mat-card-title class="!text-slate-400">
+                {{currentProject.title}}
+                <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400] lg:!mb-4"
+                    [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button>
+                    <i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects
+                </button>
+            </mat-card-title>
 
-                    <div class="image-gallery">
-                        <!-- Large main image -->
-                        <div class="main-image-container">
-                          <button (click)="prevImage()" class="arrow-btn left-arrow"><i class="fa-solid fa-arrow-left"></i></button>
-                          <img (click)="openImageModal(currentProject.mainImage)" 
-                               [src]="currentProject.mainImage" 
-                               alt="Main Image" 
-                               class="main-image proj-image h-auto max-w-full rounded-lg shadow-none transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 cursor-zoom-in">
-                          <button (click)="nextImage()" class="arrow-btn right-arrow"><i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                        
-                        <!-- Thumbnails -->
-                        <div class="thumbnails bg-[#08080836] rounded-lg shadow-lg p-2">
-                          <img *ngFor="let img of images" 
-                               [src]="img" 
-                               (click)="changeMainImage(img)" 
-                               [class.active]="img === currentProject.mainImage"
-                               alt="Thumbnail" 
-                               class="thumbnail">
-                        </div>
-                      </div>
-                      
-                    
+            <mat-card-subtitle style="font-weight:100;" class="!select-text">
+                {{currentProject.subtitle}}
+            </mat-card-subtitle>
 
-                    <div class="overlay" *ngIf="showOverlay">
-                        <div class="overlay-content !z-50">
-                            <img [src]="currentProject.mainImage" alt="Large Image" class="large-image">
-                            <button (click)="closeOverlay()" class="close-btn">X</button>
-                        </div>
-                    </div>
-                    
-                    
-
-                </mat-card-content>
-                <mat-card-actions align="end">
-                    <button class="!mt-[-1em] !mb-[1em] md:!hidden inline-block" [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button><i class="fa-solid fa-arrow-left pr-2"></i>Back to Projects</button>
-                </mat-card-actions>
-            </mat-card>
-
-        </div>
-
-
-        <div class="lg:col-start-4 lg:col-span-2 md:sticky md:top-0 md:self-start">
-            <mat-card class="news-card !bg-[#08080836] shadow-lg swing-right" id="top-box">
-     
-
-                <mat-card-content>
-                    <div *ngIf="currentProject.dev" class="text-amber-200 text-lg !font-light !text-right hidden lg:block">
-                        <i class="fa-solid fa-pen-ruler !text-amber-600 pr-2"></i>Under Development
-                    </div>
-                    <div *ngIf="!currentProject.dev" class="text-green-200 text-lg !font-light !text-right hidden lg:block">
-                        <i class="fa-solid fa-check-to-slot !text-green-600 pr-2"></i>Project Completed
-                    </div>
-                    
-                    <h3 class="lg:mt-[-1em] mt-[-5px]"><i class="fa-regular fa-file-circle-info pr-2"></i>Project Details</h3>
-
-                    <div *ngIf="currentProject.dev" class="text-amber-200 text-sm !font-light lg:hidden block">
-                        <i class="fa-solid fa-pen-ruler !text-amber-600 pr-2"></i>Under Development
-                    </div>
-                    <div *ngIf="!currentProject.dev" class="text-green-200 text-sm !font-light lg:hidden block">
-                        <i class="fa-solid fa-check-to-slot !text-green-600 pr-2"></i>Project Completed
+            <mat-card-content class="!p-0">
+                <div class="image-gallery">
+                    <div class="main-image-container relative">
+                        <button (click)="prevImage()"
+                            class="arrow-btn left-arrow absolute left-0 top-1/2 transform -translate-y-1/2">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <img (click)="openImageModal(currentProject.mainImage)" [src]="currentProject.mainImage"
+                            alt="Main Image"
+                            class="main-image proj-image h-auto max-w-full rounded-lg shadow-none transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 cursor-zoom-in">
+                        <button (click)="nextImage()"
+                            class="arrow-btn right-arrow absolute right-0 top-1/2 transform -translate-y-1/2">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
 
+                    <div class="thumbnails bg-[#08080836] rounded-lg shadow-lg p-2 mt-4">
+                        <img *ngFor="let img of images" [src]="img" (click)="changeMainImage(img)"
+                            [class.active]="img === currentProject.mainImage" alt="Thumbnail"
+                            class="thumbnail inline-block m-1 cursor-pointer rounded hover:shadow-lg transition">
+                    </div>
+                </div>
 
+                <!-- Overlay for zoomed image -->
+                <div class="overlay fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center"
+                    *ngIf="showOverlay">
+                    <div class="overlay-content relative">
+                        <img [src]="currentProject.mainImage" alt="Large Image" class="large-image rounded-lg">
+                        <button (click)="closeOverlay()"
+                            class="close-btn absolute top-2 right-2 text-white bg-red-500 rounded-full px-2">X</button>
+                    </div>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button class="!mt-[-1em] !mb-[1em] md:!hidden inline-block" [routerLink]="'/portfolio/'"
+                    target="_blank" mat-stroked-button>
+                    <i class="fa-solid fa-arrow-left pr-2"></i>Back to Projects
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <!-- Right Column: Project Info -->
+    <div class="lg:col-span-1 md:sticky md:top-0 md:self-start">
+        <mat-card class="news-card !bg-[#08080836] shadow-lg swing-right" id="top-box">
+            <mat-card-content>
+                <div *ngIf="currentProject.dev" class="text-amber-200 text-lg !font-light !text-right hidden lg:block">
+                    <i class="fa-solid fa-pen-ruler !text-amber-600 pr-2"></i>Under Development
+                </div>
+                <div *ngIf="!currentProject.dev" class="text-green-200 text-lg !font-light !text-right hidden lg:block">
+                    <i class="fa-solid fa-check-to-slot !text-green-600 pr-2"></i>Project Completed
+                </div>
+
+                <h3 class="lg:mt-[-1em] mt-[-5px] flex items-center">
+                    <i class="fa-regular fa-file-circle-info pr-2"></i>Project Details
+                </h3>
+
+                <ol class="fa-ul text-[1rem] font-[200]">
+                    <li class="mt-[1.5em]">
+                        <span class="fa-li"><i class="fa-solid fa-circle-info !text-[#94a3b8]"></i></span>
+                        <p class="mr-2 font-bold mb-[0]">Description</p>
+                        <span class="!select-text ml-[-2px] inline-block" [innerHTML]="currentProject.details"></span>
+                    </li>
+
+                    <li class="mt-[1.5em]">
+                        <span class="fa-li"><i class="fa-solid fa-globe !text-[#94a3b8]"></i></span>
+                        <p class="mr-2 font-bold mb-[0]">Live Deployment</p>
+                        <span class="!select-text ml-[-2px] inline-block">
+                            <a class="view !select-text" href="{{currentProject.url}}"
+                                target="_blank">{{currentProject.url}}</a>
+                        </span>
+                    </li>
+                </ol>
+
+                <!-- GitHub Repositories -->
+                <h3 class="mt-[2em] flex items-center">
+                    <i class="fa-brands fa-github pr-2"></i>View on GitHub
+                </h3>
+
+                <div *ngIf="currentProject.repos.length === 0">
                     <ol class="fa-ul text-[1rem] font-[200]">
-                        <li class="mt-[1.5em]">
-                            <span class="fa-li"><i class="fa-solid fa-circle-info !text-[#94a3b8]"></i></span>
-                            <p class="mr-2 font-bold mb-[0]">Description</p>
-                            <span class="!select-text ml-[-2px] inline-block" [innerHTML]="currentProject.details"></span>
-                        </li>
-                        
-                        <li class="mt-[1.5em]"><span class="fa-li"><i class="fa-solid fa-globe !text-[#94a3b8]"></i></span>
-                            <p class="mr-2 font-bold mb-[0]">Live Deployment</p>
-                            <span class="!select-text ml-[-2px] inline-block"><a class="view !select-text" href="{{currentProject.url}}" target="_blank">{{currentProject.url}}</a></span>
+                        <li>
+                            <span class="fa-li"><i class="fa-solid fa-ban !text-red-600 !text-sm"></i></span>
+                            <span class="!text-red-200">No GitHub repos found for this project.</span>
                         </li>
                     </ol>
+                </div>
 
-                    <h3 class="mt-[2em]"><i class="fa-brands fa-github pr-2"></i>View on GitHub</h3>
-
-                    <div *ngIf="repos.length === 0;">
-
-                        <ol class="fa-ul text-[1rem] font-[200]">
-                            <li>
-                              <span class="fa-li"><i class="fa-solid fa-ban !text-red-600 !text-sm"></i></span> <span class="!text-red-200">No github repo's found for this project.</span>
-                            </li>
-                          </ol>
-                    </div>
-
-                    <ol class="fa-ul text-[1rem] font-[200]" *ngFor="let repo of repos">
-                        <li>
-                          <span class="fa-li"><i class="fa-solid fa-link !text-[#94a3b8]"></i></span>
-                          <a class="view !select-text" href="{{repo.repoUrl}}" target="_blank">{{repo.repoUrl}}</a>
-
-                          <span class="!select-text block text-[.79rem] text-[#b7d9ed]/60 lg:py-1 lg:text-left text-right pt-[5px] mb-[2em]">
+                <ol class="fa-ul text-[1rem] font-[200]" *ngFor="let repo of currentProject.repos">
+                    <li>
+                        <span class="fa-li"><i class="fa-solid fa-link !text-[#94a3b8]"></i></span>
+                        <a class="view !select-text" [href]="repo.url" target="_blank">{{ repo.name }}</a>
+                        <span
+                            class="!select-text block text-[.79rem] text-[#b7d9ed]/60 lg:py-1 lg:text-left text-right pt-[5px] mb-[2em]">
                             <span class="lg:hidden inline-block">updated </span>
                             <span class="hidden lg:inline-block">Last updated </span>
-                            {{repo.pushedAt}}<span class="hidden lg:inline-block">.</span>
-                            </span>
+                            {{ repo.pushedAt }}
+                            <span class="hidden lg:inline-block">.</span>
+                        </span>
+                    </li>
+                </ol>
 
-                        </li>
-                      </ol>
+                <h3 class="mt-[2em] flex items-center">
+                    <i class="fa-solid fa-code pr-2"></i>Tech Stack Tags
+                </h3>
 
-                    
-                    <h3 class="mt-[2em]"><i class="fa-solid fa-code pr-2"></i>Tech Stack Tags</h3>
+                <div class="text-[1rem] font-[200] w-full">
+                    <span class="m-2 inline-block !select-text" *ngFor="let tag of currentProject.tags">
+                        <i class="fa-sharp fa-solid fa-tag !text-[#94a3b8]"></i> {{tag}}
+                    </span>
+                </div>
 
-                    <div class="text-[1rem] font-[200] w-full">
-                        
-                        <span class="m-2 inline-block !select-text" *ngFor="let tag of tags"><i class="fa-sharp fa-solid fa-tag !text-[#94a3b8]"></i> {{tag}}</span>
-     
-                    </div>
-
-                    
-
-                </mat-card-content>
-
-            </mat-card>
-        </div>
-
+            </mat-card-content>
+        </mat-card>
     </div>
+
+</div>

@@ -1,3 +1,22 @@
+/*
+ * File: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\src\app\material.ts
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
+ * Created Date: Sunday August 13th 2023
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Wed February 5th 2025 11:02:31 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2023 - 2025 MolexWorks
+ */
+
+/**
+ * MaterialModule
+ * @classdesc - Material module implementation
+ * @exports - MaterialModule
+ * @brief - This module is used to import all the material modules
+ */
+
 import { NgModule } from "@angular/core";
 import { A11yModule } from "@angular/cdk/a11y";
 import { ClipboardModule } from "@angular/cdk/clipboard";

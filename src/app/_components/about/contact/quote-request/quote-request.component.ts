@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works\src\app\_components\about\contact\quote-request\quote-request.component.ts
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Monday August 14th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Tue November 28th 2023 12:06:14 
+ * Last Modified: Wed February 5th 2025 10:51:34 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -22,7 +22,8 @@ import { NgForm } from "@angular/forms";
     styleUrls: ["./quote-request.component.scss"],
 })
 
-export class QuoteRequestComponent implements OnInit {
+export class QuoteRequestComponent implements OnInit
+{
     /**
      * Properties
      */
@@ -35,7 +36,7 @@ export class QuoteRequestComponent implements OnInit {
     budget: string = "";
     @ViewChild("quoteForm", { static: false }) quoteForm!: NgForm;
     webhookUrl: string =
-        "https://discord.com/api/webhooks/1179105819736948816/MYSsntSOoJQ3r8MMqG5895CBslfEHWEmyezERBNGy2tDemX3GoIO9-NGI90uImfmLBtl";
+        "https://discord.com/api/webhooks/1288219053231571015/uR90EsspdXrttWEap4d6u11sJKPWaAAdJGFGUsjka8CSyLwf3pGUYh7RTO3BhfDAbuka";
 
     /**
      * Constructors
@@ -46,10 +47,14 @@ export class QuoteRequestComponent implements OnInit {
     /**
      * ngOnInit - Lifecycle hook
      */
-    ngOnInit(): void {
-        if (this.quoteForm && this.quoteForm.valueChanges) {
-            this.quoteForm.valueChanges.subscribe((values) => {
-                if (values.phone && !/^\(\d{3}\) \d{3}-\d{4}$/.test(values.phone)) {
+    ngOnInit(): void
+    {
+        if (this.quoteForm && this.quoteForm.valueChanges)
+        {
+            this.quoteForm.valueChanges.subscribe((values) =>
+            {
+                if (values.phone && !/^\(\d{3}\) \d{3}-\d{4}$/.test(values.phone))
+                {
                     this.formatPhone();
                 }
             });
@@ -61,7 +66,8 @@ export class QuoteRequestComponent implements OnInit {
      * @description - Sends the quote request to the discord webhook
      * @returns void
      */
-    sendRequest() {
+    sendRequest()
+    {
         this.submitted = true;
 
         const numericBudget = parseFloat(this.budget.replace(/[$,]/g, ""));
@@ -71,7 +77,8 @@ export class QuoteRequestComponent implements OnInit {
         }).format(Number(numericBudget));
         const hexToDecimal = (hex: string) => parseInt(hex.replace(/^#/, ""), 16);
 
-        if (this.quoteForm.valid) {
+        if (this.quoteForm.valid)
+        {
             const embed = {
                 color: hexToDecimal("#a1a1a1"),
                 fields: [
@@ -91,11 +98,14 @@ export class QuoteRequestComponent implements OnInit {
             };
 
             this.http.post(this.webhookUrl, { embeds: [embed] }).subscribe(
-                (response) => {
+                (response) =>
+                {
                     const formElement = document.querySelector(".quote-request");
-                    if (formElement) {
+                    if (formElement)
+                    {
                         formElement.classList.add("shake-animation");
-                        setTimeout(() => {
+                        setTimeout(() =>
+                        {
                             formElement.classList.remove("shake-animation");
                             this.isSentSuccessfully = true;
                             this.name = "";
@@ -105,7 +115,8 @@ export class QuoteRequestComponent implements OnInit {
                             this.budget = "";
                             this.quoteForm.resetForm();
                             this.submitted = false;
-                            setTimeout(() => {
+                            setTimeout(() =>
+                            {
                                 this.isSentSuccessfully = false;
                             }, 3000);
                         }, 1000);
@@ -113,8 +124,10 @@ export class QuoteRequestComponent implements OnInit {
                 },
                 (error) => { }
             );
-        } else {
-            Object.keys(this.quoteForm.controls).forEach((key) => {
+        } else
+        {
+            Object.keys(this.quoteForm.controls).forEach((key) =>
+            {
                 this.quoteForm.controls[key].markAsTouched();
             });
         }
@@ -125,17 +138,21 @@ export class QuoteRequestComponent implements OnInit {
      * @description - Formats the phone number
      * @returns void
      */
-    formatPhone(): void {
+    formatPhone(): void
+    {
         let numbers = this.phone.replace(/\D/g, "");
         numbers = numbers.substring(0, 10);
 
-        if (numbers.length <= 3) {
+        if (numbers.length <= 3)
+        {
             this.phone = `(${numbers}`;
-        } else if (numbers.length > 3 && numbers.length <= 6) {
+        } else if (numbers.length > 3 && numbers.length <= 6)
+        {
             const areaCode = numbers.substr(0, 3);
             const prefix = numbers.substr(3);
             this.phone = `(${areaCode})${prefix}`;
-        } else if (numbers.length > 6) {
+        } else if (numbers.length > 6)
+        {
             const areaCode = numbers.substr(0, 3);
             const prefix = numbers.substr(3, 3);
             const lineNum = numbers.substr(6);
@@ -148,22 +165,26 @@ export class QuoteRequestComponent implements OnInit {
      * @description - Formats the budget
      * @returns void
      */
-    formatBudget(): void {
+    formatBudget(): void
+    {
         let numbers = this.budget.replace(/[^0-9.]/g, "");
 
         let parts = numbers.split(".");
         let integerPart = parts[0];
         let decimalPart = parts[1] || "";
 
-        if (decimalPart.length > 2) {
+        if (decimalPart.length > 2)
+        {
             decimalPart = decimalPart.substring(0, 2);
         }
 
         integerPart = new Intl.NumberFormat("en-US").format(+integerPart);
 
-        if (decimalPart.length) {
+        if (decimalPart.length)
+        {
             this.budget = `$${integerPart}.${decimalPart}`;
-        } else {
+        } else
+        {
             this.budget = `$${integerPart}`;
         }
     }
