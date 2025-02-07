@@ -18,8 +18,8 @@ const config = {
         REPOS_PER_PAGE: 100,                    //!> Number of repos to fetch per page
     },
     CACHE: {
-        // REFRESH_INTERVAL: 5 * 60 * 1000,     //!> 5 minutes in milliseconds (For testing)
-        REFRESH_INTERVAL: 60 * 60 * 1000,       //!> 1 hour in milliseconds
+        REFRESH_INTERVAL: 5 * 60 * 1000,     //!> 5 minutes in milliseconds (For testing)
+        // REFRESH_INTERVAL: 60 * 60 * 1000,       //!> 1 hour in milliseconds
         INITIAL_DELAY: 0,                       //!> Optional: delay before the first fetch (in ms)
     },
     CORS: {
@@ -166,21 +166,13 @@ const fetchGitHubData = async () =>
 /**
  *@ API to get repository data with automatic stale check
  */
-app.get('/api/repos', async (req, res) =>
+app.get('/api/repos', (req, res) =>
 {
-    const now = new Date();
-
-    if (!cache.lastUpdated || (now - cache.lastUpdated > config.CACHE.REFRESH_INTERVAL))
-    {
-        console.log('Cache is stale. Refreshing in background...');
-        fetchGitHubData();
-    }
-
     const nextRefresh = new Date(cache.lastUpdated.getTime() + config.CACHE.REFRESH_INTERVAL);
     const formattedLastUpdated = cache.lastUpdated ? formatDistanceToNow(cache.lastUpdated, { addSuffix: true }) : 'Never';
     const formattedNextRefresh = formatDistanceToNow(nextRefresh, { addSuffix: true });
 
-    //* Serve cached data if available
+    //* If cache data is available, serve it
     if (cache.data)
     {
         res.json({
@@ -194,8 +186,10 @@ app.get('/api/repos', async (req, res) =>
                 formatted: formattedNextRefresh,
             },
         });
-    } else
+    }
+    else
     {
+        //* If cache is empty, return a 503 response
         res.status(503).json({ message: 'Data is being fetched, please try again shortly.' });
     }
 });
