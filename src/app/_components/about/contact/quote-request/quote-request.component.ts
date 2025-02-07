@@ -36,7 +36,7 @@ export class QuoteRequestComponent implements OnInit
     budget: string = "";
     @ViewChild("quoteForm", { static: false }) quoteForm!: NgForm;
     webhookUrl: string =
-        "https://discord.com/api/webhooks/1337302940553187359/clRvBYxRpjMjUX3-AEhJxIBunTX7Q-iZcNSjONGVa5YXgea0J_AQcMMo_6mjl6YPCzph";
+        "";
 
     /**
      * Constructors
