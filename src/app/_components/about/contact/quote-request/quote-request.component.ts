@@ -4,7 +4,7 @@
  * Created Date: Monday August 14th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Wed February 5th 2025 10:51:34 
+ * Last Modified: Fri February 7th 2025 1:09:04 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -36,7 +36,7 @@ export class QuoteRequestComponent implements OnInit
     budget: string = "";
     @ViewChild("quoteForm", { static: false }) quoteForm!: NgForm;
     webhookUrl: string =
-        "https://discord.com/api/webhooks/1288219053231571015/uR90EsspdXrttWEap4d6u11sJKPWaAAdJGFGUsjka8CSyLwf3pGUYh7RTO3BhfDAbuka";
+        "";
 
     /**
      * Constructors
