@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Thu February 6th 2025 3:23:32 
+Last Modified: Thu February 6th 2025 4:28:53 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -12,8 +12,7 @@ Copyright (c) 2023 Tone Web Design, Molex
 
 <div class="xl:hidden block">
     <h1 class="xl:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
-    <span class="swing-in font-[200] italic block mt-[-25px] mb-6">Welcome to <span class="font-[900]">Molex
-            Works!</span></span>
+
 </div>
 <pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom">
         `7MMM.     ,MMF'       `7MM                `7MMF'     A     `7MF'            `7MM             
@@ -44,14 +43,18 @@ Copyright (c) 2023 Tone Web Design, Molex
         <label class="flex items-center cursor-pointer">
             <input type="checkbox" [checked]="allLanguagesSelected()" (change)="toggleSelectAll()"
                 class="w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
-            <span class="ms-2 text-base font-medium text-[rgba(51,219,191,0.60)] hover:text-[rgba(51,219,191,0.80)] duration-300">Check All</span>
+            <span
+                class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">Check
+                All</span>
         </label>
 
         <label *ngFor="let language of languages" class="flex items-center cursor-pointer">
             <input type="checkbox" [checked]="selectedLanguages.includes(language)"
                 (change)="onLanguageChange(language)" id="{{ language }}"
                 class="hover: w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
-            <span class="ms-2 text-lg font-medium text-[rgba(51,219,191,0.60)] hover:text-[rgba(51,219,191,0.80)] duration-300">{{ language }}</span>
+            <span
+                class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">{{
+                language }}</span>
         </label>
     </div>
 
@@ -78,18 +81,22 @@ Copyright (c) 2023 Tone Web Design, Molex
         <mat-card class="card-entrance">
 
             <mat-card-header class="!flex">
-                <img class="!w-[25px] !h-[25px] lg:!w-[50px] lg:!h-[50px]" mat-card-avatar [src]="repo.avatar" alt="Dev avatar">
+                <img class="!w-[25px] !h-[25px] lg:!w-[50px] lg:!h-[50px]" mat-card-avatar [src]="repo.avatar"
+                    alt="Dev avatar">
                 <mat-card-title class="!text-xl w-full">
                     <i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}
                     <div class="text-neutral-400 text-base p-3">{{ repo.description }}</div>
                 </mat-card-title>
                 <mat-card-subtitle class="flex flex-col gap-2">
                     <div class="flex flex-col gap-4 text-sm">
-                        <div *ngIf="repo.commits && repo.commits.length > 0" class="text-base text-neutral-300 lg:ml-0 ml-[-25px]">
+                        <div *ngIf="repo.commits && repo.commits.length > 0"
+                            class="text-base text-neutral-300 lg:ml-0 ml-[-25px]">
                             <i class="fa-solid fa-code-commit pr-2"></i>Recent Commits
                         </div>
-                        <div *ngFor="let commit of repo.commits" class="flex flex-col xl:items-center xl:flex-row gap-4 text-sm lg:ml-2 ml-[-25px]">
-                            <a [href]="commit.url" target="_blank" class="font-[500] text-[rgba(51,219,191,0.60)] hover:text-[rgba(51,219,191,0.80)] duration-300">
+                        <div *ngFor="let commit of repo.commits"
+                            class="flex flex-col xl:items-center xl:flex-row gap-4 text-sm lg:ml-2 ml-[-25px]">
+                            <a [href]="commit.url" target="_blank"
+                                class="font-[500] text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">
                                 {{ commit.sha | slice:0:7 }}</a>
                             <span class="font-[200] text-neutral-500">{{ commit.message }}</span>
                         </div>

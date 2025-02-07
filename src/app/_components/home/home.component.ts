@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Thu February 6th 2025 3:08:40 
+ * Last Modified: Fri February 7th 2025 12:53:02 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
@@ -92,9 +92,11 @@ export class HomeComponent implements OnInit
    */
   async fetchRepoData(): Promise<void>
   {
-    this.http.get<any[]>('https://molex.cloud/github/api/repos').subscribe((repos: any[]) =>
+    this.http.get<{ data: RepoData[] }>('https://molex.cloud/github/api/repos').subscribe((response) =>
     {
-      this.allRepos = repos.filter((repo) => repo.fullName !== "README").map((repo) =>
+      const repos: RepoData[] = response.data;
+
+      this.allRepos = repos.filter((repo: RepoData) => repo.fullName !== "README").map((repo: RepoData) =>
       {
         return {
           projectName: repo.projectName,
@@ -113,7 +115,7 @@ export class HomeComponent implements OnInit
 
       this.sortRepos();
 
-      const uniqueLanguages = Array.from(new Set(this.allRepos.map((repo) => repo.language).filter(Boolean)));
+      const uniqueLanguages = Array.from(new Set(this.allRepos.map((repo: RepoData) => repo.language).filter(Boolean)));
       this.languages = uniqueLanguages;
       this.selectedLanguages = [...this.languages];
       this.filterRepos();

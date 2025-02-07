@@ -4,36 +4,41 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Thu February 6th 2025 3:29:28 
+Last Modified: Thu February 6th 2025 4:19:08 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 <h1 class="lg:text-4xl text-xl header-border pb-2 mb-8 swing-left inline-block">Recent Projects...</h1>
-<span class="swing-in font-[200] italic block mt-[-25px] mb-6">Recent projects of <span class="font-[900]">Molex Works!</span></span>
+<span class="swing-in font-[200] italic block mt-[-25px] mb-6">Recent projects of <span class="font-[900]">Molex
+    Works!</span></span>
 
 <div *ngIf="!loaded" class="flex justify-center items-center h-[300px]">
-    <div class="lds-ripple"><div></div><div></div></div>
+  <div class="lds-ripple">
+    <div></div>
+    <div></div>
+  </div>
 </div>
 
 <div *ngIf="loaded" class="masonry">
 
-    <div *ngFor="let project of projects">
-        <mat-card class="card card-entrance">
-            <mat-card-header>
-              <img mat-card-avatar [src]="getProjPic(project.id)" class="custom-avatar">
-              <mat-card-title class="text-slate-400">{{project.title}}</mat-card-title>
-              <mat-card-subtitle class="">{{project.subtitle}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content class="!font-[300]" [innerHTML]="project.details">
+  <div *ngFor="let project of projects">
+    <mat-card class="card card-entrance">
+      <mat-card-header>
+        <img mat-card-avatar [src]="getProjPic(project.id)" class="custom-avatar">
+        <mat-card-title class="text-slate-400">{{project.title}}</mat-card-title>
+        <mat-card-subtitle class="">{{project.subtitle}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="!font-[300]" [innerHTML]="project.details">
 
-            </mat-card-content>
-            <mat-card-actions align="end">
-              <button *ngIf="project.id" [routerLink]="'/portfolio/' + project.id" [routerLink]="'/portfolio/' + project.id" target="_blank" mat-raised-button class="!px-[15px] !text-slate-400 !bg-black/30 mt-2 !font-[400]">
-                <i class="fa-solid fa-folder-open pr-2 !text-slate-400"></i> View Project</button>
-            </mat-card-actions>
-          </mat-card>
-    </div>
-    
-
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button *ngIf="project.id" [routerLink]="'/portfolio/' + project.id" [routerLink]="'/portfolio/' + project.id"
+          target="_blank" mat-raised-button class="!text-slate-400 !text-sm !bg-black/30 mt-2">
+          <i class="fa-solid fa-folder-open pr-2"></i>View Project</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
+
+
+</div>
