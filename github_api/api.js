@@ -21,6 +21,7 @@ const config = {
     },
     CACHE: {
         REFRESH_INTERVAL: 60 * 60 * 1000,                                       //!> Cache refresh interval in milliseconds
+        INITIAL_DELAY: 0,                                                       //!> Delay before initial cache refresh in milliseconds
     },
     CORS: {
         ALLOWED_ORIGINS: ['http://localhost:4200', 'https://molexworks.com'],   //!> Allowed origins for CORS
@@ -44,11 +45,6 @@ let cache = {
     gists: [],                  //!> Cached gists
     lastUpdated: new Date(),    //!> Timestamp of last cache update
     isRefreshing: false,        //!> Flag to prevent concurrent cache refreshes
-};
-
-//* GitHub Headers for API requests
-const githubHeaders = {
-    Authorization: `token ${config.GITHUB.TOKEN}`,
 };
 
 //* CORS setup
@@ -148,7 +144,9 @@ app.get('/', (req, res) =>
 
 const githubAPI = axios.create({
     baseURL: config.GITHUB.API_BASE_URL,
-    headers: githubHeaders,
+    headers: {
+        Authorization: `token ${config.GITHUB.TOKEN}`,
+    }
 });
 
 /**
@@ -344,6 +342,7 @@ const getRoutes = () =>
 
 //! Server Setup and Initialization  ////////////////////////////////////////////
 
+setTimeout(fetchGitHubData, config.CACHE.INITIAL_DELAY);
 setInterval(fetchGitHubData, config.CACHE.REFRESH_INTERVAL);
 
 app.listen(config.PORT, () =>
