@@ -46,6 +46,11 @@ let cache = {
     isRefreshing: false,        //!> Flag to prevent concurrent cache refreshes
 };
 
+//* GitHub Headers for API requests
+const githubHeaders = {
+    Authorization: `token ${config.GITHUB.TOKEN}`,
+};
+
 //* CORS setup
 app.use(cors({
     origin: (origin, callback) =>
@@ -141,12 +146,9 @@ app.get('/', (req, res) =>
 
 //! GitHub Fetching and Caching  ///////////////////////////////////////////////
 
-//* Axios instance for GitHub API requests
 const githubAPI = axios.create({
     baseURL: config.GITHUB.API_BASE_URL,
-    headers: {
-        Authorization: `token ${config.GITHUB.TOKEN}`
-    }
+    headers: githubHeaders,
 });
 
 /**
@@ -237,18 +239,27 @@ const fetchCommits = (repoName, pushedDate) =>
 /**
  ** Fetch Gists for the user.
  */
-const fetchGists = async () =>
-{
-    const { data } = await githubAPI.get(`/users/${config.GITHUB.USERNAME}/gists`);
-    return data.map(gist => ({
-        id: gist.id,
-        description: gist.description,
-        createdAt: gist.created_at,
-        updatedAt: gist.updated_at,
-        gistUrl: gist.html_url,
-        files: Object.keys(gist.files),
-    }));
-};
+const fetchGists = () =>
+    githubAPI
+        .get(`/users/${config.GITHUB.USERNAME}/gists`)
+        .then(response =>
+        {
+            return response.data.map(gist =>
+            {
+                return {
+                    id: gist.id,
+                    description: gist.description,
+                    files: Object.keys(gist.files),
+                    htmlUrl: gist.html_url,
+                    updatedAt: formatDistanceToNow(new Date(gist.updated_at), { addSuffix: true }),
+                };
+            });
+        })
+        .catch(error =>
+        {
+            console.error('Error fetching gists:', error);
+            return [];
+        });
 
 
 //! Helper Functions  //////////////////////////////////////////////////////////
