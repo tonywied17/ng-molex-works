@@ -6,42 +6,40 @@ const { formatDistanceToNow, parseISO } = require('date-fns');
 
 const app = express();
 
-/**
- *@ Configuration Object
- */
 const config = {
-    PORT: process.env.PORT || 3330,             //!> Port to run the server on
+    PORT: process.env.PORT || 3330,                                             //!> Port to run the server on
     GITHUB: {
-        TOKEN: process.env.GITHUB_TOKEN,        //!> Personal access token with repo access
-        USERNAME: process.env.GITHUB_USERNAME,  //!> GitHub username to fetch repos for
-        API_BASE_URL: 'https://api.github.com', //!> GitHub API base URL
-        REPOS_PER_PAGE: 100,                    //!> Number of repos to fetch per page
+        TOKEN: process.env.GITHUB_TOKEN,                                        //!> Personal access token for GitHub API
+        USERNAME: process.env.GITHUB_USERNAME,                                  //!> GitHub username to fetch data from
+        API_BASE_URL: 'https://api.github.com',                                 //!> Base URL for GitHub API
+        REPOS_PER_PAGE: 100,                                                    //!> Number of repositories to fetch per page
     },
     CACHE: {
-        REFRESH_INTERVAL: 5 * 60 * 1000,     //!> 5 minutes in milliseconds (For testing)
-        // REFRESH_INTERVAL: 60 * 60 * 1000,       //!> 1 hour in milliseconds
-        INITIAL_DELAY: 0,                       //!> Optional: delay before the first fetch (in ms)
+        REFRESH_INTERVAL: 60 * 60 * 1000,                                       //!> Cache refresh interval in milliseconds
+        INITIAL_DELAY: 0,                                                       //!> Initial delay before fetching data in milliseconds
     },
     CORS: {
-        ALLOWED_ORIGINS: ['http://localhost:4200', 'https://molexworks.com'],
+        ALLOWED_ORIGINS: ['http://localhost:4200', 'https://molexworks.com'],   //!> Allowed origins for CORS
     },
     COMMIT_FETCH_RULES: {
-        MONTH: { threshold: 30 * 24 * 60 * 60 * 1000, commits: 5 },                //!> 30 days in milliseconds
-        THREE_MONTHS: { threshold: 3 * 30 * 24 * 60 * 60 * 1000, commits: 5 },     //!> 3 months in milliseconds
-        SIX_MONTHS: { threshold: 6 * 30 * 24 * 60 * 60 * 1000, commits: 3 },       //!> 6 months in milliseconds
-        YEAR: { threshold: 12 * 30 * 24 * 60 * 60 * 1000, commits: 3 },            //!> 12 months in milliseconds
-        OVER_YEAR: { threshold: Infinity, commits: 1 },                            //!> More than a year gets 1 commit
+        MONTH: { threshold: 30 * 24 * 60 * 60 * 1000, commits: 5 },             //!> Commits to fetch if pushed within a month
+        THREE_MONTHS: { threshold: 3 * 30 * 24 * 60 * 60 * 1000, commits: 5 },  //!> Commits to fetch if pushed within 3 months
+        SIX_MONTHS: { threshold: 6 * 30 * 24 * 60 * 60 * 1000, commits: 3 },    //!> Commits to fetch if pushed within 6 months
+        YEAR: { threshold: 12 * 30 * 24 * 60 * 60 * 1000, commits: 3 },         //!> Commits to fetch if pushed within a year
+        OVER_YEAR: { threshold: Infinity, commits: 1 },                         //!> Commits to fetch if pushed over a year ago
     },
     AUTH: {
-        ADMIN_REFRESH_TOKEN: process.env.ADMIN_REFRESH_TOKEN,                       //!> Token for manual refresh authentication
+        ADMIN_REFRESH_TOKEN: process.env.ADMIN_REFRESH_TOKEN,                   //!> Admin token to manually refresh the cache
     }
 };
 
 //@ In-memory cache object
 let cache = {
-    data: null,             //!> Cached GitHub data
-    lastUpdated: null,      //!> Last updated timestamp
-    isRefreshing: false,    //!> Flag to prevent overlapping refreshes
+    repos: null,                 //!> Cached repository data
+    stats: {},                  //!> Cached statistics
+    gists: [],                  //!> Cached gists
+    lastUpdated: new Date(),    //!> Timestamp of last cache update
+    isRefreshing: false,        //!> Flag to prevent concurrent cache refreshes
 };
 
 //@ GitHub Headers for API requests
@@ -65,12 +63,107 @@ app.use(cors({
     allowedHeaders: ['Content-Type'],
 }));
 
+
+//! Middleware  ////////////////////////////////////////////////////////////////
+
 /**
- *@ Fetch GitHub data and update the cache
+ * Middleware to authenticate admin requests.
+ * @returns {Response} 403 Forbidden if token is invalid or missing.
+ * @returns {Function} next() if token is valid.
+ */
+const authenticateAdmin = (req, res, next) =>
+{
+    const authHeader = req.headers.authorization;
+    const queryToken = req.query.token;
+    const validToken = config.AUTH.ADMIN_REFRESH_TOKEN;
+
+    if (authHeader && authHeader === `Bearer ${validToken}`)
+    {
+        return next();
+    }
+
+    if (queryToken && queryToken === validToken)
+    {
+        return next();
+    }
+
+    return res.status(403).json({ message: 'Forbidden: Invalid or missing token.' });
+};
+
+/**
+ * Middleware to calculate cache timings for each request.
+ * @returns {Object} Object containing next refresh time, and formatted last updated and next refresh times.
+ */
+const cacheTimingMiddleware = (req, res, next) =>
+{
+    req.cacheTimings = calculateCacheTimings();
+    next();
+};
+
+app.use(cacheTimingMiddleware);
+
+
+//! API Routes  //////////////////////////////////////////////////////////////
+
+/**
+ * Send API response based on the data key provided.
+ * @param {String} dataKey Key to access the data from cache
+ * @returns {Response} JSON response with the data from cache.
+ */
+const sendApiResponse = (req, res, dataKey) =>
+{
+    const { nextRefresh, formattedLastUpdated, formattedNextRefresh } = req.cacheTimings;
+
+    const responseData = {
+        _Cached_Data: {
+            lastUpdated: { timestamp: cache.lastUpdated.toISOString(), formatted: formattedLastUpdated },
+            nextRefresh: { timestamp: nextRefresh.toISOString(), formatted: formattedNextRefresh }
+        }
+    };
+
+    if (cache.repos && cache.stats && cache.gists)
+    {
+        if (dataKey === 'data')
+        {
+            responseData._Statistics = cache.stats;
+            responseData._Repositories = cache.repos;
+            responseData._Gists = cache.gists;
+        } else
+        {
+            responseData.data = cache[dataKey];
+        }
+
+        res.json(responseData);
+    } else
+    {
+        res.status(503).json({ message: 'Data is being fetched, please try again shortly.' });
+    }
+};
+
+//@ API to get cached data
+app.get('/api/repos', (req, res) => sendApiResponse(req, res, 'repos'));
+app.get('/api/stats', (req, res) => sendApiResponse(req, res, 'stats'));
+app.get('/api/gists', (req, res) => sendApiResponse(req, res, 'gists'));
+app.get('/api/data', (req, res) => sendApiResponse(req, res, 'data'));
+
+//@ API to manually refresh the cache (Admin only)
+app.get('/api/refresh', authenticateAdmin, async (req, res) =>
+{
+    console.log('Manual refresh requested by authorized user.');
+    await fetchGitHubData();
+    res.json({ message: 'Cache refreshed manually.', lastUpdated: cache.lastUpdated });
+});
+
+
+//! GitHub Fetching Logic  ///////////////////////////////////////////////////
+
+/**
+ * Fetch GitHub data and cache it in memory.
+ * @returns {Promise} Promise that resolves when the GitHub data is fetched and cached.
  */
 const fetchGitHubData = async () =>
 {
-    if (cache.isRefreshing) return;  //* Prevent overlapping refreshes
+    if (cache.isRefreshing) return;
 
     try
     {
@@ -91,36 +184,8 @@ const fetchGitHubData = async () =>
                 const pushedDate = new Date(pushedAt);
 
                 let commits = [];
-                let commitCount = 0;
-                const now = Date.now();
+                const commitCount = getCommitCountBasedOnThreshold(pushedDate);
 
-                if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.MONTH.threshold)
-                {
-                    commitCount = config.COMMIT_FETCH_RULES.MONTH.commits;
-                } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.THREE_MONTHS.threshold)
-                {
-                    commitCount = config.COMMIT_FETCH_RULES.THREE_MONTHS.commits;
-                } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.SIX_MONTHS.threshold)
-                {
-                    commitCount = config.COMMIT_FETCH_RULES.SIX_MONTHS.commits;
-                } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.YEAR.threshold)
-                {
-                    commitCount = config.COMMIT_FETCH_RULES.YEAR.commits;
-                } else
-                {
-                    commitCount = config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
-                }
-
-                /**
-                * @Fetch commits
-                * 
-                *? If the repo was last pushed:
-                ** - Within a month: 5 commits
-                ** - Within 3 months: 5 commits
-                ** - Within 6 months: 3 commits
-                ** - Within a year: 3 commits
-                ** - Over a year: 1 commit
-                */
                 if (commitCount > 0)
                 {
                     const commitsResponse = await axios.get(
@@ -150,8 +215,33 @@ const fetchGitHubData = async () =>
             })
         );
 
-        //* Update cache
-        cache.data = repoDetails;
+        let gistDetails = [];
+        try
+        {
+            const gistsResponse = await axios.get(
+                `${config.GITHUB.API_BASE_URL}/users/${config.GITHUB.USERNAME}/gists`,
+                { headers: githubHeaders }
+            );
+            gistDetails = gistsResponse.data.map(gist => ({
+                id: gist.id,
+                description: gist.description,
+                createdAt: gist.created_at,
+                updatedAt: gist.updated_at,
+                gistUrl: gist.html_url,
+                files: Object.keys(gist.files),
+            }));
+        } catch (error)
+        {
+            console.error('Error fetching gists:', error);
+        }
+
+        cache.repos = repoDetails;
+        cache.stats = {
+            totalRepos: repoDetails.length,
+            totalStars: cache.repos.reduce((sum, repo) => sum + repo.stars, 0),
+            topLanguage: calculateTopLanguage(repoDetails),
+        };
+        cache.gists = gistDetails;
         cache.lastUpdated = new Date();
         console.log(`Cache updated at ${cache.lastUpdated}`);
     } catch (error)
@@ -163,74 +253,78 @@ const fetchGitHubData = async () =>
     }
 };
 
+
+//! Helper Functions  //////////////////////////////////////////////////////////
+
 /**
- *@ API to get repository data with automatic stale check
+ * Calculate the number of commits to fetch based on the last pushed date.
+ * @param {Date} pushedDate Date object of the last pushed date.
+ * @returns {Number} Number of commits to fetch.
  */
-app.get('/api/repos', (req, res) =>
+const getCommitCountBasedOnThreshold = (pushedDate) =>
 {
-    const nextRefresh = new Date(cache.lastUpdated.getTime() + config.CACHE.REFRESH_INTERVAL);
-    const formattedLastUpdated = cache.lastUpdated ? formatDistanceToNow(cache.lastUpdated, { addSuffix: true }) : 'Never';
-    const formattedNextRefresh = formatDistanceToNow(nextRefresh, { addSuffix: true });
+    const now = Date.now();
 
-    //* If cache data is available, serve it
-    if (cache.data)
+    if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.MONTH.threshold)
     {
-        res.json({
-            data: cache.data,
-            lastUpdated: {
-                timestamp: cache.lastUpdated.toISOString(),
-                formatted: formattedLastUpdated,
-            },
-            nextRefresh: {
-                timestamp: nextRefresh.toISOString(),
-                formatted: formattedNextRefresh,
-            },
-        });
-    }
-    else
+        return config.COMMIT_FETCH_RULES.MONTH.commits;
+    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.THREE_MONTHS.threshold)
     {
-        //* If cache is empty, return a 503 response
-        res.status(503).json({ message: 'Data is being fetched, please try again shortly.' });
-    }
-});
-
-//@ Middleware to authenticate admin requests via Authorization header or query param
-const authenticateAdmin = (req, res, next) =>
-{
-    const authHeader = req.headers.authorization;
-    const queryToken = req.query.token;
-    const validToken = config.AUTH.ADMIN_REFRESH_TOKEN;
-
-    //* Check Authorization header (Bearer token)
-    if (authHeader && authHeader === `Bearer ${validToken}`)
+        return config.COMMIT_FETCH_RULES.THREE_MONTHS.commits;
+    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.SIX_MONTHS.threshold)
     {
-        return next();
-    }
-
-    //* Check token in query parameter
-    if (queryToken && queryToken === validToken)
+        return config.COMMIT_FETCH_RULES.SIX_MONTHS.commits;
+    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.YEAR.threshold)
     {
-        return next();
+        return config.COMMIT_FETCH_RULES.YEAR.commits;
+    } else
+    {
+        return config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
     }
-
-    return res.status(403).json({ message: 'Forbidden: Invalid or missing token.' });
 };
 
 /**
- *@ Manual cache refresh endpoint (protected)
- *@ Requires Authorization header with Bearer token or query parameter
+ * Calculate the top language used in the repositories.
+ * @param {Array} repos Array of repository objects.
+ * @returns {String} Name of the top language.
  */
-app.get('/api/refresh', authenticateAdmin, async (req, res) =>
+const calculateTopLanguage = (repos) =>
 {
-    console.log('Manual refresh requested by authorized user.');
-    await fetchGitHubData();
-    res.json({ message: 'Cache refreshed manually.', lastUpdated: cache.lastUpdated });
-});
+    const languageCount = {};
+    repos.forEach(repo =>
+    {
+        if (repo.language)
+        {
+            languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
+        }
+    });
+    return Object.keys(languageCount).reduce((a, b) => languageCount[a] > languageCount[b] ? a : b, 'Unknown');
+};
 
-//@ Initial fetch on server start with optional delay
+/**
+ * Calculate cache timings based on last updated time and refresh interval.
+ * @returns {Object} Object containing next refresh time, and formatted last updated and next refresh times.
+ */
+const calculateCacheTimings = () =>
+{
+    const nextRefresh = cache.lastUpdated
+        ? new Date(cache.lastUpdated.getTime() + config.CACHE.REFRESH_INTERVAL)
+        : new Date(Date.now() + config.CACHE.REFRESH_INTERVAL);
+
+    const formattedLastUpdated = cache.lastUpdated ? formatDistanceToNow(cache.lastUpdated, { addSuffix: true }) : 'Never';
+    const formattedNextRefresh = formatDistanceToNow(nextRefresh, { addSuffix: true });
+
+    return {
+        nextRefresh,
+        formattedLastUpdated,
+        formattedNextRefresh
+    };
+};
+
+
+//! Server Setup and Initialization  ////////////////////////////////////////////
+
 setTimeout(fetchGitHubData, config.CACHE.INITIAL_DELAY);
-
-//@ Automatic background refresh every hour
 setInterval(fetchGitHubData, config.CACHE.REFRESH_INTERVAL);
 
 app.listen(config.PORT, () =>
