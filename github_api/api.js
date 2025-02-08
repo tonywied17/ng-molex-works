@@ -309,7 +309,6 @@ const generateStats = (repos) => ({
     topLanguage: calculateTopLanguage(repos),
 });
 
-
 /**
  ** Calculate cache timings based on last updated time and refresh interval.
  */
