@@ -21,6 +21,7 @@ const config = {
     },
     CACHE: {
         REFRESH_INTERVAL: 60 * 60 * 1000,                                       //!> Cache refresh interval in milliseconds
+        INITIAL_DELAY: 0,                                                       //!> Delay before initial cache refresh in milliseconds
     },
     CORS: {
         ALLOWED_ORIGINS: ['http://localhost:4200', 'https://molexworks.com'],   //!> Allowed origins for CORS
@@ -141,11 +142,10 @@ app.get('/', (req, res) =>
 
 //! GitHub Fetching and Caching  ///////////////////////////////////////////////
 
-//* Axios instance for GitHub API requests
 const githubAPI = axios.create({
     baseURL: config.GITHUB.API_BASE_URL,
     headers: {
-        Authorization: `token ${config.GITHUB.TOKEN}`
+        Authorization: `token ${config.GITHUB.TOKEN}`,
     }
 });
 
@@ -237,18 +237,27 @@ const fetchCommits = (repoName, pushedDate) =>
 /**
  ** Fetch Gists for the user.
  */
-const fetchGists = async () =>
-{
-    const { data } = await githubAPI.get(`/users/${config.GITHUB.USERNAME}/gists`);
-    return data.map(gist => ({
-        id: gist.id,
-        description: gist.description,
-        createdAt: gist.created_at,
-        updatedAt: gist.updated_at,
-        gistUrl: gist.html_url,
-        files: Object.keys(gist.files),
-    }));
-};
+const fetchGists = () =>
+    githubAPI
+        .get(`/users/${config.GITHUB.USERNAME}/gists`)
+        .then(response =>
+        {
+            return response.data.map(gist =>
+            {
+                return {
+                    id: gist.id,
+                    description: gist.description,
+                    files: Object.keys(gist.files),
+                    htmlUrl: gist.html_url,
+                    updatedAt: formatDistanceToNow(new Date(gist.updated_at), { addSuffix: true }),
+                };
+            });
+        })
+        .catch(error =>
+        {
+            console.error('Error fetching gists:', error);
+            return [];
+        });
 
 
 //! Helper Functions  //////////////////////////////////////////////////////////
@@ -300,7 +309,6 @@ const generateStats = (repos) => ({
     topLanguage: calculateTopLanguage(repos),
 });
 
-
 /**
  ** Calculate cache timings based on last updated time and refresh interval.
  */
@@ -333,6 +341,7 @@ const getRoutes = () =>
 
 //! Server Setup and Initialization  ////////////////////////////////////////////
 
+setTimeout(fetchGitHubData, config.CACHE.INITIAL_DELAY);
 setInterval(fetchGitHubData, config.CACHE.REFRESH_INTERVAL);
 
 app.listen(config.PORT, () =>
