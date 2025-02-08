@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Fri February 7th 2025 11:30:21 
+Last Modified: Sat February 8th 2025 1:58:51 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -31,12 +31,14 @@ Copyright (c) 2023 Tone Web Design, Molex
 
 <h1 class="xl:text-2xl text-lg header-border pb-2 mt-12 swing-left inline-block">GitHub Repositories</h1>
 <span class="swing-in font-[200] italic my-2 flex flex-row gap-5 w-full justify-end text-right" *ngIf="loaded && stats">
-    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories" matTooltipPosition="left">
+    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories"
+        matTooltipPosition="left">
         {{ stats.totalRepos }}
         <i class="fa-solid fa-code"></i>
     </span>
-    
-    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars" matTooltipPosition="left">
+
+    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars"
+        matTooltipPosition="left">
         {{ stats.totalStars }}
         <i class="fa-solid fa-star"></i>
     </span>
@@ -87,46 +89,52 @@ Copyright (c) 2023 Tone Web Design, Molex
         <div></div>
     </div>
 </div>
-
+<!-- Conditionally display the repository list once data is loaded -->
 <div *ngIf="loaded" class="masonry">
+    <!-- Loop through the filtered repositories and display each one -->
     <div *ngFor="let repo of repos" class="w-full">
         <mat-card class="card-entrance">
 
+            <!-- Card Header -->
             <mat-card-header class="!flex">
-                <img class="!w-[25px] !h-[25px] lg:!w-[50px] lg:!h-[50px]" mat-card-avatar [src]="repo.avatar"
+                <img class="!w-[25px] !h-[25px] lg:!w-[50px] lg:!h-[50px]" mat-card-avatar [src]="repo.owner.avatar_url"
                     alt="Dev avatar">
                 <mat-card-title class="!text-xl w-full" style="word-break: break-word;">
-                    <i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}
+                    <i class="fa-brands fa-github-alt pr-2"></i>{{ repo.full_name }}
                     <div class="text-neutral-400 text-base p-3">{{ repo.description }}</div>
                 </mat-card-title>
                 <mat-card-subtitle class="flex flex-col gap-2">
                     <div class="flex flex-col gap-4 text-sm">
+                        <!-- Display recent commits if any -->
                         <div *ngIf="repo.commits && repo.commits.length > 0"
                             class="text-base text-neutral-300 lg:ml-0 ml-[-25px]">
                             <i class="fa-solid fa-code-commit pr-2"></i>Recent Commits
                         </div>
+                        <!-- Loop through commits and display each one -->
                         <div *ngFor="let commit of repo.commits"
                             class="flex flex-col xl:items-center xl:flex-row gap-4 text-sm lg:ml-2 ml-[-25px]">
                             <a [href]="commit.url" target="_blank"
                                 class="font-[500] text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">
-                                {{ commit.sha | slice:0:7 }}</a>
+                                {{ commit.sha | slice:0:7 }}
+                            </a>
                             <span class="font-[200] text-neutral-500">{{ commit.message }}</span>
                         </div>
                     </div>
                 </mat-card-subtitle>
             </mat-card-header>
+
+            <!-- Card Actions (Repo Info and Links) -->
             <mat-card-actions class="!flex !w-full !justify-between !items-center !flex-col xl:!flex-row gap-4">
                 <div class="flex items-center gap-2">
-                    <!-- Language -->
+                    <!-- Repo Language -->
                     <i class="fa-solid fa-code"></i>
                     <span class="text-neutral-500 font-[200]">{{ repo.language }}</span>
 
                     <!-- Repo Stars -->
                     <i class="fa-solid fa-star"></i>
-                    <span class="text-neutral-500 font-[200]">{{ repo.stars }}</span>
-
-
+                    <span class="text-neutral-500 font-[200]">{{ repo.stargazers_count }}</span>
                 </div>
+
                 <div class="flex items-center gap-4">
                     <!-- Last Pushed -->
                     <div class="flex items-center gap-2">
@@ -134,8 +142,10 @@ Copyright (c) 2023 Tone Web Design, Molex
                         <span class="text-neutral-500 font-[200]">{{ repo.lastPushed }}</span>
                     </div>
 
-                    <a class="!text-base" mat-button [href]="repo.url" target="_blank">REPO <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <!-- Repo Link -->
+                    <a class="!text-base" mat-button [href]="repo.html_url" target="_blank">
+                        REPO <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
                 </div>
             </mat-card-actions>
         </mat-card>

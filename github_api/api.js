@@ -7,6 +7,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const { formatDistanceToNow, parseISO } = require('date-fns');
+const { get } = require('http');
 const app = express();
 
 
@@ -165,9 +166,8 @@ const fetchGitHubData = async () =>
             Promise.all([fetchRepos(), fetchGists()])
                 .then(async ([reposResult, gistsResult]) =>
                 {
-                    const repoDetails = await getRepoDetails(reposResult);
-                    cache.repos = repoDetails;
-                    cache.stats = generateStats(repoDetails);
+                    cache.repos = reposResult;
+                    cache.stats = generateStats(reposResult);
                     cache.gists = gistsResult;
                     cache.lastUpdated = new Date();
                     console.log(`Cache updated at ${cache.lastUpdated}`);
@@ -182,50 +182,61 @@ const fetchGitHubData = async () =>
 /**
  ** Fetch repositories for the user.
  */
-const fetchRepos = async () =>
-{
-    const { data } = await githubAPI.get(`/users/${config.GITHUB.USERNAME}/repos?per_page=${config.GITHUB.REPOS_PER_PAGE}`);
-    return data;
-};
+const fetchRepos = () =>
+    githubAPI
+        .get(`/users/${config.GITHUB.USERNAME}/repos?per_page=${config.GITHUB.REPOS_PER_PAGE}`)
+        .then(response => getRepoDetails(response.data))
+        .catch(error =>
+        {
+            console.error('Error fetching repositories:', error);
+            return [];
+        });
 
 /**
  ** Fetch details for each repository.
  */
-const getRepoDetails = async (repos) =>
-{
-    return Promise.all(
-        repos.map(async (repo) =>
-        {
-            const pushedAt = parseISO(repo.pushed_at);
-            const formattedLastPushed = formatDistanceToNow(pushedAt, { addSuffix: true });
-
-            const commits = await fetchCommits(repo.name, pushedAt);
-            return formatRepoDetails(repo, formattedLastPushed, commits);
-        })
-    );
-};
+const getRepoDetails = (repos) =>
+    Promise.all(
+        repos.map(repo =>
+            fetchCommits(repo.name, parseISO(repo.pushed_at))
+                .then(commits => ({
+                    ...filterRepoData(repo),
+                    lastPushed: formatDistanceToNow(parseISO(repo.pushed_at), { addSuffix: true }),
+                    commits
+                }))
+                .catch(error => (
+                    console.error(`Error fetching commits for ${repo.name}:`, error),
+                    {
+                        ...filterRepoData(repo),
+                        lastPushed: 'Unknown',
+                        commits: []
+                    }
+                ))
+        )
+    ).catch(error => (
+        console.error('Error processing repositories:', error),
+        []
+    ));
 
 /**
  ** Fetch commits for a repository based on the last pushed date.
  */
-const fetchCommits = async (repoName, pushedDate) =>
+const fetchCommits = (repoName, pushedDate) =>
 {
-    const commitCount = getCommitCountBasedOnThreshold(pushedDate);
-    if (commitCount === 0) return [];
-
-    try
-    {
-        const { data } = await githubAPI.get(`/repos/${config.GITHUB.USERNAME}/${repoName}/commits?per_page=${commitCount}`);
-        return data.map(commit => ({
-            sha: commit.sha,
-            message: commit.commit.message,
-            url: commit.html_url,
-        }));
-    } catch (error)
-    {
-        console.error(`Error fetching commits for ${repoName}:`, error.message);
-        return [];
-    }
+    const commitCount = getCommitCount(pushedDate);
+    return commitCount === 0
+        ? Promise.resolve([])
+        : githubAPI
+            .get(`/repos/${config.GITHUB.USERNAME}/${repoName}/commits?per_page=${commitCount}`)
+            .then(response => response.data.map(commit => ({
+                sha: commit.sha,
+                message: commit.commit.message,
+                url: commit.html_url,
+            })))
+            .catch(error => (
+                console.error(`Error fetching commits for ${repoName}:`, error.message),
+                []
+            ));
 };
 
 /**
@@ -247,10 +258,21 @@ const fetchGists = async () =>
 
 //! Helper Functions  //////////////////////////////////////////////////////////
 
+const filterRepoData = (repo) =>
+    Object.fromEntries(
+        Object.entries(repo).map(([key, value]) =>
+            key === 'owner'
+                ? [key, { login: value.login, avatar_url: value.avatar_url }]
+                : ['name', 'full_name', 'description', 'html_url', 'homepage', 'language', 'stargazers_count', 'forks_count', 'pushed_at'].includes(key)
+                    ? [key, value]
+                    : null
+        ).filter(Boolean)
+    );
+
 /**
  ** Calculate the number of commits to fetch based on the last pushed date.
  */
-const getCommitCountBasedOnThreshold = (pushedDate) =>
+const getCommitCount = (pushedDate) =>
 {
     const now = Date.now();
     return Object.values(config.COMMIT_FETCH_RULES).find(
@@ -279,18 +301,10 @@ const calculateTopLanguage = (repos) =>
  */
 const generateStats = (repos) => ({
     totalRepos: repos.length,
-    totalStars: repos.reduce((sum, repo) => sum + repo.stars, 0),
+    totalStars: repos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
     topLanguage: calculateTopLanguage(repos),
 });
 
-/**
- ** Format repository details for the API response.
- */
-const formatRepoDetails = (repo, lastPushed, commits) => ({
-    projectName: repo.name, pushedAt: repo.pushed_at, lastPushed, fullName: repo.full_name,
-    description: repo.description, avatar: repo.owner.avatar_url, name: repo.owner.login,
-    url: repo.html_url, language: repo.language, stars: repo.stargazers_count, commits
-});
 
 /**
  ** Calculate cache timings based on last updated time and refresh interval.
