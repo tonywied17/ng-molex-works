@@ -4,7 +4,7 @@
  * Created Date: Friday February 7th 2025
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sat February 8th 2025 12:11:22 
+ * Last Modified: Sat February 8th 2025 12:33:24 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2025 MolexWorks
@@ -126,6 +126,8 @@ app.use(cacheTimingMiddleware);
  */
 const sendApiResponse = (req, res, dataKey) =>
 {
+    const prettyPrint = req.query.pretty === 'true';
+
     const responseData = {
         Cache: req.cacheTimings,
     };
@@ -137,13 +139,23 @@ const sendApiResponse = (req, res, dataKey) =>
             responseData.Statistics = cache.stats;
             responseData.Repositories = cache.repos;
             responseData.Gists = cache.gists;
-        } else
+        }
+        else 
         {
             responseData.Data = cache[dataKey];
         }
 
-        res.json(responseData);
-    } else
+        if (prettyPrint) 
+        {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(responseData, null, 4));
+        }
+        else 
+        {
+            res.json(responseData);
+        }
+    }
+    else 
     {
         res.status(503).json({ message: 'Data is being fetched, please try again shortly.' });
     }
@@ -172,7 +184,8 @@ app.get('/', (req, res) =>
         Cache: req.cacheTimings,
     };
 
-    res.json(JSON.parse(JSON.stringify(response, null, 4)));
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(response, null, 4));
 });
 
 
