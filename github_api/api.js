@@ -1,22 +1,17 @@
-/*
- * File: c:\Users\tonyw\AppData\Local\Temp\scp01511\api.js
- * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\github_api
- * Created Date: Friday February 7th 2025
- * Author: Tony Wiedman
- * -----
- * Last Modified: Fri February 7th 2025 11:31:56 
- * Modified By: Tony Wiedman
- * -----
- * Copyright (c) 2025 MolexWorks
- */
+//! MolexWorks Git API Server //////////////////////////////////////////////////
+//! A simple Node.js server to fetch and cache GitHub data. ////////////////////
+//! Author: Tony Wiedman ///////////////////////////////////////////////////////
 
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const { formatDistanceToNow, parseISO } = require('date-fns');
-
+const { get } = require('http');
 const app = express();
+
+
+//! Configuration  /////////////////////////////////////////////////////////////
 
 const config = {
     PORT: process.env.PORT || 3330,                                             //!> Port to run the server on
@@ -45,7 +40,7 @@ const config = {
     }
 };
 
-//@ In-memory cache object
+//* In-memory cache object
 let cache = {
     repos: [],                  //!> Cached repository data
     stats: [],                  //!> Cached statistics
@@ -54,22 +49,19 @@ let cache = {
     isRefreshing: false,        //!> Flag to prevent concurrent cache refreshes
 };
 
-//@ GitHub Headers for API requests
+//* GitHub Headers for API requests
 const githubHeaders = {
     Authorization: `token ${config.GITHUB.TOKEN}`,
 };
 
-//@ CORS setup
+//* CORS setup
 app.use(cors({
-    origin: function (origin, callback)
+    origin: (origin, callback) =>
     {
-        if (!origin || config.CORS.ALLOWED_ORIGINS.includes(origin))
-        {
-            callback(null, true);
-        } else
-        {
-            callback(new Error('Not allowed by CORS'));
-        }
+        const allowedOrigins = config.CORS.ALLOWED_ORIGINS;
+        allowedOrigins.includes(origin) || !origin
+            ? callback(null, true)
+            : callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET'],
     allowedHeaders: ['Content-Type'],
@@ -79,32 +71,18 @@ app.use(cors({
 //! Middleware  ////////////////////////////////////////////////////////////////
 
 /**
- * Middleware to authenticate admin requests.
- * @returns {Response} 403 Forbidden if token is invalid or missing.
- * @returns {Function} next() if token is valid.
+ ** Middleware to authenticate admin requests.
  */
 const authenticateAdmin = (req, res, next) =>
 {
-    const authHeader = req.headers.authorization;
-    const queryToken = req.query.token;
     const validToken = config.AUTH.ADMIN_REFRESH_TOKEN;
+    const providedToken = req.headers.authorization?.replace('Bearer ', '') || req.query.token;
 
-    if (authHeader && authHeader === `Bearer ${validToken}`)
-    {
-        return next();
-    }
-
-    if (queryToken && queryToken === validToken)
-    {
-        return next();
-    }
-
-    return res.status(403).json({ message: 'Forbidden: Invalid or missing token.' });
+    providedToken === validToken ? next() : res.status(403).json({ message: 'Forbidden: Invalid or missing token.' });
 };
 
 /**
- * Middleware to calculate cache timings for each request.
- * @returns {Object} Object containing next refresh time, and formatted last updated and next refresh times.
+ ** Middleware to calculate cache timings for each request.
  */
 const cacheTimingMiddleware = (req, res, next) =>
 {
@@ -118,38 +96,27 @@ app.use(cacheTimingMiddleware);
 //! API Routes  //////////////////////////////////////////////////////////////
 
 /**
- * Send API response based on the data key provided.
- * @param {String} dataKey Key to access the data from cache
- * @returns {Response} JSON response with the data from cache.
+ ** Send API response based on the data key provided.
  */
 const sendApiResponse = (req, res, dataKey) =>
 {
-    const { nextRefresh, formattedLastUpdated, formattedNextRefresh } = req.cacheTimings;
+    const prettyPrint = req.query.pretty === 'true';
 
-    const responseData = {
-        Cache: {
-            lastUpdated: { timestamp: cache.lastUpdated.toISOString(), formatted: formattedLastUpdated },
-            nextRefresh: { timestamp: nextRefresh.toISOString(), formatted: formattedNextRefresh }
-        }
-    };
-
-    if (cache.repos && cache.stats && cache.gists)
-    {
-        if (dataKey === 'data')
-        {
-            responseData.Statistics = cache.stats;
-            responseData.Repositories = cache.repos;
-            responseData.Gists = cache.gists;
-        } else
-        {
-            responseData.Data = cache[dataKey];
-        }
-
-        res.json(responseData);
-    } else
-    {
-        res.status(503).json({ message: 'Data is being fetched, please try again shortly.' });
-    }
+    return !(cache.repos && cache.stats && cache.gists)
+        ? res.status(503).json({ message: 'Data is being fetched, please try again shortly.' })
+        : res.setHeader('Content-Type', 'application/json')
+            .send(
+                JSON.stringify(
+                    {
+                        Cache: req.cacheTimings,
+                        ...(dataKey === 'data'
+                            ? { Statistics: cache.stats, Repositories: cache.repos, Gists: cache.gists }
+                            : { Data: cache[dataKey] })
+                    },
+                    null,
+                    prettyPrint ? 4 : undefined
+                )
+            );
 };
 
 //@ API to get cached data
@@ -175,201 +142,199 @@ app.get('/', (req, res) =>
         Cache: req.cacheTimings,
     };
 
-    res.json(JSON.parse(JSON.stringify(response, null, 4)));
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(response, null, 4));
 });
 
 
-//! GitHub Fetching  //////////////////////////////////////////////////////////
+//! GitHub Fetching and Caching  ///////////////////////////////////////////////
+
+const githubAPI = axios.create({
+    baseURL: config.GITHUB.API_BASE_URL,
+    headers: githubHeaders,
+});
 
 /**
- * Fetch GitHub data and cache it in memory.
- * @returns {Promise} Promise that resolves when the GitHub data is fetched and cached.
+ ** Fetch GitHub data and cache it in memory.
  */
 const fetchGitHubData = async () =>
 {
-    if (cache.isRefreshing) return;
-
-    try
-    {
-        cache.isRefreshing = true;
-        console.log('Fetching GitHub data...');
-
-        const reposResponse = await axios.get(
-            `${config.GITHUB.API_BASE_URL}/users/${config.GITHUB.USERNAME}/repos?per_page=${config.GITHUB.REPOS_PER_PAGE}`,
-            { headers: githubHeaders }
-        );
-        const repos = reposResponse.data;
-
-        const repoDetails = await Promise.all(
-            repos.map(async (repo) =>
-            {
-                const pushedAt = repo.pushed_at;
-                const formattedLastPushed = formatDistanceToNow(parseISO(pushedAt), { addSuffix: true });
-                const pushedDate = new Date(pushedAt);
-
-                let commits = [];
-                const commitCount = getCommitCountBasedOnThreshold(pushedDate);
-
-                if (commitCount > 0)
+    return cache.isRefreshing
+        ? null
+        : (cache.isRefreshing = true,
+            console.log('Fetching GitHub data...'),
+            Promise.all([fetchRepos(), fetchGists()])
+                .then(async ([reposResult, gistsResult]) =>
                 {
-                    const commitsResponse = await axios.get(
-                        `${config.GITHUB.API_BASE_URL}/repos/${config.GITHUB.USERNAME}/${repo.name}/commits?per_page=${commitCount}`,
-                        { headers: githubHeaders }
-                    );
-                    commits = commitsResponse.data.map(commit => ({
-                        sha: commit.sha,
-                        message: commit.commit.message,
-                        url: commit.html_url,
-                    }));
-                }
+                    cache.repos = reposResult;
+                    cache.stats = generateStats(reposResult);
+                    cache.gists = gistsResult;
+                    cache.lastUpdated = new Date();
+                    console.log(`Cache updated at ${cache.lastUpdated}`);
+                })
+                .catch((error) =>
+                {
+                    console.error('Error fetching GitHub data:', error);
+                })
+                .finally(() => { cache.isRefreshing = false; }));
+};
 
-                return {
-                    projectName: repo.name,
-                    pushedAt,
-                    lastPushed: formattedLastPushed,
-                    fullName: repo.full_name,
-                    description: repo.description,
-                    avatar: repo.owner.avatar_url,
-                    name: repo.owner.login,
-                    url: repo.html_url,
-                    language: repo.language,
-                    stars: repo.stargazers_count,
-                    commits,
-                };
-            })
-        );
-
-        let gistDetails = [];
-        try
+/**
+ ** Fetch repositories for the user.
+ */
+const fetchRepos = () =>
+    githubAPI
+        .get(`/users/${config.GITHUB.USERNAME}/repos?per_page=${config.GITHUB.REPOS_PER_PAGE}`)
+        .then(response => getRepoDetails(response.data))
+        .catch(error =>
         {
-            const gistsResponse = await axios.get(
-                `${config.GITHUB.API_BASE_URL}/users/${config.GITHUB.USERNAME}/gists`,
-                { headers: githubHeaders }
-            );
-            gistDetails = gistsResponse.data.map(gist => ({
-                id: gist.id,
-                description: gist.description,
-                createdAt: gist.created_at,
-                updatedAt: gist.updated_at,
-                gistUrl: gist.html_url,
-                files: Object.keys(gist.files),
-            }));
-        } catch (error)
-        {
-            console.error('Error fetching gists:', error);
-        }
+            console.error('Error fetching repositories:', error);
+            return [];
+        });
 
-        cache.repos = repoDetails;
-        cache.stats = {
-            totalRepos: repoDetails.length,
-            totalStars: cache.repos.reduce((sum, repo) => sum + repo.stars, 0),
-            topLanguage: calculateTopLanguage(repoDetails),
-        };
-        cache.gists = gistDetails;
-        cache.lastUpdated = new Date();
-        console.log(`Cache updated at ${cache.lastUpdated}`);
-    } catch (error)
-    {
-        console.error('Error fetching repos:', error);
-    } finally
-    {
-        cache.isRefreshing = false;
-    }
+/**
+ ** Fetch details for each repository.
+ */
+const getRepoDetails = (repos) =>
+    Promise.all(
+        repos.map(repo =>
+            fetchCommits(repo.name, parseISO(repo.pushed_at))
+                .then(commits => ({
+                    ...filterRepoData(repo),
+                    lastPushed: formatDistanceToNow(parseISO(repo.pushed_at), { addSuffix: true }),
+                    commits
+                }))
+                .catch(error => (
+                    console.error(`Error fetching commits for ${repo.name}:`, error),
+                    {
+                        ...filterRepoData(repo),
+                        lastPushed: 'Unknown',
+                        commits: []
+                    }
+                ))
+        )
+    ).catch(error => (
+        console.error('Error processing repositories:', error),
+        []
+    ));
+
+/**
+ ** Fetch commits for a repository based on the last pushed date.
+ */
+const fetchCommits = (repoName, pushedDate) =>
+{
+    const commitCount = getCommitCount(pushedDate);
+    return commitCount === 0
+        ? Promise.resolve([])
+        : githubAPI
+            .get(`/repos/${config.GITHUB.USERNAME}/${repoName}/commits?per_page=${commitCount}`)
+            .then(response => response.data.map(commit => ({
+                sha: commit.sha,
+                message: commit.commit.message,
+                url: commit.html_url,
+            })))
+            .catch(error => (
+                console.error(`Error fetching commits for ${repoName}:`, error.message),
+                []
+            ));
+};
+
+/**
+ ** Fetch Gists for the user.
+ */
+const fetchGists = async () =>
+{
+    const { data } = await githubAPI.get(`/users/${config.GITHUB.USERNAME}/gists`);
+    return data.map(gist => ({
+        id: gist.id,
+        description: gist.description,
+        createdAt: gist.created_at,
+        updatedAt: gist.updated_at,
+        gistUrl: gist.html_url,
+        files: Object.keys(gist.files),
+    }));
 };
 
 
 //! Helper Functions  //////////////////////////////////////////////////////////
 
+const filterRepoData = (repo) =>
+    Object.fromEntries(
+        Object.entries(repo).map(([key, value]) =>
+            key === 'owner'
+                ? [key, { login: value.login, avatar_url: value.avatar_url }]
+                : ['name', 'full_name', 'description', 'html_url', 'homepage', 'language', 'stargazers_count', 'forks_count', 'pushed_at'].includes(key)
+                    ? [key, value]
+                    : null
+        ).filter(Boolean)
+    );
+
 /**
- * Calculate the number of commits to fetch based on the last pushed date.
- * @param {Date} pushedDate Date object of the last pushed date.
- * @returns {Number} Number of commits to fetch.
+ ** Calculate the number of commits to fetch based on the last pushed date.
  */
-const getCommitCountBasedOnThreshold = (pushedDate) =>
+const getCommitCount = (pushedDate) =>
 {
     const now = Date.now();
-
-    if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.MONTH.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.MONTH.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.THREE_MONTHS.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.THREE_MONTHS.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.SIX_MONTHS.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.SIX_MONTHS.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.YEAR.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.YEAR.commits;
-    } else
-    {
-        return config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
-    }
+    return Object.values(config.COMMIT_FETCH_RULES).find(
+        (rule) => now - pushedDate.getTime() < rule.threshold
+    )?.commits || config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
 };
 
 /**
- * Calculate the top language used in the repositories.
- * @param {Array} repos Array of repository objects.
- * @returns {String} Name of the top language.
+ ** Calculate the top language used in the repositories.
  */
 const calculateTopLanguage = (repos) =>
 {
     const languageCount = {};
     repos.forEach(repo =>
     {
-        if (repo.language)
-        {
-            languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
-        }
+        repo.language
+            ? (languageCount[repo.language] = (languageCount[repo.language] || 0) + 1)
+            : null;
     });
-    return Object.keys(languageCount).reduce((a, b) => languageCount[a] > languageCount[b] ? a : b, 'Unknown');
+    return Object.keys(languageCount).reduce((a, b) =>
+        languageCount[a] > languageCount[b] ? a : b, 'Unknown');
 };
 
 /**
- * Calculate cache timings based on last updated time and refresh interval.
- * @returns {Object} Object containing next refresh time, and formatted last updated and next refresh times.
+ ** Generate statistics based on the repositories data.
+ */
+const generateStats = (repos) => ({
+    totalRepos: repos.length,
+    totalStars: repos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
+    topLanguage: calculateTopLanguage(repos),
+});
+
+
+/**
+ ** Calculate cache timings based on last updated time and refresh interval.
  */
 const calculateCacheTimings = () =>
 {
-    const nextRefresh = cache.lastUpdated
+    const nextRefreshISO = cache.lastUpdated
         ? new Date(cache.lastUpdated.getTime() + config.CACHE.REFRESH_INTERVAL)
         : new Date(Date.now() + config.CACHE.REFRESH_INTERVAL);
-
-    const formattedLastUpdated = cache.lastUpdated ? formatDistanceToNow(cache.lastUpdated, { addSuffix: true }) : 'Never';
-    const formattedNextRefresh = formatDistanceToNow(nextRefresh, { addSuffix: true });
+    const lastUpdatedISO = cache.lastUpdated || new Date();
+    const lastUpdated = cache.lastUpdated ? formatDistanceToNow(lastUpdatedISO, { addSuffix: true }) : 'Never';
+    const nextRefresh = cache.lastUpdated ? formatDistanceToNow(nextRefreshISO, { addSuffix: true }) : 'Now';
 
     return {
-        nextRefresh,
-        formattedLastUpdated,
-        formattedNextRefresh
+        lastUpdatedISO,
+        nextRefreshISO,
+        lastUpdated,
+        nextRefresh
     };
 };
 
 /**
- * Get all the routes available in the application.
- * @returns {Object} Object containing all available routes and their descriptions.
+ ** Get all the routes available in the application.
  */
 const getRoutes = () =>
-{
-    const routes = [];
+    app._router.stack.reduce((acc, middleware) =>
+        middleware.route
+            ? { ...acc, [middleware.route.path]: `Handle ${Object.keys(middleware.route.methods)[0].toUpperCase()} request` }
+            : acc, {});
 
-    app._router.stack.forEach((middleware) =>
-    {
-        if (middleware.route)
-        {
-            routes.push({
-                method: Object.keys(middleware.route.methods)[0].toUpperCase(),
-                path: middleware.route.path
-            });
-        }
-    });
-
-    return routes.reduce((acc, route) =>
-    {
-        acc[route.path] = `Handle ${route.method} request`;
-        return acc;
-    }, {});
-};
 
 //! Server Setup and Initialization  ////////////////////////////////////////////
 
