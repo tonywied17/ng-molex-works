@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\AppData\Local\Temp\scp01511\api.js
- * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\github_api
+ * Project: c:\Users\tonyw\AppData\Local\Temp\scp23227
  * Created Date: Friday February 7th 2025
  * Author: Tony Wiedman
  * -----
- * Last Modified: Fri February 7th 2025 11:31:56 
+ * Last Modified: Sat February 8th 2025 12:11:22 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2025 MolexWorks
@@ -15,8 +15,10 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const { formatDistanceToNow, parseISO } = require('date-fns');
-
 const app = express();
+
+
+//! Configuration  /////////////////////////////////////////////////////////////
 
 const config = {
     PORT: process.env.PORT || 3330,                                             //!> Port to run the server on
@@ -124,13 +126,8 @@ app.use(cacheTimingMiddleware);
  */
 const sendApiResponse = (req, res, dataKey) =>
 {
-    const { nextRefresh, formattedLastUpdated, formattedNextRefresh } = req.cacheTimings;
-
     const responseData = {
-        Cache: {
-            lastUpdated: { timestamp: cache.lastUpdated.toISOString(), formatted: formattedLastUpdated },
-            nextRefresh: { timestamp: nextRefresh.toISOString(), formatted: formattedNextRefresh }
-        }
+        Cache: req.cacheTimings,
     };
 
     if (cache.repos && cache.stats && cache.gists)
@@ -179,7 +176,7 @@ app.get('/', (req, res) =>
 });
 
 
-//! GitHub Fetching  //////////////////////////////////////////////////////////
+//! GitHub Fetching and Caching  ///////////////////////////////////////////////
 
 /**
  * Fetch GitHub data and cache it in memory.
@@ -289,22 +286,17 @@ const getCommitCountBasedOnThreshold = (pushedDate) =>
 {
     const now = Date.now();
 
-    if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.MONTH.threshold)
+    for (const ruleKey in config.COMMIT_FETCH_RULES)
     {
-        return config.COMMIT_FETCH_RULES.MONTH.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.THREE_MONTHS.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.THREE_MONTHS.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.SIX_MONTHS.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.SIX_MONTHS.commits;
-    } else if (now - pushedDate.getTime() < config.COMMIT_FETCH_RULES.YEAR.threshold)
-    {
-        return config.COMMIT_FETCH_RULES.YEAR.commits;
-    } else
-    {
-        return config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
+        const rule = config.COMMIT_FETCH_RULES[ruleKey];
+
+        if (now - pushedDate.getTime() < rule.threshold)
+        {
+            return rule.commits;
+        }
     }
+
+    return config.COMMIT_FETCH_RULES.OVER_YEAR.commits;
 };
 
 /**
@@ -331,17 +323,18 @@ const calculateTopLanguage = (repos) =>
  */
 const calculateCacheTimings = () =>
 {
-    const nextRefresh = cache.lastUpdated
+    const nextRefreshISO = cache.lastUpdated
         ? new Date(cache.lastUpdated.getTime() + config.CACHE.REFRESH_INTERVAL)
         : new Date(Date.now() + config.CACHE.REFRESH_INTERVAL);
-
-    const formattedLastUpdated = cache.lastUpdated ? formatDistanceToNow(cache.lastUpdated, { addSuffix: true }) : 'Never';
-    const formattedNextRefresh = formatDistanceToNow(nextRefresh, { addSuffix: true });
+    const lastUpdatedISO = cache.lastUpdated || new Date();
+    const lastUpdated = cache.lastUpdated ? formatDistanceToNow(lastUpdatedISO, { addSuffix: true }) : 'Never';
+    const nextRefresh = cache.lastUpdated ? formatDistanceToNow(nextRefreshISO, { addSuffix: true }) : 'Now';
 
     return {
-        nextRefresh,
-        formattedLastUpdated,
-        formattedNextRefresh
+        lastUpdatedISO,
+        nextRefreshISO,
+        lastUpdated,
+        nextRefresh
     };
 };
 
