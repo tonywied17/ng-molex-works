@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\app.module.ts
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 1:12:17 
+ * Last Modified: Fri February 7th 2025 11:19:10 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -26,6 +26,7 @@ import { DetailsComponent } from './_components/portfolio/details/details.compon
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { QuoteRequestComponent } from './_components/about/contact/quote-request/quote-request.component';
 import { ImageModalComponent } from './_components/portfolio/image-modal/image-modal.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ImageModalComponent } from './_components/portfolio/image-modal/image-m
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatTooltipModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
