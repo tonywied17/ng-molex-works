@@ -1,3 +1,15 @@
+/*
+ * File: c:\Users\tonyw\AppData\Local\Temp\scp01511\api.js
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works\github_api
+ * Created Date: Friday February 7th 2025
+ * Author: Tony Wiedman
+ * -----
+ * Last Modified: Fri February 7th 2025 11:31:56 
+ * Modified By: Tony Wiedman
+ * -----
+ * Copyright (c) 2025 MolexWorks
+ */
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -35,8 +47,8 @@ const config = {
 
 //@ In-memory cache object
 let cache = {
-    repos: null,                 //!> Cached repository data
-    stats: {},                  //!> Cached statistics
+    repos: [],                  //!> Cached repository data
+    stats: [],                  //!> Cached statistics
     gists: [],                  //!> Cached gists
     lastUpdated: new Date(),    //!> Timestamp of last cache update
     isRefreshing: false,        //!> Flag to prevent concurrent cache refreshes
@@ -115,7 +127,7 @@ const sendApiResponse = (req, res, dataKey) =>
     const { nextRefresh, formattedLastUpdated, formattedNextRefresh } = req.cacheTimings;
 
     const responseData = {
-        _Cached_Data: {
+        Cache: {
             lastUpdated: { timestamp: cache.lastUpdated.toISOString(), formatted: formattedLastUpdated },
             nextRefresh: { timestamp: nextRefresh.toISOString(), formatted: formattedNextRefresh }
         }
@@ -125,12 +137,12 @@ const sendApiResponse = (req, res, dataKey) =>
     {
         if (dataKey === 'data')
         {
-            responseData._Statistics = cache.stats;
-            responseData._Repositories = cache.repos;
-            responseData._Gists = cache.gists;
+            responseData.Statistics = cache.stats;
+            responseData.Repositories = cache.repos;
+            responseData.Gists = cache.gists;
         } else
         {
-            responseData.data = cache[dataKey];
+            responseData.Data = cache[dataKey];
         }
 
         res.json(responseData);
@@ -141,21 +153,33 @@ const sendApiResponse = (req, res, dataKey) =>
 };
 
 //@ API to get cached data
-app.get('/api/repos', (req, res) => sendApiResponse(req, res, 'repos'));
-app.get('/api/stats', (req, res) => sendApiResponse(req, res, 'stats'));
-app.get('/api/gists', (req, res) => sendApiResponse(req, res, 'gists'));
-app.get('/api/data', (req, res) => sendApiResponse(req, res, 'data'));
+app.get('/repos', (req, res) => sendApiResponse(req, res, 'repos'));
+app.get('/stats', (req, res) => sendApiResponse(req, res, 'stats'));
+app.get('/gists', (req, res) => sendApiResponse(req, res, 'gists'));
+app.get('/data', (req, res) => sendApiResponse(req, res, 'data'));
 
 //@ API to manually refresh the cache (Admin only)
-app.get('/api/refresh', authenticateAdmin, async (req, res) =>
+app.get('/refresh', authenticateAdmin, async (req, res) =>
 {
     console.log('Manual refresh requested by authorized user.');
     await fetchGitHubData();
     res.json({ message: 'Cache refreshed manually.', lastUpdated: cache.lastUpdated });
 });
 
+//@ Root Route (List Routes and Configurations)
+app.get('/', (req, res) =>
+{
+    const response = {
+        Message: 'Available routes',
+        Routes: getRoutes(),
+        Cache: req.cacheTimings,
+    };
 
-//! GitHub Fetching Logic  ///////////////////////////////////////////////////
+    res.json(JSON.parse(JSON.stringify(response, null, 4)));
+});
+
+
+//! GitHub Fetching  //////////////////////////////////////////////////////////
 
 /**
  * Fetch GitHub data and cache it in memory.
@@ -321,6 +345,31 @@ const calculateCacheTimings = () =>
     };
 };
 
+/**
+ * Get all the routes available in the application.
+ * @returns {Object} Object containing all available routes and their descriptions.
+ */
+const getRoutes = () =>
+{
+    const routes = [];
+
+    app._router.stack.forEach((middleware) =>
+    {
+        if (middleware.route)
+        {
+            routes.push({
+                method: Object.keys(middleware.route.methods)[0].toUpperCase(),
+                path: middleware.route.path
+            });
+        }
+    });
+
+    return routes.reduce((acc, route) =>
+    {
+        acc[route.path] = `Handle ${route.method} request`;
+        return acc;
+    }, {});
+};
 
 //! Server Setup and Initialization  ////////////////////////////////////////////
 

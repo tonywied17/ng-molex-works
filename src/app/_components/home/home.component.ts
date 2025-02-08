@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Fri February 7th 2025 8:23:30 
+ * Last Modified: Fri February 7th 2025 11:20:48 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
@@ -58,11 +58,15 @@ export class HomeComponent implements OnInit
   selectedLanguages: string[] = [];       //> Tracks the selected languages for filtering
   repos: RepoData[] = [];                 //> Repositories that match selected languages and name filter
   allRepos: RepoData[] = [];              //> All repositories
+  stats: Stats | null = null;             //> Statistics about the repositories
   languages: string[] = [];               //> List of unique languages for checkboxes
   repoNameFilter: string = "";            //> Filter text for repo names
   sortOption: string = 'recentlyUpdated'; //> Default sorting option
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+  )
+  { }
 
   ngOnInit(): void
   {
@@ -76,12 +80,10 @@ export class HomeComponent implements OnInit
    */
   async fetchRepoData(): Promise<void>
   {
-    this.http.get<{ stats: Stats, data: RepoData[] }>('https://molex.cloud/github/api/repos').subscribe((response) =>
+    this.http.get<{ Statistics: Stats, Repositories: RepoData[] }>('https://molex.cloud/github/data').subscribe((response) =>
     {
-      const repos: RepoData[] = response.data;
-      const stats: Stats = response.stats
-
-      console.log(stats);
+      const repos: RepoData[] = response.Repositories;
+      const stats: Stats = response.Statistics
 
       this.allRepos = repos.filter((repo: RepoData) => repo.fullName !== "README").map((repo: RepoData) =>
       {
@@ -107,8 +109,9 @@ export class HomeComponent implements OnInit
       this.selectedLanguages = [...this.languages];
       this.filterRepos();
       this.loaded = true;
+      this.stats = stats;
+      console.log(this.stats);
 
-      console.log(this.allRepos);
     });
   }
 

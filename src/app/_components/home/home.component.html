@@ -4,7 +4,7 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Fri February 7th 2025 8:09:27 
+Last Modified: Fri February 7th 2025 11:30:21 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
@@ -29,7 +29,19 @@ Copyright (c) 2023 Tone Web Design, Molex
     free to explore and check out my work.
 </div>
 
-<h1 class="xl:text-2xl text-lg header-border pb-2 mb-6 mt-12 swing-left inline-block">GitHub Repositories</h1>
+<h1 class="xl:text-2xl text-lg header-border pb-2 mt-12 swing-left inline-block">GitHub Repositories</h1>
+<span class="swing-in font-[200] italic my-2 flex flex-row gap-5 w-full justify-end text-right" *ngIf="loaded && stats">
+    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories" matTooltipPosition="left">
+        {{ stats.totalRepos }}
+        <i class="fa-solid fa-code"></i>
+    </span>
+    
+    <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars" matTooltipPosition="left">
+        {{ stats.totalStars }}
+        <i class="fa-solid fa-star"></i>
+    </span>
+</span>
+
 
 <div class="mb-2 xl:mb-4">
     <div class="input-container">
@@ -44,7 +56,7 @@ Copyright (c) 2023 Tone Web Design, Molex
             <input type="checkbox" [checked]="allLanguagesSelected()" (change)="toggleSelectAll()"
                 class="w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
-                class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">Check
+                class="ms-2 text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">Check
                 All</span>
         </label>
 
@@ -53,7 +65,7 @@ Copyright (c) 2023 Tone Web Design, Molex
                 (change)="onLanguageChange(language)" id="{{ language }}"
                 class="hover: w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
-                class="ms-2 text-sm font-medium text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">{{
+                class="ms-2 text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">{{
                 language }}</span>
         </label>
     </div>
@@ -83,7 +95,7 @@ Copyright (c) 2023 Tone Web Design, Molex
             <mat-card-header class="!flex">
                 <img class="!w-[25px] !h-[25px] lg:!w-[50px] lg:!h-[50px]" mat-card-avatar [src]="repo.avatar"
                     alt="Dev avatar">
-                <mat-card-title class="!text-xl w-full">
+                <mat-card-title class="!text-xl w-full" style="word-break: break-word;">
                     <i class="fa-brands fa-github-alt pr-2"></i>{{ repo.fullName }}
                     <div class="text-neutral-400 text-base p-3">{{ repo.description }}</div>
                 </mat-card-title>
