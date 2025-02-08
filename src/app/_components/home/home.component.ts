@@ -4,23 +4,15 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Fri February 7th 2025 12:53:02 
+ * Last Modified: Fri February 7th 2025 8:23:30 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
  */
 
-
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 
-/**
- * Commit
- * @interface - Represents a commit object
- * @property sha - The commit SHA
- * @property message - The commit message
- * @property url - The URL of the commit
- */
 interface Commit
 {
   sha: string;          //> The commit SHA
@@ -28,21 +20,6 @@ interface Commit
   url: string;          //> The URL of the commit
 }
 
-/**
- * RepoData
- * @interface - Represents a repository object
- * @property projectName - The name of the project
- * @property pushedAt - The date the project was last pushed to
- * @property lastPushed - The date the project was last pushed to as a string
- * @property fullName - The full name of the repository
- * @property description - The description of the repository
- * @property avatar - The URL of the avatar image
- * @property name - The name of the repository
- * @property url - The URL of the repository
- * @property language - The primary language of the repository
- * @property stars - The number of stars the repository has
- * @property commits - The commits for the repository
- */
 interface RepoData
 {
   projectName: string;    //> The name of the project
@@ -56,6 +33,13 @@ interface RepoData
   language: string;       //> The primary language of the repository
   stars: number;          //> The number of stars the repository has
   commits: Commit[];      //> The commits for the repository
+}
+
+interface Stats
+{
+  totalRepos: number;
+  totalStars: number;
+  topLanguage: string;
 }
 
 /**
@@ -92,9 +76,12 @@ export class HomeComponent implements OnInit
    */
   async fetchRepoData(): Promise<void>
   {
-    this.http.get<{ data: RepoData[] }>('https://molex.cloud/github/api/repos').subscribe((response) =>
+    this.http.get<{ stats: Stats, data: RepoData[] }>('https://molex.cloud/github/api/repos').subscribe((response) =>
     {
       const repos: RepoData[] = response.data;
+      const stats: Stats = response.stats
+
+      console.log(stats);
 
       this.allRepos = repos.filter((repo: RepoData) => repo.fullName !== "README").map((repo: RepoData) =>
       {
