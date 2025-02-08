@@ -1,5 +1,4 @@
 //! MolexWorks Git API Server //////////////////////////////////////////////////
-//! A simple Node.js server to fetch and cache GitHub data. ////////////////////
 //! Author: Tony Wiedman ///////////////////////////////////////////////////////
 
 require('dotenv').config();
@@ -7,7 +6,6 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const { formatDistanceToNow, parseISO } = require('date-fns');
-const { get } = require('http');
 const app = express();
 
 
