@@ -41,6 +41,16 @@
             "tags": "JavaScript, HTML, CSS"
         },
         {
+            "title": "222 Discord Bot",
+            "subtitle": "A versatile Discord bot for music and more",
+            "details": "A versatile Discord bot for music and more, featuring an intuitive React-based dashboard. Designed as a beginner-friendly template, it's perfect for those looking to build and expand their own Discord bot projects.",
+            "image": "https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/home_dash.png, https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/user_dash.png, https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/guild_settings.png, https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/slash_1.png, https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/slash_2.png, https://raw.githubusercontent.com/tonywied17/222-discord-bot/refs/heads/main/assets/sample_outputs.png",
+            "url": "https://222.molex.cloud/dashboard",
+            "repo": "https://github.com/tonywied17/222-discord-bot",
+            "dev": false,
+            "tags": "JavaScript, HTML, CSS, Node.js, Discord.js, React, Express, SQLite"
+        },
+        {
             "title": "Online Media Converter",
             "subtitle": "Convert your media files with ease",
             "details": "This media utility web application that allows you to convert your media files. It also allows for optimization/compression of videos for social media platforms.",
@@ -125,16 +135,6 @@
             "url": "https://appv1.paarmy.com/rosternull/",
             "dev": false,
             "tags": "JavaScript, HTML, CSS, SQL, PHP, Node.js, discord.js"
-        },
-        {
-            "title": "Philly Sports Podcast",
-            "subtitle": "Unleashing the Power of Sports News: A Futuristic Podcast Home Page in the Making",
-            "details": "Currently under development, this project aims to create an all-in-one solution for managing blogs, podcasts, and accessing content related to Philadelphia sports news and other Philadelphia topics. With a focus on user experience and functionality, the project is being built using a combination of Express, Node.js, Sequelize, and JWT authentication on the backend. These technologies enable the implementation of role-based permissions, ensuring different levels of access and control for users. On the frontend, the Angular framework is being utilized to deliver a seamless and intuitive user interface.",
-            "image": "https://molex.cloud/2022/November/1/_3JK/phillysports.PNG",
-            "url": "N/a",
-            "repo": "https://github.com/tonywied17/ng-juwanji, https://github.com/tonywied17/juwanji-api",
-            "dev": true,
-            "tags": "Express, Node.js, TypeScript, SCSS, Angular, REST, JWT, Sequelize ORM"
         }
         
     ]
