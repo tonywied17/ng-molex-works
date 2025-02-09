@@ -1,10 +1,10 @@
 /*
  * File: c:\Users\tonyw\Desktop\BH Labs NG\ng-bhlabs\src\app\_components\portfolio\portfolio.component.scss
- * Project: c:\Users\tonyw\Desktop\MolexWorks NG\ng-molex-works
+ * Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Mon August 14th 2023 1:46:37 
+ * Last Modified: Sat February 8th 2025 8:04:08 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -19,27 +19,38 @@
 
 .mat-mdc-card-subtitle {
   margin-top: 0.5em;
-  margin-left: 0.5em;
-  margin-bottom: 1em;
 }
 
 
 .masonry {
   column-count: 2;
   column-gap: 2em;
+  width: 100%;
 }
 
 .masonry>div {
   margin-bottom: 2em;
   break-inside: avoid;
+  width: 100%;
   display: inline-block;
 }
 
-@media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 1445px) {
   .masonry {
     column-count: 1;
+    width: 100%;
+  }
+
+  .masonry > div {
+    width: 100%;
+    display: block;
+  }
+
+  .card {
+    width: 100% !important; 
   }
 }
+
 
 .custom-avatar {
   width: 80px;

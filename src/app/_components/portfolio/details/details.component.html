@@ -11,17 +11,25 @@
     <div class="lg:col-span-2">
         <mat-card class="news-card !bg-transparent !shadow-none swing-left !p-0">
 
-            <mat-card-title class="!text-slate-400">
-                {{currentProject.title}}
-                <button class="!mt-[2em] md:float-right !hidden md:!inline-block !text-slate-300 !font-[400] lg:!mb-4"
-                    [routerLink]="'/portfolio/'" target="_blank" mat-stroked-button>
-                    <i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back to Projects
-                </button>
-            </mat-card-title>
+            <div class="flex justify-between items-center p-4">
+                <div>
+                    <mat-card-title class="!text-slate-400 !text-lg lg:!text-2xl">
+                        {{currentProject.title}}
+                    </mat-card-title>
 
-            <mat-card-subtitle style="font-weight:100;" class="!select-text">
-                {{currentProject.subtitle}}
-            </mat-card-subtitle>
+                    <mat-card-subtitle style="font-weight:100;" class="!select-text !text-sm lg:!text-base">
+                        {{currentProject.subtitle}}
+                    </mat-card-subtitle>
+                </div>
+
+                <button
+                    class="!mt-[2em] md:float-right !hidden md:!block !text-slate-400 !text-sm !bg-black/30 lg:!mb-4 flex items-center whitespace-nowrap"
+                    [routerLink]="'/portfolio/'" target="_blank" mat-raised-button>
+                    <i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back
+                </button>
+
+            </div>
+
 
             <mat-card-content class="!p-0">
                 <div class="image-gallery">
@@ -58,9 +66,10 @@
             </mat-card-content>
 
             <mat-card-actions align="end">
-                <button class="!mt-[-1em] !mb-[1em] md:!hidden inline-block" [routerLink]="'/portfolio/'"
-                    target="_blank" mat-stroked-button>
-                    <i class="fa-solid fa-arrow-left pr-2"></i>Back to Projects
+                <button
+                    class="!mt-[2em] md:float-right md:!hidden inline-block !text-slate-400 !text-sm !bg-black/30 lg:!mb-4"
+                    [routerLink]="'/portfolio/'" target="_blank" mat-raised-button>
+                    <i class="fa-solid fa-arrow-left pr-2 !text-slate-400"></i>Back
                 </button>
             </mat-card-actions>
         </mat-card>
@@ -70,10 +79,10 @@
     <div class="lg:col-span-1 md:sticky md:top-0 md:self-start">
         <mat-card class="news-card !bg-[#08080836] shadow-lg swing-right" id="top-box">
             <mat-card-content>
-                <div *ngIf="currentProject.dev" class="text-amber-200 text-lg !font-light !text-right hidden lg:block">
+                <div *ngIf="currentProject.dev" class="text-amber-200 text-lg !font-light !text-right block">
                     <i class="fa-solid fa-pen-ruler !text-amber-600 pr-2"></i>Under Development
                 </div>
-                <div *ngIf="!currentProject.dev" class="text-green-200 text-lg !font-light !text-right hidden lg:block">
+                <div *ngIf="!currentProject.dev" class="text-green-200 text-lg !font-light !text-right block">
                     <i class="fa-solid fa-check-to-slot !text-green-600 pr-2"></i>Project Completed
                 </div>
 
@@ -82,12 +91,15 @@
                 </h3>
 
                 <ol class="fa-ul text-[1rem] font-[200]">
+                    <!-- Description -->
                     <li class="mt-[1.5em]">
                         <span class="fa-li"><i class="fa-solid fa-circle-info !text-[#94a3b8]"></i></span>
                         <p class="mr-2 font-bold mb-[0]">Description</p>
-                        <span class="!select-text ml-[-2px] inline-block" [innerHTML]="currentProject.details"></span>
+                        <span class="!select-text ml-[-2px] inline-block !font-[400] !text-small !text-neutral-500"
+                            [innerHTML]="currentProject.details"></span>
                     </li>
 
+                    <!-- Live Deployment -->
                     <li class="mt-[1.5em]">
                         <span class="fa-li"><i class="fa-solid fa-globe !text-[#94a3b8]"></i></span>
                         <p class="mr-2 font-bold mb-[0]">Live Deployment</p>
@@ -96,45 +108,47 @@
                                 target="_blank">{{currentProject.url}}</a>
                         </span>
                     </li>
-                </ol>
 
-                <!-- GitHub Repositories -->
-                <h3 class="mt-[2em] flex items-center">
-                    <i class="fa-brands fa-github pr-2"></i>View on GitHub
-                </h3>
+                    <!-- View on GitHub -->
+                    <li class="mt-[1.5em]">
+                        <span class="fa-li"><i class="fa-brands fa-github !text-[#94a3b8]"></i></span>
+                        <p class="mr-2 font-bold mb-[0]">View on GitHub</p>
+                    </li>
 
-                <div *ngIf="currentProject.repos.length === 0">
-                    <ol class="fa-ul text-[1rem] font-[200]">
+                    <div *ngIf="currentProject.repos.length === 0">
                         <li>
                             <span class="fa-li"><i class="fa-solid fa-ban !text-red-600 !text-sm"></i></span>
                             <span class="!text-red-200">No GitHub repos found for this project.</span>
                         </li>
-                    </ol>
-                </div>
+                    </div>
 
-                <ol class="fa-ul text-[1rem] font-[200]" *ngFor="let repo of currentProject.repos">
-                    <li>
-                        <span class="fa-li"><i class="fa-solid fa-link !text-[#94a3b8]"></i></span>
-                        <a class="view !select-text" [href]="repo.url" target="_blank">{{ repo.name }}</a>
-                        <span
-                            class="!select-text block text-[.79rem] text-[#b7d9ed]/60 lg:py-1 lg:text-left text-right pt-[5px] mb-[2em]">
-                            <span class="lg:hidden inline-block">updated </span>
-                            <span class="hidden lg:inline-block">Last updated </span>
-                            {{ repo.pushedAt }}
-                            <span class="hidden lg:inline-block">.</span>
-                        </span>
+                    <ng-container *ngFor="let repo of currentProject.repos">
+                        <li>
+                            
+                            <a class="view !select-text" [href]="repo.url" target="_blank">{{ repo.name }}</a>
+                            <span
+                                class="!select-text block text-[.79rem] text-[#b7d9ed]/60 lg:py-1 lg:text-left text-right pt-[5px] mb-[2em]">
+                                <span class="lg:hidden inline-block">updated </span>
+                                <span class="hidden lg:inline-block">Last updated </span>
+                                {{ repo.pushedAt }}
+                                <span class="hidden lg:inline-block">.</span>
+                            </span>
+                        </li>
+                    </ng-container>
+
+                    <!-- Tech Stack Tags -->
+                    <li class="mt-[1.5em]">
+                        <span class="fa-li"><i class="fa-solid fa-code !text-[#94a3b8]"></i></span>
+                        <p class="mr-2 font-bold mb-[0]">Tech Stack Tags</p>
                     </li>
+
+                    <div class="text-[1rem] font-[200] w-full">
+                        <span class="m-2 inline-block !select-text" *ngFor="let tag of currentProject.tags">
+                            <i class="fa-sharp fa-solid fa-tag !text-[#94a3b8]"></i> {{tag}}
+                        </span>
+                    </div>
                 </ol>
 
-                <h3 class="mt-[2em] flex items-center">
-                    <i class="fa-solid fa-code pr-2"></i>Tech Stack Tags
-                </h3>
-
-                <div class="text-[1rem] font-[200] w-full">
-                    <span class="m-2 inline-block !select-text" *ngFor="let tag of currentProject.tags">
-                        <i class="fa-sharp fa-solid fa-tag !text-[#94a3b8]"></i> {{tag}}
-                    </span>
-                </div>
 
             </mat-card-content>
         </mat-card>
