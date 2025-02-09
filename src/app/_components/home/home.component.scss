@@ -4,11 +4,15 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Thu February 6th 2025 2:35:50 
+ * Last Modified: Sat February 8th 2025 8:10:52 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
  */
+
+ .commit-message{
+  font-family: 'Ubuntu', sans-serif;
+ }
 
 .mat-mdc-card {
   background: #08080836;
@@ -20,7 +24,6 @@
 
 .mat-mdc-card-subtitle {
   margin-top: 0.5em;
-  margin-left: 0.5em;
   margin-bottom: 1em;
 }
 
