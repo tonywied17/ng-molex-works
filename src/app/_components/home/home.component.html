@@ -4,17 +4,13 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sat February 8th 2025 8:31:12 
+Last Modified: Sun February 23rd 2025 12:47:46 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 
-<div class="xl:hidden block">
-    <h1 class="xl:text-4xl text-xl header-border pb-2 mb-8 swing-left">Hello There</h1>
-
-</div>
-<pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom">
+<pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom" style="text-shadow: 0 0 5px rgba(0, 0, 0, 0.555);">
         `7MMM.     ,MMF'       `7MM                `7MMF'     A     `7MF'            `7MM             
           MMMb    dPMM           MM                  `MA     ,MA     ,V                MM             
           M YM   ,M MM  ,pW"Wq.  MM  .gP"Ya `7M'   `MFVM:   ,VVM:   ,V ,pW"Wq.`7Mb,od8 MM  ,MP,pP"Ybd 
@@ -24,25 +20,26 @@ Copyright (c) 2023 Tone Web Design, Molex
         .JML. `'  .JMML.`Ybmd9'.JMML.`Mbmmd'.AM.   .MA.  VF      VF    `Ybmd9'.JMML. .JMML. YAM9mmmP' 
 
     </pre>
-<div class="font-[500] xl:px-8 mb-4 swing-in text-center">
+<div class="font-[500] xl:px-8 mb-4 swing-in text-center text-neutral-500">
     <b><strong>Welcome</strong></b> to Molex Works! This is a showcase of my personal projects and repositories. Feel
     free to explore and check out my work.
 </div>
 
-<div class="flex flex-row space-between items-center mt-10 mb-2">
-    
-    <div class="xl:text-2xl text-lg header-border swing-left block whitespace-nowrap pb-2">
-        <span class="hidden xl:inline-block">GitHub Repositories</span>
-        <span class="xl:hidden">Repos</span>
+<div class="flex flex-row space-between items-center mt-14 xl:mt-24 mb-2">
+
+    <div class="xl:text-2xl text-lg header-border swing-left whitespace-nowrap pb-2 text-[#94a3b8] flex items-center gap-2">
+        <i class="fa-brands fa-github"></i>
+            Git Activity
     </div>
 
-    <div class="swing-in font-[200] italic flex flex-row gap-5 w-full justify-end text-right text-sm xl:text-base" *ngIf="loaded && stats">
+    <div class="swing-in font-[200] italic flex flex-row gap-5 w-full justify-end text-right text-sm xl:text-base"
+        *ngIf="loaded && stats">
         <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories"
             matTooltipPosition="left">
             {{ stats.totalRepos }}
             <i class="fa-solid fa-code"></i>
         </span>
-    
+
         <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars"
             matTooltipPosition="left">
             {{ stats.totalStars }}
@@ -60,14 +57,14 @@ Copyright (c) 2023 Tone Web Design, Molex
     </div>
 </div>
 
-<div class="language-filters flex mb-6 w-full justify-between flex-wrap flex-col-reverse xl:flex-row gap-4">
+<div class="language-filters flex mb-10 w-full justify-between flex-wrap flex-col-reverse xl:flex-row gap-4">
     <div class="flex items-center xl:flex-row flex-wrap xl:flex-nowrap gap-4 justify-center xl:justify-normal">
         <label class="flex items-center cursor-pointer">
             <input type="checkbox" [checked]="allLanguagesSelected()" (change)="toggleSelectAll()"
                 class="w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
-                class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">Check
-                All</span>
+                class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150 select-none">
+                Check All</span>
         </label>
 
         <label *ngFor="let language of languages" class="flex items-center cursor-pointer">
@@ -75,7 +72,7 @@ Copyright (c) 2023 Tone Web Design, Molex
                 (change)="onLanguageChange(language)" id="{{ language }}"
                 class="hover: w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
-                class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">{{
+                class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150 select-none">{{
                 language }}</span>
         </label>
     </div>
@@ -106,39 +103,44 @@ Copyright (c) 2023 Tone Web Design, Molex
                     alt="Dev avatar">
                 <mat-card-title class="!text-lg xl:!text-xl w-full !text-slate-400" style="word-break: break-word;">
                     {{ repo.full_name }}
-                    <div class="text-[#33dbbfc9] text-sm font-[400] py-2 ">{{ repo.description }}</div>
+                    <div class="text-[#33dbbfc9] text-sm font-[300] py-2 ">{{ repo.description }}</div>
                 </mat-card-title>
                 <mat-card-subtitle>
                     <div class="flex flex-col gap-4 text-sm">
                         <div *ngIf="repo.commits && repo.commits.length > 0"
-                            class=" !text-sm xl:!text-base text-neutral-300 xl:ml-0 ml-[-25px]">
+                            class=" !text-sm xl:!text-base text-neutral-300 xl:ml-0 ml-[-25px] select-none">
                             <i class="fa-solid fa-code-commit pr-2"></i>Recent Commits
                         </div>
                         <div *ngFor="let commit of repo.commits"
                             class="flex flex-col xl:items-center xl:flex-row gap-2 xl:gap-4 text-sm xl:ml-2 ml-[-25px]">
                             <a [href]="commit.url" target="_blank"
-                                class="font-[500] text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">
+                                class="select-none font-[500] text-[rgba(51,219,191,0.50)] hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150">
                                 {{ commit.sha | slice:0:7 }}
                             </a>
-                            <span class="!font-[400] !text-small !text-neutral-500 commit-message !font-mono">{{ commit.message }}</span>
+                            <span class="!font-[400] !text-small !text-neutral-500 commit-message">{{
+                                commit.message }}
+                            </span>
                         </div>
                     </div>
                 </mat-card-subtitle>
             </mat-card-header>
 
             <!-- Card Actions (Repo Info and Links) -->
-            <mat-card-actions class="!flex !w-full !justify-between !items-center !flex-col xl:!flex-row gap-4 text-sm">
-                <div class="flex items-center gap-2">
+            <mat-card-actions class="!flex !w-full !justify-between !items-center !flex-col xl:!flex-row gap-2 text-sm">
+                <div class="flex items-center gap-4 px-2">
                     <!-- Repo Language -->
-                    <i class="fa-solid fa-code"></i>
-                    <span class="text-neutral-500 font-[200]">{{ repo.language }}</span>
-
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-code"></i>
+                        <span class="text-neutral-500 font-[200]">{{ repo.language }}</span>
+                    </div>
                     <!-- Repo Stars -->
-                    <i class="fa-solid fa-star"></i>
-                    <span class="text-neutral-500 font-[200]">{{ repo.stargazers_count }}</span>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="text-neutral-500 font-[200]">{{ repo.stargazers_count }}</span>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 px-2 w-full justify-between xl:justify-end">
                     <!-- Last Pushed -->
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-clock"></i>

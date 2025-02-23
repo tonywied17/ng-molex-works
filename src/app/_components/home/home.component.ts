@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sat February 8th 2025 1:58:10 
+ * Last Modified: Sun February 9th 2025 3:43:30 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
@@ -223,4 +223,17 @@ export class HomeComponent implements OnInit
 
     this.filterRepos();  //> Reapply filter after toggling select all
   }
+
+  viewRepo(url: string): void
+  {
+    if (url)
+    {
+      window.open(url, '_blank');
+    } else
+    {
+      console.error('URL is not defined');
+    }
+  }
 }
+
+
