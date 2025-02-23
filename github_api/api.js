@@ -301,12 +301,30 @@ const calculateTopLanguage = (repos) =>
 };
 
 /**
+ ** Calculate language statistics for the repositories.
+ */
+const calculateLanguageStats = (repos) =>
+{
+    const languageCount = repos.reduce((acc, { language }) =>
+        language ? { ...acc, [language]: (acc[language] || 0) + 1 } : acc, {});
+
+    const languageStats = Object.entries(languageCount)
+        .map(([lang, repos]) => ({ lang, repos }))
+        .sort((a, b) => b.repos - a.repos);
+
+    return {
+        topLanguage: languageStats[0] ? [languageStats[0]] : [],
+        languageStats
+    };
+};
+
+/**
  ** Generate statistics based on the repositories data.
  */
 const generateStats = (repos) => ({
     totalRepos: repos.length,
-    totalStars: repos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
-    topLanguage: calculateTopLanguage(repos),
+    totalStars: repos.reduce((sum, { stargazers_count }) => sum + stargazers_count, 0),
+    ...calculateLanguageStats(repos)
 });
 
 /**

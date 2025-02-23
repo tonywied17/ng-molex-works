@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Wed February 5th 2025 11:02:06 
+ * Last Modified: Sun February 9th 2025 4:34:54 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
@@ -91,6 +91,17 @@ $angular-dark-theme: mat.define-dark-theme((color: (primary: $angular-primary,
   color-scheme: dark;
 }
 
+::selection {
+  background: #444547;
+  color: rgb(69, 233, 222);
+  text-shadow: 2px 2px 2px rgb(3, 3, 3);
+}
+
+::-moz-selection {
+  background: #444547;
+  color: rgb(69, 233, 222);
+  text-shadow: 2px 2px 2px rgb(3, 3, 3);
+}
 
 h1 {
   font-family: 'Fira Code', monospace;
@@ -208,13 +219,14 @@ button {
   border-left: 0;
   border-right: 0;
   border-top: 0;
+  user-select: none;
 }
 
 .header-border::before {
-  font: var(--fa-font-solid);
-  content: "\f126";
+  // font: var(--fa-font-solid);
+  // content: "\f126";
   color: #94a3b8;
-  padding-right: 0.55em;
+  // padding-right: 0.55em;
 }
 
 

@@ -51,24 +51,6 @@
             "tags": "JavaScript, HTML, CSS, Node.js, Discord.js, React, Express, SQLite"
         },
         {
-            "title": "Online Media Converter",
-            "subtitle": "Convert your media files with ease",
-            "details": "This media utility web application that allows you to convert your media files. It also allows for optimization/compression of videos for social media platforms.",
-            "image": "https://molex.cloud/files/newprojects/convert/image1.png, https://molex.cloud/files/newprojects/convert/image2.png",
-            "url": "https://convert.molex.cloud",
-            "dev": true,
-            "tags": "JavaScript, HTML, CSS, Node.js, ffmpeg, sharp"
-        },
-        {
-            "title": "molex.cloud",
-            "subtitle": "Cloud Storage and File Sharing",
-            "details": "Molex Cloud is a cloud storage and file sharing platform that allows users to upload, store, and share files with ease. The platform offers a user-friendly interface and a range of features, including file organization, sharing options, and secure storage.",
-            "image": "https://molex.cloud/files/newprojects/cloud/image1.png, https://molex.cloud/files/newprojects/cloud/image2.png, https://molex.cloud/files/newprojects/cloud/image3.png, https://molex.cloud/files/newprojects/cloud/image4.png, https://molex.cloud/files/newprojects/cloud/image5.png, https://molex.cloud/files/newprojects/cloud/image6.png, https://molex.cloud/files/newprojects/cloud/image7.png, https://molex.cloud/files/newprojects/cloud/image8.png",
-            "url": "https://molex.cloud/",
-            "dev": false,
-            "tags": "React, Tailwind CSS, Node.js, SQLite, Express"
-        },
-        {
             "title": "WorTool.com",
             "subtitle": "A War of Rights Regimental Tool for the Gaming Community",
             "details": "I'm currently crafting WorTool, an Angular/Typescript frontend application designed for War of Rights players & regiments. This tool seamlessly integrates with a <a href='https://api.wortool.com/' class='source' target='_blank'>Node.js Rest API</a> utilizing Sequelize, and Express.js, providing users with an immersive experience. WoRTool offers detailed maps with advanced filtering, a comprehensive display of available weaponry, and keeps users informed on the latest news from Campfire Games. The standout features, however, revolve around regimental integration. Users can sync their WoRTool account with Discord for enhanced features, manage or represent their regiment, and access tools like the Event Share Tool, Steam Stats, and Company Roster Tool. The tool also includes a Discord bot for managing schedules, media, company roster and regimental profiles, aiming to create a centralized hub for regimental activities and community engagement within the War of Rights community.",
@@ -79,13 +61,13 @@
             "tags": "Angular, TypeScript, REST, Tailwind CSS, JWT Auth, Node.js, Sequelize ORM, Discord.js, Express"
         },
         {
-            "title": "#PA Army App v1",
-            "subtitle": "A Comprehensive Application for In-Game Information and Guild Management.",
-            "details": "This project was a gaming community resource and management tool. It is a progressive web application that utilizes HTML, CSS, and JavaScript. The application makes XHR/Fetch calls to a SQL database for data retrieval and manipulation. The level of authentication determines the availability of different features, and the application functions as a CRUD (Create, Read, Update, Delete) application.",
-            "image": "https://molex.cloud/2023/August/18/_gVj/app1/1.png, https://molex.cloud/2023/August/18/_gVj/app1/2.png, https://molex.cloud/2023/August/18/_gVj/app1/3.png, https://molex.cloud/2023/August/18/_gVj/app1/4.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
-            "url": "https://app.paarmy.com/",
+            "title": "molex.cloud",
+            "subtitle": "Cloud Storage and File Sharing",
+            "details": "Molex Cloud is a cloud storage and file sharing platform that allows users to upload, store, and share files with ease. The platform offers a user-friendly interface and a range of features, including file organization, sharing options, and secure storage.",
+            "image": "https://molex.cloud/files/newprojects/cloud/image1.png, https://molex.cloud/files/newprojects/cloud/image2.png, https://molex.cloud/files/newprojects/cloud/image3.png, https://molex.cloud/files/newprojects/cloud/image4.png, https://molex.cloud/files/newprojects/cloud/image5.png, https://molex.cloud/files/newprojects/cloud/image6.png, https://molex.cloud/files/newprojects/cloud/image7.png, https://molex.cloud/files/newprojects/cloud/image8.png",
+            "url": "https://molex.cloud/",
             "dev": false,
-            "tags": "JavaScript, HTML, CSS, SQL, PHP"
+            "tags": "React, Tailwind CSS, Node.js, SQLite, Express"
         },
         {
             "title": "Project Eunomia",
@@ -106,7 +88,16 @@
             "dev": true,
             "tags": "JavaScript, HTML, CSS, For now..."
         },
-
+        {
+            "title": "MolexMessenger",
+            "subtitle": "Socket.io Based Instant Messenger",
+            "details": "This is a web based instant messaging client with features such as sharing images, youtube, and streams, show users typing, as well as a few configurable user settings.",
+            "image": "https://molex.cloud/2023/August/21/_Hnm/messenger/3.png, https://molex.cloud/2023/August/21/_Hnm/messenger/2.png, https://molex.cloud/2023/August/21/_Hnm/messenger/1.png",
+            "url": "https://molex.cloud/chat",
+            "repo": "https://github.com/tonywied17/socket-messenger",
+            "dev": false,
+            "tags": "JavaScript, Node.js, Express, CSS, WebSocket"
+        },
         {
             "title": "paarmy.com",
             "subtitle": "Unifying Gamers: A Dynamic Home Webpage for an Active Gaming Community",
@@ -118,14 +109,22 @@
             "tags": "Angular, Node.js, TypeScript, Tailwind CSS, discord.js, REST, Sequelize ORM"
         },
         {
-            "title": "MolexMessenger",
-            "subtitle": "Socket.io Based Instant Messenger",
-            "details": "This is a web based instant messaging client with features such as sharing images, youtube, and streams, show users typing, as well as a few configurable user settings.",
-            "image": "https://molex.cloud/2023/August/21/_Hnm/messenger/3.png, https://molex.cloud/2023/August/21/_Hnm/messenger/2.png, https://molex.cloud/2023/August/21/_Hnm/messenger/1.png",
-            "url": "https://molex.cloud/chat",
-            "repo": "https://github.com/tonywied17/socket-messenger",
+            "title": "#PA Army App v1",
+            "subtitle": "A Comprehensive Application for In-Game Information and Guild Management.",
+            "details": "This project was a gaming community resource and management tool. It is a progressive web application that utilizes HTML, CSS, and JavaScript. The application makes XHR/Fetch calls to a SQL database for data retrieval and manipulation. The level of authentication determines the availability of different features, and the application functions as a CRUD (Create, Read, Update, Delete) application.",
+            "image": "https://molex.cloud/2023/August/18/_gVj/app1/1.png, https://molex.cloud/2023/August/18/_gVj/app1/2.png, https://molex.cloud/2023/August/18/_gVj/app1/3.png, https://molex.cloud/2023/August/18/_gVj/app1/4.png, https://molex.cloud/2023/August/18/_gVj/roster/3.png",
+            "url": "https://app.paarmy.com/",
             "dev": false,
-            "tags": "JavaScript, Node.js, Express, CSS, WebSocket"
+            "tags": "JavaScript, HTML, CSS, SQL, PHP"
+        },
+        {
+            "title": "Online Media Converter",
+            "subtitle": "Convert your media files with ease",
+            "details": "This media utility web application that allows you to convert your media files. It also allows for optimization/compression of videos for social media platforms.",
+            "image": "https://molex.cloud/files/newprojects/convert/image1.png, https://molex.cloud/files/newprojects/convert/image2.png",
+            "url": "https://convert.molex.cloud",
+            "dev": true,
+            "tags": "JavaScript, HTML, CSS, Node.js, ffmpeg, sharp"
         },
         {
             "title": "Guild Roster Manager",
