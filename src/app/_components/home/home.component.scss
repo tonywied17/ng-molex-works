@@ -4,7 +4,7 @@
  * Created Date: Saturday July 8th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun February 9th 2025 3:57:32 
+ * Last Modified: Mon February 24th 2025 10:05:12 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 Tone Web Design, Molex
@@ -77,6 +77,16 @@
 .input-field:focus {
   border-color: #2cb19b;
   box-shadow: 0 0 10px rgba(44, 177, 155, 0.5);
+}
+
+.glow-focus {
+  transition: box-shadow 0.3s, border-color 0.3s;
+  border: 1px solid rgb(75 85 99);
+}
+
+.glow-focus:focus {
+  box-shadow: 0 0 10px rgba(44, 177, 155, 0.5);
+  border-color: #2cb19b;
 }
 
 .submit-button {
@@ -179,3 +189,4 @@
   opacity: 1;
   transform: translateY(0);
 }
+

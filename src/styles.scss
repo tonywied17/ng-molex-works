@@ -4,7 +4,7 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun February 9th 2025 4:34:54 
+ * Last Modified: Mon February 24th 2025 10:52:30 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
@@ -116,6 +116,7 @@ body {
   overflow: hidden;
   position: relative;
   background-color: #1a1a1a;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .bg {
@@ -497,4 +498,11 @@ CSS KEYFRAMES
 
 .source:hover {
   color: #707c8d;
+}
+
+.status-tooltip {
+  background-color: rgba(51, 219, 191, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
