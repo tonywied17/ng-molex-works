@@ -4,14 +4,27 @@
  * Created Date: Sunday August 13th 2023
  * Author: Tony Wiedman
  * -----
- * Last Modified: Sun February 9th 2025 3:43:30 
+ * Last Modified: Mon February 24th 2025 10:58:48 
  * Modified By: Tony Wiedman
  * -----
  * Copyright (c) 2023 - 2025 MolexWorks
  */
 
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { MatMenuTrigger } from '@angular/material/menu';
+
+/**
+ * Cache
+ * @interface - Represents cache information
+ */
+interface GitCache
+{
+  lastUpdated: string;       //> The date the cache was last updated
+  lastUpdatedISO: string;    //> The date the cache was last updated in ISO format
+  nextRefresh: string;       //> The date the cache will be refreshed
+  nextRefreshISO: string;    //> The date the cache will be refreshed in ISO format
+}
 
 /**
  * Commit
@@ -72,15 +85,17 @@ interface Stats
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  styleUrls: ["./home.component.scss"]
 })
 
 export class HomeComponent implements OnInit
 {
+  
   loaded: boolean = false;                      //> Indicates whether the repository data has been loaded
   selectedLanguages: string[] = [];             //> Tracks the selected languages for filtering
   repos: RepoData[] = [];                       //> Repositories that match selected languages and name filter
   allRepos: RepoData[] = [];                    //> All repositories
+  cache: GitCache | null = null;                //> Cache information
   stats: Stats | null = null;                   //> Statistics about the repositories
   languages: string[] = [];                     //> List of unique languages for checkboxes
   repoNameFilter: string = "";                  //> Filter text for repo names
@@ -100,10 +115,13 @@ export class HomeComponent implements OnInit
    */
   async fetchRepoData(): Promise<void>
   {
-    this.http.get<{ Statistics: Stats, Repositories: RepoData[] }>('https://molex.cloud/github/data').subscribe((response) =>
+    this.http.get<{ Cache: GitCache, Statistics: Stats, Repositories: RepoData[] }>('https://molex.cloud/github/data').subscribe((response) =>
     {
-      const repos: RepoData[] = response.Repositories;     //> Assigning fetched repositories
+      const repos: RepoData[] = response.Repositories;    //> Assigning fetched repositories
       const stats: Stats = response.Statistics;           //> Assigning fetched statistics
+      const cache: GitCache = response.Cache;             //> Assigning fetched cache information
+
+      console.log(cache);
 
       //> Processing and filtering repositories
       this.allRepos = repos.filter((repo: RepoData) => repo.full_name !== "README").map((repo: RepoData) =>
@@ -132,8 +150,8 @@ export class HomeComponent implements OnInit
       this.selectedLanguages = [...this.languages];   //> Initialize selected languages to all available
       this.filterRepos();                             //> Apply filtering after loading the languages
       this.loaded = true;                             //> Mark data as loaded
-      this.stats = stats;                            //> Set statistics data
-      console.log(this.stats);                       //> Log the statistics data for debugging
+      this.stats = stats;                             //> Set statistics data
+      this.cache = cache;                             //> Set cache information
     });
   }
 

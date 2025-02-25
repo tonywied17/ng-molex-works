@@ -285,47 +285,25 @@ const getCommitCount = (pushedDate) =>
 };
 
 /**
- ** Calculate the top language used in the repositories.
+ ** Generate statistics based on the repositories data.
  */
-const calculateTopLanguage = (repos) =>
+const generateStats = (repos) =>
 {
-    const languageCount = {};
-    repos.forEach(repo =>
-    {
-        repo.language
-            ? (languageCount[repo.language] = (languageCount[repo.language] || 0) + 1)
-            : null;
-    });
-    return Object.keys(languageCount).reduce((a, b) =>
-        languageCount[a] > languageCount[b] ? a : b, 'Unknown');
-};
+    const languageStats = repos.reduce((acc, { language, stargazers_count }) => (
+        language ? ((acc[language] ??= { repos: 0, stars: 0 }).repos++, acc[language].stars += stargazers_count, acc) : acc
+    ), {});
 
-/**
- ** Calculate language statistics for the repositories.
- */
-const calculateLanguageStats = (repos) =>
-{
-    const languageCount = repos.reduce((acc, { language }) =>
-        language ? { ...acc, [language]: (acc[language] || 0) + 1 } : acc, {});
-
-    const languageStats = Object.entries(languageCount)
-        .map(([lang, repos]) => ({ lang, repos }))
+    const formattedLanguageStats = Object.entries(languageStats)
+        .map(([lang, stats]) => ({ lang, ...stats }))
         .sort((a, b) => b.repos - a.repos);
 
     return {
-        topLanguage: languageStats[0] ? [languageStats[0]] : [],
-        languageStats
+        totalRepos: repos.length,
+        totalStars: repos.reduce((sum, { stargazers_count }) => sum + stargazers_count, 0),
+        topLanguage: formattedLanguageStats.slice(0, 1),
+        languageStats: formattedLanguageStats,
     };
 };
-
-/**
- ** Generate statistics based on the repositories data.
- */
-const generateStats = (repos) => ({
-    totalRepos: repos.length,
-    totalStars: repos.reduce((sum, { stargazers_count }) => sum + stargazers_count, 0),
-    ...calculateLanguageStats(repos)
-});
 
 /**
  ** Calculate cache timings based on last updated time and refresh interval.

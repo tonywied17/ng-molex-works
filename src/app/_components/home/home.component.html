@@ -4,13 +4,14 @@ Project: c:\Users\tonyw\Desktop\molexworks.com\ng-molex-works
 Created Date: Saturday July 8th 2023
 Author: Tony Wiedman
 -----
-Last Modified: Sun February 23rd 2025 12:47:46 
+Last Modified: Mon February 24th 2025 10:51:36 
 Modified By: Tony Wiedman
 -----
 Copyright (c) 2023 Tone Web Design, Molex
 -->
 
-<pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom" style="text-shadow: 0 0 5px rgba(0, 0, 0, 0.555);">
+<pre class="hidden xl:inline-block text-center w-[calc(100%-145px)] swing-bottom"
+    style="text-shadow: 0 0 5px rgba(0, 0, 0, 0.555);">
         `7MMM.     ,MMF'       `7MM                `7MMF'     A     `7MF'            `7MM             
           MMMb    dPMM           MM                  `MA     ,MA     ,V                MM             
           M YM   ,M MM  ,pW"Wq.  MM  .gP"Ya `7M'   `MFVM:   ,VVM:   ,V ,pW"Wq.`7Mb,od8 MM  ,MP,pP"Ybd 
@@ -27,28 +28,63 @@ Copyright (c) 2023 Tone Web Design, Molex
 
 <div class="flex flex-row space-between items-center mt-14 xl:mt-24 mb-2">
 
-    <div class="xl:text-2xl text-lg header-border swing-left whitespace-nowrap pb-2 text-[#94a3b8] flex items-center gap-2">
+    <div
+        class="xl:text-2xl text-lg header-border swing-left whitespace-nowrap pb-2 text-[#94a3b8] flex items-center gap-2">
         <i class="fa-brands fa-github"></i>
-            Git Activity
+        <span class="hidden xl:inline-block">Git Activity</span>
+        <span class="xl:hidden">Activity</span>
     </div>
 
-    <div class="swing-in font-[200] italic flex flex-row gap-5 w-full justify-end text-right text-sm xl:text-base"
-        *ngIf="loaded && stats">
-        <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories"
-            matTooltipPosition="left">
-            {{ stats.totalRepos }}
-            <i class="fa-solid fa-code"></i>
-        </span>
+    <div class="swing-in font-[200] italic flex flex-col gap-1 w-full justify-end text-right text-sm xl:text-base !mb-[-6.66px]"
+        *ngIf="loaded && stats && cache">
+        <!-- Flex row for repos and stars -->
+        <div class="flex flex-row gap-5 justify-end">
+            <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Repositories"
+                matTooltipPosition="left">
+                {{ stats.totalRepos }}
+                <i class="fa-solid fa-code"></i>
+            </span>
 
-        <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars"
-            matTooltipPosition="left">
-            {{ stats.totalStars }}
-            <i class="fa-solid fa-star"></i>
-        </span>
+            <span class="font-[200] text-[rgba(51,219,191,0.50)] cursor-help" matTooltip="Total Stars"
+                matTooltipPosition="left">
+                {{ stats.totalStars }}
+                <i class="fa-solid fa-star"></i>
+            </span>
+        </div>
+
+        <div class="flex items-center justify-end">
+            <span class="text-sm text-neutral-600 font-[200] cursor-pointer hover:opacity-75 duration-300" [matMenuTriggerFor]="menu">
+                {{ cache.lastUpdatedISO | date: 'short' }} <i class="fa-solid fa-info-circle"></i>
+            </span>
+        
+            <mat-menu #menu="matMenu" class="!bg-[#141414] !border-[1px solid #33dbbf] !border-opacity-10 brightness-75" xPosition="after" yPosition="below">
+                <div class="text-neutral-300 font-[200] text-sm flex flex-col gap-2 items-center">
+                    <div class="flex flex-col gap-0.5 w-full text-center">
+                        <span class="font-[500] text-[rgba(51,219,191,0.50)]">
+                            Last Updated
+                        </span>
+                        <span>{{ cache.lastUpdated }}</span>
+                    </div>
+        
+                    <div class="flex flex-col gap-0.5 w-full text-center">
+                        <span class="font-[500] text-[rgba(51,219,191,0.50)]">Next Refresh</span>
+                        <span>{{ cache.nextRefresh }}</span>
+                    </div>
+
+                    <button mat-menu-item class=" !m-0 !h-fit !min-h-0">
+                        <a href="https://molex.cloud/github" target="_blank" class="text-neutral-500 font-bold text-sm">https://molex.cloud/github</a>
+                    </button>
+                </div>
+
+
+            </mat-menu>
+        </div>
+        
+        
+
     </div>
+
 </div>
-
-
 
 <div class="mb-2 xl:mb-4">
     <div class="input-container">
@@ -61,7 +97,7 @@ Copyright (c) 2023 Tone Web Design, Molex
     <div class="flex items-center xl:flex-row flex-wrap xl:flex-nowrap gap-4 justify-center xl:justify-normal">
         <label class="flex items-center cursor-pointer">
             <input type="checkbox" [checked]="allLanguagesSelected()" (change)="toggleSelectAll()"
-                class="w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
+                class="w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm glow-focus ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
                 class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150 select-none">
                 Check All</span>
@@ -70,7 +106,7 @@ Copyright (c) 2023 Tone Web Design, Molex
         <label *ngFor="let language of languages" class="flex items-center cursor-pointer">
             <input type="checkbox" [checked]="selectedLanguages.includes(language)"
                 (change)="onLanguageChange(language)" id="{{ language }}"
-                class="hover: w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm focus:ring-[rgba(51,219,191,0.788)] ring-offset-gray-800 focus:ring-2 border-gray-600" />
+                class="hover: w-4 h-4 text-[rgba(51,219,191,0.60)] bg-[#141414] rounded-sm glow-focus ring-offset-gray-800 focus:ring-2 border-gray-600" />
             <span
                 class="ms-2 text-sm xl:text-base font-medium hover:text-[rgba(51,219,191,0.80)] duration-300 active:text-[rgba(51,219,191,1)] active:brightness-150 select-none">{{
                 language }}</span>
@@ -80,7 +116,7 @@ Copyright (c) 2023 Tone Web Design, Molex
     <div class="">
         <label for="sortOption" class="sr-only">Sort by</label>
         <select [(ngModel)]="sortOption" (change)="sortRepos()" id="sortOption"
-            class="block w-full xl:min-w-max text-sm text-white bg-[#141414] border border-gray-600 rounded-md focus:ring-[rgba(51,219,191,0.788)] focus:ring-2 focus:border-[#141414] p-2.5">
+            class="!mt-0 block w-full xl:min-w-max input-field !pr-8">
             <option value="recentlyUpdated">Recently Updated</option>
             <option value="name">Name</option>
             <option value="stars">Stars</option>
